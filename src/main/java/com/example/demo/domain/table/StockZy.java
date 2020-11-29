@@ -29,6 +29,16 @@ public class StockZy implements Serializable {
     private String customerYx;
     @Column(nullable = true,columnDefinition="varchar(20) COMMENT '微信客户'")
     private String customerWx;
+    @Column(nullable = true,columnDefinition="varchar(20) COMMENT '作废'")
+    private String customerZf;
+
+    public String getCustomerZf() {
+        return customerZf;
+    }
+
+    public void setCustomerZf(String customerZf) {
+        this.customerZf = customerZf;
+    }
 
     public String getCustomerYx() {
         return customerYx;

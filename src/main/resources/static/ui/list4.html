@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Build CRUD DataGrid with jQuery EasyUI - jQuery EasyUI Demo</title>
+    <title>公司人才信息</title>
     <link rel="stylesheet" type="text/css" href="../css/demo.css">
     <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../themes/icon.css">
@@ -15,9 +15,28 @@
 <h2>公司人才信息</h2>
 <p>标注人才信息</p>
 <div>
-    <label>意向：</label><input type="text" name="customerYx" id="customerYx">
-    <label>微信：</label><input type="text" name="customerWx" id="customerWx">
-    <input type="button" name="query" id="query" value="查询">
+    <div style="padding:5px 0;">
+        <label>意向：</label>
+        <select class="easyui-combobox" id="customerYx" name="customerYx" style="width:70px;">
+            <option value="">全部</option>
+            <option value="是">是</option>
+            <option value="否">否</option>
+        </select>
+        <label>微信：</label>
+        <select class="easyui-combobox" id="customerWx" name="customerWx" style="width:70px;">
+            <option value="">全部</option>
+            <option value="是">是</option>
+            <option value="否">否</option>
+        </select>
+        <label>作废号码：</label>
+        <select class="easyui-combobox" id="customerZf" name="customerZf" style="width:70px;">
+            <option value="">全部</option>
+            <option value="是">是</option>
+            <option value="否">否</option>
+        </select>
+        <a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
+    </div>
+
 </div>
 <table id="dg" title="人才库"
        toolbar="#toolbar" pagination="true" idField="id"
@@ -32,6 +51,7 @@
         <!--<th field="infoDesc" width="50" editor="{type:'validatebox',options:{required:true}}">infoLevel</th>-->
         <th field="customerYx" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">意向</th>
         <th field="customerWx" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">微信</th>
+        <th field="customerZf" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">作废号码</th>
     </tr>
     </thead>
 </table>
@@ -53,6 +73,7 @@
     $("#query").click(function () {
         $('#dg').datagrid('load', {
             customerYx: $("#customerYx").val(),
+            customerZf: $("#customerZf").val(),
             customerWx: $("#customerWx").val()
         });
     })

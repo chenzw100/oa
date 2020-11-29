@@ -28,6 +28,15 @@ public class StockZyService {
             pageSize=10;
         }
         pageNumber--;
+        if("".equals(stockZy.getCustomerWx())){
+            stockZy.setCustomerWx(null);
+        }
+        if("".equals(stockZy.getCustomerYx())){
+            stockZy.setCustomerYx(null);
+        }
+        if("".equals(stockZy.getCustomerZf())){
+            stockZy.setCustomerZf(null);
+        }
         Sort.Order order = new Sort.Order(Sort.Direction.DESC,"id");
         Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"name");
         //如果有多个排序条件 建议使用此种方式 使用 Sort.by 替换之前的  new Sort();
