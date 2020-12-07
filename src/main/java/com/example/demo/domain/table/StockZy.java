@@ -1,5 +1,7 @@
 package com.example.demo.domain.table;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,12 +15,15 @@ public class StockZy implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
+    @Excel(name = "姓名", orderNum = "0")
     @Column(nullable = false,columnDefinition="varchar(50) COMMENT '姓名'")
     private String name;
+    @Excel(name = "专业", orderNum = "2")
     @Column(nullable = false,columnDefinition="varchar(100) COMMENT '专业'")
     private String zy;
     @Column(nullable = true,columnDefinition="varchar(100) COMMENT '专业'")
     private String infoCity;
+    @Excel(name = "电话", orderNum = "1")
     @Column(nullable = false,columnDefinition="varchar(100) COMMENT '电话'")
     private String phone;
     @Column(nullable = true,columnDefinition="varchar(10) COMMENT '级别'")

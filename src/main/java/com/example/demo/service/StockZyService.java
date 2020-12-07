@@ -62,4 +62,8 @@ public class StockZyService {
         return stockZyRepository.getOne(id);
     }
 
+    public List<StockZy> findAll(){
+       return stockZyRepository.findAll();
+    }
+
 }
