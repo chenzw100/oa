@@ -1,0 +1,68 @@
+<div>
+    <div style="margin:20px 0;">
+        <span>状态:</span>
+        <select class="easyui-combobox" id="enable" name="enable" style="width:70px;">
+            <option value="">全部</option>
+            <option value="是">是</option>
+            <option value="否">否</option>
+        </select>
+        &nbsp;<a href="#" id="queryck" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
+        &nbsp;<a href="#" class="easyui-linkbutton" onclick="getSelectedck()">分配任务</a>
+    </div>
+</div>
+<table id="dgck" title="人才库"
+       toolbar="#toolbar" pagination="true" idField="id"
+       rownumbers="true" fitColumns="true" selectOnCheck="true" singleSelect="false">
+    <thead>
+    <tr>
+        <th field="name" width="50"  editor="{type:'validatebox',options:{required:true}}">姓名</th>
+        <th field="phone" width="100"  editor="{type:'validatebox',options:{required:true}}">电话</th>
+        <th field="enable" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">状态</th>
+    </tr>
+    </thead>
+</table>
+
+<script type="text/javascript">
+    $(function(){
+        $('#dgck').edatagrid({
+            url:'/user/list',
+        });
+    });
+    $("#queryck").click(function () {
+        $('#dgck').datagrid('load', {
+            enable: $("#enable").val()
+        });
+    })
+    function getSelectedck(){
+        var row = $('#dgck').datagrid('getSelected');
+        if (row){
+            var ids = $('#ids').val();
+
+            $.messager.alert('Info', ids);
+            $('#win').window('close');
+
+            $.ajax({
+                type:"POST",  //请求方式   get查询  post增加  put修改   delete删除
+                url:'/mg/updates',//请求路径
+                async:true,  //或false 是否异步
+                data:{ids:ids,userId:row.id},
+                timeout:5000,//超时时间
+                dataType:'json',  //返回的数据格式：json/xml/html/script/jsonp/text
+                success:function(data,textStatus,jqXHR){
+                    console.log('成功');
+                    $('#dg').datagrid('load', {
+                        customerYx: $("#customerYx").val(),
+                        customerZf: $("#customerZf").val(),
+                        customerWx: $("#customerWx").val()
+                    });
+                },
+                error:function(error){
+                    console.log('错误');
+                }
+
+            })
+        }
+    }
+</script>
+
+

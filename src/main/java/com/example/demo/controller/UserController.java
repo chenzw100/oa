@@ -26,6 +26,10 @@ public class UserController {
         return "user/list";
     }
 
+    @RequestMapping("/ck.html")
+    public String ck(){
+        return "user/cklist";
+    }
     @RequestMapping("/list")
     @ResponseBody
     public String list(Integer page, Integer rows, User user){

@@ -44,7 +44,24 @@ public class LoginController {
             }
             session.setAttribute("userName", u.getName());
             System.out.println("----" + username);
-            map.put("age", 30);
+            return "redirect:/index";
+
+        } else  //输入错误，清空session，提示用户名密码错误
+        {
+            session.invalidate();
+            map.put("msg", "用户名密码错误");
+            return "login";
+        }
+    }
+    @PostMapping(value = "/loginout")
+    public String loginout(@RequestParam("username") String username, Map<String, Object> map,
+                        HttpSession session) {
+
+        //验证用户名和密码，输入正确，跳转到dashboard
+        if (StringUtils.isNotEmpty(username)) {
+            session.setAttribute("userName", "");
+            session.removeAttribute("");
+            System.out.println("----" + username);
             return "redirect:/index";
 
         } else  //输入错误，清空session，提示用户名密码错误

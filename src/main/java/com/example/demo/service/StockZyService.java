@@ -23,8 +23,8 @@ public class StockZyService {
     @Autowired
     StockZyRepository stockZyRepository;
     public Page<StockZy> findALl(Integer pageNumber,Integer pageSize,StockZy stockZy){
-        if(pageNumber==null){
-            pageNumber=0;
+        if(pageNumber==null || pageNumber<0){
+            pageNumber=1;
             pageSize=10;
         }
         pageNumber--;
