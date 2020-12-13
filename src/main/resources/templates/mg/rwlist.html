@@ -40,8 +40,8 @@
 
 </div>
 <div style="margin:20px 0;">
-    <a href="#" class="easyui-linkbutton" onclick="getSelected()">GetSelected</a>
-    <a href="#" class="easyui-linkbutton" onclick="getSelections()">GetSelections</a>
+    <!--<a href="#" class="easyui-linkbutton" onclick="getSelected()">GetSelected</a>-->
+    <a href="#" class="easyui-linkbutton" onclick="getSelections()">选择任务分配人员</a>
 </div>
 <table id="dg" title="人才库" class="easyui-datagrid"  style="width:700px;height:250px"
        toolbar="#toolbar" pagination="true" idField="id"
@@ -123,6 +123,9 @@
     function getSelections(){
         var ss = [];
         var rows = $('#dg').datagrid('getSelections');
+        if(rows.length==0){
+            return;
+        }
         for(var i=0; i<rows.length; i++){
             var row = rows[i];
             ss.push(row.id);

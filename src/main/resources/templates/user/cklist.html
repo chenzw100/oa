@@ -38,9 +38,6 @@
         if (row){
             var ids = $('#ids').val();
 
-            $.messager.alert('Info', ids);
-            $('#win').window('close');
-
             $.ajax({
                 type:"POST",  //请求方式   get查询  post增加  put修改   delete删除
                 url:'/mg/updates',//请求路径
@@ -50,6 +47,7 @@
                 dataType:'json',  //返回的数据格式：json/xml/html/script/jsonp/text
                 success:function(data,textStatus,jqXHR){
                     console.log('成功');
+                    $('#win').window('close');
                     $('#dg').datagrid('load', {
                         customerYx: $("#customerYx").val(),
                         customerZf: $("#customerZf").val(),

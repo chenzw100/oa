@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.table.User;
 import com.example.demo.service.UserService;
+import com.example.demo.utils.LoginUserUtils;
 import com.example.demo.utils.MD5Cipher;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * (1)发送post请求，代替了RequestMapping（value="/login", method="post"）
@@ -22,12 +27,14 @@ import java.util.Map;
 
 @Controller
 public class LoginController {
+
     @RequestMapping("login")
     public String gologin() {
         return "login";
     }
     @Autowired
     UserService userService;
+
     @PostMapping(value = "/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, Map<String, Object> map,
                         HttpSession session) {
@@ -43,8 +50,13 @@ public class LoginController {
                 return "login";
             }
             session.setAttribute("userName", u.getName());
+            session.setAttribute("userId", u.getId());
             System.out.println("----" + username);
-            return "redirect:/index";
+            if(u.getId()==1){
+                return "redirect:/index";
+            }else {
+                return "redirect:/index2";
+            }
 
         } else  //输入错误，清空session，提示用户名密码错误
         {
@@ -77,8 +89,14 @@ public class LoginController {
     public String goMain(Map<String, Object> map) {
         map.put("name", "zhangfang");
         map.put("age", 28);
-        map.put("sex", "女");
         return "index";
+
+    }
+    @RequestMapping("index2")
+    public String goMain2(Map<String, Object> map) {
+        map.put("name", "zhangfang");
+        map.put("age", 28);
+        return "index2";
 
     }
 }

@@ -5,6 +5,7 @@ import com.example.demo.domain.table.StockZy;
 import com.example.demo.domain.table.User;
 import com.example.demo.service.StockZyService;
 import com.example.demo.service.UserService;
+import com.example.demo.utils.WebContent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,10 @@ public class MgController {
     @RequestMapping("/list")
     @ResponseBody
     public String list(Integer page,Integer rows,StockZy stockZy){
+        Long userId = WebContent.getUserId();
+        if(userId>1){
+            stockZy.setOptId(WebContent.getUserId());
+        }
         Page<StockZy> list =stockZyService.findALl(page,rows,stockZy);
         Map map = new HashMap<>();
         map.put("total",list.getTotalElements());
