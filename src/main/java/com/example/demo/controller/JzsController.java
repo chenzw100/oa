@@ -32,21 +32,14 @@ public class JzsController {
     KcsjService kcsjService;
     @Autowired
     StockZyService stockZyService;
-    @RequestMapping("/kpwhr/{code}")
-    public String kpw(@PathVariable("code")String code) {
-        kpwHrService.testId(code);
-        return "add success";
-    }
-    @RequestMapping("/one")
-    public String kpw() {
-        kcsjService.infoPages(1);
-        return "one success";
-    }
+    @Autowired
+    JzrcService jzrcService;
+
     @RequestMapping("/p/{page}")
     public String kpw(@PathVariable("page")Integer page) {
         for(int i=page;i<page+10;i++){
             log.info("--------------------------------------------------------------------------------------------page = [" + i + "]");
-            kcsjService.infoPages(i);
+            jzrcService.infoPages(i);
             log.info("-----------------------------------------------------------------------------------------------完成page = [" + i + "]");
         }
         return "add success";
@@ -55,28 +48,11 @@ public class JzsController {
     public String kpw(@PathVariable("page")Integer page,@PathVariable("count")Integer count) {
         for(int i=page;i<count;i++){
             log.info("page = [" + i + "]");
-            kcsjService.infoPages(i);
+            jzrcService.infoPages(i);
             log.info("-------------------------------------------------------------------new--------完成page = [" + i + "]");
         }
         return "add success";
     }
-    @RequestMapping("/list")
-    @ResponseBody
-    public String list(Integer page,Integer rows,StockZy stockZy){
-        Page<StockZy> list =stockZyService.findALl(page,rows,stockZy);
-        Map map = new HashMap<>();
-        map.put("total",list.getTotalElements());
-        map.put("rows",list.getContent());
-        return JSON.toJSONString(map);
-    }
-    @RequestMapping("/update")
-    @ResponseBody
-    public String update(StockZy stockZy){
-        /*StockZy db =stockZyService.getById(stockZy.getId());
-        db.setCustomerWx(stockZy.getCustomerWx());
-        db.setCustomerYx(stockZy.getCustomerYx());*/
-        stockZyService.saveOrUpdate(stockZy);
-        return "success";
-    }
+
 
 }

@@ -66,6 +66,9 @@ public class ExcelController {
        //List<Person> personList = FileExcelUtil.importExcel(file, Person.class);
        List<StockZy> personList = FileExcelUtil.importExcel(file, StockZy.class);
         System.out.println("导入数据一共【"+personList.size()+"】行");
+        for(StockZy stockZy :personList){
+            stockZyService.saveOrUpdate(stockZy);
+        }
         //TODO 保存数据库
         return "success";
     }
@@ -76,6 +79,7 @@ public class ExcelController {
         List<Person> personList = FileExcelUtil.importExcel(filePath,1,1,Person.class);
         //也可以使用MultipartFile,使用 FileUtil.importExcel(MultipartFile file, Integer titleRows, Integer headerRows, Class<T> pojoClass)导入
         System.out.println("导入数据一共【"+personList.size()+"】行");
+
 
         //TODO 保存数据库
     }

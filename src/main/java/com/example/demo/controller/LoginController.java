@@ -1,6 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.table.User;
+import com.example.demo.service.UserService;
+import com.example.demo.utils.MD5Cipher;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,15 +26,23 @@ public class LoginController {
     public String gologin() {
         return "login";
     }
-
+    @Autowired
+    UserService userService;
     @PostMapping(value = "/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, Map<String, Object> map,
                         HttpSession session) {
 
         //验证用户名和密码，输入正确，跳转到dashboard
-        if (!StringUtils.isEmpty(username) && "123".equals(password)) {
+        if (StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(password)) {
+            String pwd =MD5Cipher.string2MD5(password);
 
-            session.setAttribute("userName", username);
+            User u=userService.findUserByNameAndPassword(username,pwd);
+            if(u==null){
+                session.invalidate();
+                map.put("msg", "用户名密码错误");
+                return "login";
+            }
+            session.setAttribute("userName", u.getName());
             System.out.println("----" + username);
             map.put("age", 30);
             return "redirect:/index";

@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  */
-@Entity(name="stock_zy")
+@Entity(name="stock_zy7")
 public class StockZy implements Serializable {
     @Id
     @GeneratedValue
@@ -21,7 +21,8 @@ public class StockZy implements Serializable {
     @Excel(name = "专业", orderNum = "2")
     @Column(nullable = false,columnDefinition="varchar(100) COMMENT '专业'")
     private String zy;
-    @Column(nullable = true,columnDefinition="varchar(100) COMMENT '专业'")
+    @Column(nullable = true,columnDefinition="varchar(100) COMMENT '地区'")
+    @Excel(name = "地区", orderNum = "1")
     private String infoCity;
     @Excel(name = "电话", orderNum = "1")
     @Column(nullable = false,columnDefinition="varchar(100) COMMENT '电话'")

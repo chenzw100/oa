@@ -14,6 +14,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+    public User findUserByNameAndPassword(String name,String password){
+      return   userRepository.findUserByNameAndPassword(name,password);
+    }
     public Page<User> findALl(Integer pageNumber,Integer pageSize,User user){
         if(pageNumber==null){
             pageNumber=0;

@@ -1,10 +1,12 @@
 package com.example.demo.configurer;
 
 import com.example.demo.interceptor.LoginHandlerInterceptor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -16,8 +18,8 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
         registry.addInterceptor(new LoginHandlerInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login","/index.html","/tiger/login")
-                .excludePathPatterns("/assets/**");
+                .excludePathPatterns("/login","/index.html","/importExcel")
+                .excludePathPatterns("/static/**");
 
     }
 }

@@ -16,8 +16,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  userRepository.exists(1l);
  */
 public interface UserRepository extends JpaRepository<User,Long> {
-    StockZy save(StockZy stockZy);
-
+    User save(User user);
+    User findUserByNameAndPassword(String name,String password);
 
 
 }
