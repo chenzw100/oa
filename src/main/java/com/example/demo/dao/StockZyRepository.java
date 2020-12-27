@@ -1,6 +1,9 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.table.StockZy;
+import com.example.demo.domain.table.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -18,6 +21,8 @@ public interface StockZyRepository extends JpaRepository<StockZy,Long> {
     StockZy save(StockZy stockZy);
 
     StockZy findStockZyByPhone(String phone);
+    Page<StockZy> findByAndOptIdIsNull(Pageable pageable);
+    Page<StockZy> findByAndOptIdIsNotNull(Pageable pageable);
 
 
 

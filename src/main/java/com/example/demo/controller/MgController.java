@@ -55,6 +55,22 @@ public class MgController {
         map.put("rows",list.getContent());
         return JSON.toJSONString(map);
     }
+    @RequestMapping("/fenpei")
+    @ResponseBody
+    public String fenpei(Integer page,Integer rows,StockZy stockZy){
+        Long userId = WebContent.getUserId();
+        if(userId>1){
+            stockZy.setOptId(WebContent.getUserId());
+        }
+        if(stockZy.getFen() == null){
+            stockZy.setFen("是");
+        }
+        Page<StockZy> list =stockZyService.findAllAndOptIdIsNotNull(page,rows,stockZy);
+        Map map = new HashMap<>();
+        map.put("total",list.getTotalElements());
+        map.put("rows",list.getContent());
+        return JSON.toJSONString(map);
+    }
     @RequestMapping("/update")
     @ResponseBody
     public String update(StockZy stockZy){

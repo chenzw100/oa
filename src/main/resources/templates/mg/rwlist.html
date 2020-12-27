@@ -28,8 +28,7 @@
 <div>
     <div style="padding:5px 0;">
         <span>未被分配:</span>
-        <select class="easyui-combobox" id="customerYx" name="customerYx" style="width:70px;">
-            <option value="">全部</option>
+        <select class="easyui-combobox" id="fen" name="fen" style="width:70px;">
             <option value="是">是</option>
             <option value="否">否</option>
         </select>
@@ -90,7 +89,7 @@
 <script type="text/javascript">
     $(function(){
         $('#dg').edatagrid({
-            url:'/mg/list',
+            url:'/mg/fenpei',
             saveUrl: '/mg/updates',
             updateUrl: '/mg/update',
             destroyUrl: '/mg/del'
@@ -100,9 +99,7 @@
     });
     $("#query").click(function () {
         $('#dg').datagrid('load', {
-            customerYx: $("#customerYx").val(),
-            customerZf: $("#customerZf").val(),
-            customerWx: $("#customerWx").val()
+            fen: $("#fen").val()
         });
     })
 

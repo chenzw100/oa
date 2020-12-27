@@ -2,10 +2,7 @@ package com.example.demo.domain.table;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -43,6 +40,16 @@ public class StockZy implements Serializable {
     private Long optId;
     @Column(nullable = true,columnDefinition="varchar(20) COMMENT '操作人员'")
     private String optName;
+    @Transient
+    private String fen;
+
+    public String getFen() {
+        return fen;
+    }
+
+    public void setFen(String fen) {
+        this.fen = fen;
+    }
 
     public String getCalled() {
         return called;

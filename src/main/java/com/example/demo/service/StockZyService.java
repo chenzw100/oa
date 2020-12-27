@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dao.StockZyRepository;
 import com.example.demo.domain.table.StockZy;
+import com.example.demo.domain.table.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
@@ -67,6 +68,40 @@ public class StockZyService {
     }
     public StockZy findByPhone(String phone){
         return stockZyRepository.findStockZyByPhone(phone);
+    }
+
+    public Page<StockZy> findAllAndOptIdIsNotNull(Integer pageNumber,Integer pageSize,StockZy stockZy){
+        if(pageNumber==null || pageNumber<0){
+            pageNumber=1;
+            pageSize=10;
+        }
+        pageNumber--;
+        if("".equals(stockZy.getCustomerWx())){
+            stockZy.setCustomerWx(null);
+        }
+        if("".equals(stockZy.getCustomerYx())){
+            stockZy.setCustomerYx(null);
+        }
+        if("".equals(stockZy.getCustomerZf())){
+            stockZy.setCustomerZf(null);
+        }
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC,"id");
+        Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"name");
+        //如果有多个排序条件 建议使用此种方式 使用 Sort.by 替换之前的  new Sort();
+        Sort sort = Sort.by(order,order1);
+        //使用 PageRequest.of 替代之前的 new PageRequest();
+        /**
+         * page：0 开始
+         * size:每页显示的数量
+         * 排序的规则
+         */
+        Pageable pageable = PageRequest.of(pageNumber,pageSize,sort);
+        if("是".equals(stockZy.getFen())){
+            return stockZyRepository.findByAndOptIdIsNull(pageable);
+        }else if("否".equals(stockZy.getFen())){
+            return stockZyRepository.findByAndOptIdIsNotNull(pageable);
+        }
+        return null;
     }
 
 }
