@@ -1,4 +1,4 @@
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,13 +7,22 @@
     <link rel="stylesheet" type="text/css" href="../css/demo.css">
     <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../themes/icon.css">
-    <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
 </head>
 <body>
-<h2>公司人才信息</h2>
-<p>标注人才信息</p>
+<div style="background:#fafafa;padding:5px;width:200px;border:1px solid #ccc">
+    <a href="#" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">操作菜单</a>
+</div>
+<div id="mm1" style="width:150px;">
+    <a href="http://localhost:9090/mg/rw.html" class="easyui-linkbutton" plain="true" >分配任务</a>
+    <a href="http://localhost:9090/mg/index.html" class="easyui-linkbutton" plain="true" >人才资源管理</a>
+    <a href="http://localhost:9090/user/index.html" class="easyui-linkbutton" plain="true" >员工管理</a>
+    <a href="http://localhost:9090/import" class="easyui-linkbutton" plain="true" >导入数据</a>
+    <a href="http://localhost:9090/loginout" class="easyui-linkbutton" plain="true" >退出系统</a>
+</div>
+<h2>公司人才信息 -- 人才资源管理</h2>
 <div>
     <div style="padding:5px 0;">
         <span>意向:</span>
@@ -61,6 +70,7 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">取消</a>
 </div>
+
 <script type="text/javascript">
     $(function(){
         $('#dg').edatagrid({

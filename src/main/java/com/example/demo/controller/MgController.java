@@ -37,6 +37,10 @@ public class MgController {
     public String rw(){
         return "mg/rwlist";
     }
+    @RequestMapping("/geren.html")
+    public String geren(){
+        return "mg/geren";
+    }
 
     @RequestMapping("/list")
     @ResponseBody

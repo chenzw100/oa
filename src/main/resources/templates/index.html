@@ -5,19 +5,13 @@
 <body>
 <div style="background:#fafafa;padding:5px;width:200px;border:1px solid #ccc">
     <a href="#" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">菜单</a>
-    <a href="#" class="easyui-menubutton" menu="#mm2" iconCls="icon-help">Help</a>
 </div>
 <div id="mm1" style="width:150px;">
-    <a href="http://localhost:9090/mg/rw.html" class="easyui-linkbutton" plain="true" >分配任务</a>
-    <a href="http://localhost:9090/mg/index.html" class="easyui-linkbutton" plain="true" >人才管理</a>
-    <a href="http://localhost:9090/user/index.html" class="easyui-linkbutton" plain="true" >人员管理</a>
-    <a href="http://localhost:9090/import" class="easyui-linkbutton" plain="true" >导入数据</a>
+    <a href="http://localhost:9090/mg/geren.html" class="easyui-linkbutton" plain="true" >任务管理</a>
+    <a href="http://localhost:9090/user/gerenpwd.html" class="easyui-linkbutton" plain="true" >修改密码</a>
+    <a href="http://localhost:9090/loginout" class="easyui-linkbutton" plain="true" >退出系统</a>
 </div>
-<div id="mm2" style="width:100px;">
-    <div>Help</div>
-    <div>Update</div>
-    <div>About</div>
-</div>
+
 </body>
 <div th:include="footer :: copyright"></div>
 </html>

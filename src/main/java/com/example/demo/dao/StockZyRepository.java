@@ -17,6 +17,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface StockZyRepository extends JpaRepository<StockZy,Long> {
     StockZy save(StockZy stockZy);
 
+    StockZy findStockZyByPhone(String phone);
+
 
 
 }

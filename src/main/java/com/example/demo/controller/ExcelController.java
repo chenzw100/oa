@@ -66,11 +66,17 @@ public class ExcelController {
        //List<Person> personList = FileExcelUtil.importExcel(file, Person.class);
        List<StockZy> personList = FileExcelUtil.importExcel(file, StockZy.class);
         System.out.println("导入数据一共【"+personList.size()+"】行");
+
         for(StockZy stockZy :personList){
-            stockZyService.saveOrUpdate(stockZy);
+            StockZy stockZy1 = stockZyService.findByPhone(stockZy.getPhone());
+            if(stockZy1==null){
+                stockZyService.saveOrUpdate(stockZy);
+            }else {
+                System.out.println("改手机好已经存在:"+stockZy.getPhone());
+            }
         }
         //TODO 保存数据库
-        return "success";
+        return "导入数据一共【"+personList.size()+"】行,已存在的手机号未再次导入";
     }
     @RequestMapping("importExcel2")
     public void importExcel2() throws NormalException {

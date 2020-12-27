@@ -3,8 +3,17 @@
 <html>
 <div th:include="head :: header"></div>
 <body>
-<h2>Ajax Form Demo</h2>
-<p>Type in input box and submit the form.</p>
+<div style="background:#fafafa;padding:5px;width:200px;border:1px solid #ccc">
+    <a href="#" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">任务菜单</a>
+</div>
+<div id="mm1" style="width:150px;">
+    <a href="http://localhost:9090/mg/index.html" class="easyui-linkbutton" plain="true" >人才管理</a>
+    <a href="http://localhost:9090/mg/rw.html" class="easyui-linkbutton" plain="true" >分配任务</a>
+    <a href="http://localhost:9090/user/index.html" class="easyui-linkbutton" plain="true" >人员管理</a>
+    <a href="http://localhost:9090/import" class="easyui-linkbutton" plain="true" >导入数据</a>
+</div>
+<h2>导入数据</h2>
+<p>重复手机号不会导入</p>
 
 <div class="easyui-panel" title="Ajax Form" style="width:300px;padding:10px;">
     <form id="ff" action="/importExcel" method="post" enctype="multipart/form-data">
@@ -15,7 +24,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" value="Submit"></input></td>
+                <td><input type="submit" value="导入"></input></td>
             </tr>
         </table>
     </form>

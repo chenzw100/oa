@@ -16,48 +16,30 @@
     <a href="#" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">任务菜单</a>
 </div>
 <div id="mm1" style="width:150px;">
-    <a href="http://localhost:9090/mg/rw.html" class="easyui-linkbutton" plain="true" >分配任务</a>
-    <a href="http://localhost:9090/mg/index.html" class="easyui-linkbutton" plain="true" >人才资源管理</a>
-    <a href="http://localhost:9090/user/index.html" class="easyui-linkbutton" plain="true" >员工管理</a>
-    <a href="http://localhost:9090/user/password.html" class="easyui-linkbutton" plain="true" >密码管理</a>
-    <a href="http://localhost:9090/import" class="easyui-linkbutton" plain="true" >导入数据</a>
+    <a href="http://localhost:9090/mg/geren.html" class="easyui-linkbutton" plain="true" >任务管理</a>
     <a href="http://localhost:9090/loginout" class="easyui-linkbutton" plain="true" >退出系统</a>
 </div>
 <h2>公司人员管理 --- 员工管理</h2>
-<div>
-    <div style="padding:5px 0;">
-        <span>状态:</span>
-        <select class="easyui-combobox" id="enable" name="enable" style="width:70px;">
-            <option value="">全部</option>
-            <option value="是">是</option>
-            <option value="否">否</option>
-        </select>
-        &nbsp;<a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
-    </div>
 
-</div>
 <table id="dg" title="人才库"
        toolbar="#toolbar" pagination="true" idField="id"
        rownumbers="true" fitColumns="true" singleSelect="true">
     <thead>
     <tr>
-        <th field="name" width="50"  editor="{type:'validatebox',options:{required:true}}">姓名</th>
-        <th field="phone" width="100"  editor="{type:'validatebox',options:{required:true}}">电话</th>
-        <th field="infoLevel" width="50" editor="{type:'validatebox',options:{required:true}}" >级别</th>
-        <th field="enable" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">状态</th>
+        <th field="name" width="50"  >姓名</th>
+        <th field="phone" width="100" >电话</th>
+        <th field="password" width="50"  editor="{type:'validatebox',options:{required:true}}">密码</th>
     </tr>
     </thead>
 </table>
 <div id="toolbar">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">新增</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">删除</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">取消</a>
 </div>
 <script type="text/javascript">
     $(function(){
         $('#dg').edatagrid({
-            url:'/user/list',
+            url:'/user/listgeren',
             saveUrl: '/user/save',
             updateUrl: '/user/update',
             destroyUrl: '/user/destroy'
@@ -65,7 +47,7 @@
     });
     $("#query").click(function () {
         $('#dg').datagrid('load', {
-            enable: $("#enable").val()
+
         });
     })
 

@@ -16,13 +16,11 @@
     <a href="#" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">任务菜单</a>
 </div>
 <div id="mm1" style="width:150px;">
-    <a href="http://localhost:9090/mg/rw.html" class="easyui-linkbutton" plain="true" >分配任务</a>
-    <a href="http://localhost:9090/mg/index.html" class="easyui-linkbutton" plain="true" >人才资源管理</a>
-    <a href="http://localhost:9090/user/index.html" class="easyui-linkbutton" plain="true" >员工管理</a>
-    <a href="http://localhost:9090/import" class="easyui-linkbutton" plain="true" >导入数据</a>
+    <a href="http://localhost:9090/mg/geren.html" class="easyui-linkbutton" plain="true" >任务管理</a>
+    <a href="http://localhost:9090/user/gerenpwd.html" class="easyui-linkbutton" plain="true" >修改密码</a>
     <a href="http://localhost:9090/loginout" class="easyui-linkbutton" plain="true" >退出系统</a>
 </div>
-<h2>公司人才任务信息 --- 分配任务</h2>
+<h2>公司人才任务信息---个人任务</h2>
 <div>
 <div>
     <div style="padding:5px 0;">
@@ -48,23 +46,20 @@
     </div>
 
 </div>
-<div style="margin:20px 0;">
-    <!--<a href="#" class="easyui-linkbutton" onclick="getSelected()">GetSelected</a>-->
-    <a href="#" class="easyui-linkbutton" onclick="getSelections()">选择任务分配人员</a>
-</div>
+
 <table id="dg" title="人才库" class="easyui-datagrid"  style="width:700px;height:250px"
        toolbar="#toolbar" pagination="true" idField="id"
        rownumbers="true" fitColumns="true"  selectOnCheck="true" singleSelect="false">
     <thead>
     <tr>
         <th data-options="field:'ck',checkbox:true"></th>
-        <th data-options="field:'id',width:80">Item ID</th>
-        <th data-options="field:'name',width:100">姓名</th>
-        <th data-options="field:'phone',width:80,align:'right'">电话</th>
-        <th data-options="field:'zy',width:80,align:'right'">专业</th>
-        <th data-options="field:'infoCity',width:220">城市</th>
-        <th data-options="field:'optName',width:60,align:'center'">任务人员</th>
-        <th data-options="field:'infoDesc',width:60,align:'center'">描述</th>
+        <th data-options="field:'id'">Item ID</th>
+        <th data-options="field:'name'">姓名</th>
+        <th data-options="field:'phone',align:'center'">电话</th>
+        <th data-options="field:'zy',align:'center'">专业</th>
+        <th data-options="field:'infoCity'">城市</th>
+        <th data-options="field:'optName',align:'center'">任务人员</th>
+        <th field="infoDesc" width="50"  editor="{type:'validatebox',options:{required:true}}">描述</th>
         <th field="customerYx" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">意向</th>
         <th field="customerWx" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">微信</th>
         <th field="customerZf" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">作废号码</th>
@@ -82,8 +77,8 @@
     <!--<input type="checkbox" checked onchange="$('#dg').datagrid({selectOnCheck:$(this).is(':checked')})">-->
 </div>
 <div id="toolbar">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">New</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">Destroy</a>
+<!--    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">New</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">Destroy</a>-->
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">取消</a>
 </div>

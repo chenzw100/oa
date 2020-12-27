@@ -1,8 +1,9 @@
 package com.example.demo.dao;
 
-import com.example.demo.domain.table.StockZy;
 import com.example.demo.domain.table.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
  * Created by czw on 2018/10/19.
@@ -18,6 +19,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserRepository extends JpaRepository<User,Long> {
     User save(User user);
     User findUserByNameAndPassword(String name,String password);
-
-
+    List<User> findUserByName(String name);
+    List<User> findUserById(Long id);
 }

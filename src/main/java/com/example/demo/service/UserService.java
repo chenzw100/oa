@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
 
  */
@@ -16,6 +18,12 @@ public class UserService {
     UserRepository userRepository;
     public User findUserByNameAndPassword(String name,String password){
       return   userRepository.findUserByNameAndPassword(name,password);
+    }
+    public List<User> findUserByName(String name){
+        return  userRepository.findUserByName(name);
+    }
+    public List<User> findUserById(Long id){
+        return  userRepository.findUserById(id);
     }
     public Page<User> findALl(Integer pageNumber,Integer pageSize,User user){
         if(pageNumber==null){

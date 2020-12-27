@@ -65,5 +65,8 @@ public class StockZyService {
     public List<StockZy> findAll(){
        return stockZyRepository.findAll();
     }
+    public StockZy findByPhone(String phone){
+        return stockZyRepository.findStockZyByPhone(phone);
+    }
 
 }

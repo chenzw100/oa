@@ -4,9 +4,11 @@ import com.example.demo.domain.table.User;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.LoginUserUtils;
 import com.example.demo.utils.MD5Cipher;
+import com.example.demo.utils.WebContent;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,9 +55,9 @@ public class LoginController {
             session.setAttribute("userId", u.getId());
             System.out.println("----" + username);
             if(u.getId()==1){
-                return "redirect:/index";
+                return "redirect:/indexmg";
             }else {
-                return "redirect:/index2";
+                return "redirect:/index";
             }
 
         } else  //输入错误，清空session，提示用户名密码错误
@@ -65,38 +67,27 @@ public class LoginController {
             return "login";
         }
     }
-    @PostMapping(value = "/loginout")
-    public String loginout(@RequestParam("username") String username, Map<String, Object> map,
-                        HttpSession session) {
+    @GetMapping(value = "/loginout")
+    public String loginout(HttpSession session) {
+        session.setAttribute("userName", null);
+        session.setAttribute("userId", "");
+        session.removeAttribute("");
+        return "redirect:/index";
 
-        //验证用户名和密码，输入正确，跳转到dashboard
-        if (StringUtils.isNotEmpty(username)) {
-            session.setAttribute("userName", "");
-            session.removeAttribute("");
-            System.out.println("----" + username);
-            return "redirect:/index";
 
-        } else  //输入错误，清空session，提示用户名密码错误
-        {
-            session.invalidate();
-            map.put("msg", "用户名密码错误");
-            return "login";
-        }
     }
 
 
     @RequestMapping("index")
     public String goMain(Map<String, Object> map) {
-        map.put("name", "zhangfang");
-        map.put("age", 28);
+        map.put("name", WebContent.getUserName());
         return "index";
 
     }
-    @RequestMapping("index2")
+    @RequestMapping("indexmg")
     public String goMain2(Map<String, Object> map) {
-        map.put("name", "zhangfang");
-        map.put("age", 28);
-        return "index2";
+        map.put("name", WebContent.getUserName());
+        return "indexmg";
 
     }
 }
