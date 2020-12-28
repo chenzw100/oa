@@ -47,6 +47,9 @@ public class UserController {
     @RequestMapping("/list")
     @ResponseBody
     public String list(Integer page, Integer rows, User user){
+        if("".equals(user.getEnable())){
+            user.setEnable(null);
+        }
         Page<User> list =userService.findALl(page,rows,user);
         for(User u :list){
             u.setPassword(null);
@@ -101,6 +104,9 @@ public class UserController {
         /*StockZy db =stockZyService.getById(stockZy.getId());
         db.setCustomerWx(stockZy.getCustomerWx());
         db.setCustomerYx(stockZy.getCustomerYx());*/
+        if(user.getPassword()==null){
+            user.setPassword("123456");
+        }
         user.setPassword(MD5Cipher.string2MD5(user.getPassword()));
         userService.saveOrUpdate(user);
         return "success";
