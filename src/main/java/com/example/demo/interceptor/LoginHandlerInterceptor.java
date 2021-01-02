@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class LoginHandlerInterceptor implements HandlerInterceptor {
-    private List<String> noAdmins = new ArrayList<String>(Arrays.asList(
+    private static List<String> noAdmins = new ArrayList<String>(Arrays.asList(
             ".css",".js",".action", "/index","/loginout","/mg/geren.html","/user/gerenpwd.html"));
 
     @Override
