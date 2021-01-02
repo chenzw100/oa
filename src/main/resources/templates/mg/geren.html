@@ -57,7 +57,7 @@
         <th data-options="field:'zy',align:'center'">专业</th>
         <th data-options="field:'infoCity',align:'center'">城市</th>
         <th data-options="field:'optName',align:'center'">执行人员</th>
-        <th data-options="field:'modified',align:'center'">最近操作时间</th>
+
 
         <th data-options="field:'customerYx',align:'center'" editor="{type:'combobox',options:{valueField : 'id',
 textField : 'text',
@@ -93,22 +93,13 @@ data : [{
 	text : '否'
 } ]}}">作废号码</th>
         <th  field="infoDesc" width="50"  editor="{type:'validatebox',options:{required:false}}">描述</th>
+        <th data-options="field:'fenDate',align:'center'">领取时间</th>
+        <th data-options="field:'modified',align:'center'">最近操作时间</th>
     </tr>
     </thead>
 </table>
-<div style="margin:10px 0;">
-   <!-- <span>Selection Mode: </span>
-    <select onchange="$('#dg').datagrid({singleSelect:(this.value==0)})">
-        <option value="0">Single Row</option>
-        <option value="1">Multiple Rows</option>
-    </select><br/>
-    SelectOnCheck: <input type="checkbox" checked onchange="$('#dg').datagrid({selectOnCheck:$(this).is(':checked')})"><br/>
-    CheckOnSelect: <input type="checkbox" checked onchange="$('#dg').datagrid({checkOnSelect:$(this).is(':checked')})">-->
-    <!--<input type="checkbox" checked onchange="$('#dg').datagrid({selectOnCheck:$(this).is(':checked')})">-->
-</div>
+
 <div id="toolbar">
-<!--    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">New</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">Destroy</a>-->
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">取消</a>
 </div>

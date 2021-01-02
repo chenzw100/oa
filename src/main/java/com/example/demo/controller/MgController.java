@@ -6,6 +6,7 @@ import com.example.demo.domain.table.User;
 import com.example.demo.service.StockZyService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.WebContent;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,16 @@ public class MgController {
     @ResponseBody
     public String update(StockZy stockZy){
         stockZy.setModified(new Date());
+        if(StringUtils.isNotEmpty(stockZy.getCustomerWx())){
+            if(stockZy.getCustomerWx().equals("是")){
+                stockZy.setCustomerZf(null);
+            }
+        }
+        if(StringUtils.isNotEmpty(stockZy.getCustomerYx())){
+            if(stockZy.getCustomerYx().equals("是")){
+                stockZy.setCustomerZf(null);
+            }
+        }
         stockZyService.saveOrUpdate(stockZy);
         return "success";
     }
