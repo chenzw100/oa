@@ -59,10 +59,11 @@
         <th data-options="field:'zy',align:'center'">专业</th>
         <th data-options="field:'infoCity'">城市</th>
         <th data-options="field:'optName',align:'center'">任务人员</th>
-        <th field="infoDesc" width="50"  editor="{type:'validatebox',options:{required:true}}">描述</th>
-        <th field="customerYx" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">意向</th>
-        <th field="customerWx" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">微信</th>
-        <th field="customerZf" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">作废号码</th>
+        <th data-options="field:'modifiedStr',align:'center'">最后操作时间</th>
+        <th field="infoDesc" width="50"  editor="{type:'validatebox',options:{required:false}}">描述</th>
+        <th field="customerYx" width="50" editor="{type:'checkbox',options:{all: '未操作',on: '是',off: '否'}}">意向</th>
+        <th field="customerWx" width="50" editor="{type:'checkbox',options:{all: '未操作',on: '是',off: '否'}}">微信</th>
+        <th field="customerZf" width="50" editor="{type:'checkbox',options:{all: '未操作',on: '是',off: '否'}}">作废号码</th>
     </tr>
     </thead>
 </table>

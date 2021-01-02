@@ -23,6 +23,9 @@ public class StockZyService {
 
     @Autowired
     StockZyRepository stockZyRepository;
+    public void delete(StockZy stockZy){
+        stockZyRepository.delete(stockZy);
+    }
     public Page<StockZy> findALl(Integer pageNumber,Integer pageSize,StockZy stockZy){
         if(pageNumber==null || pageNumber<0){
             pageNumber=1;

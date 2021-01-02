@@ -12,13 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Method;
+import java.util.*;
 
 @Controller
 @RequestMapping("/mg")
@@ -71,21 +70,17 @@ public class MgController {
         map.put("rows",list.getContent());
         return JSON.toJSONString(map);
     }
-    @RequestMapping("/update")
+    @RequestMapping(value = "/update",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String update(StockZy stockZy){
-        /*StockZy db =stockZyService.getById(stockZy.getId());
-        db.setCustomerWx(stockZy.getCustomerWx());
-        db.setCustomerYx(stockZy.getCustomerYx());*/
+        stockZy.setModified(new Date());
         stockZyService.saveOrUpdate(stockZy);
         return "success";
     }
     @RequestMapping("/updates")
     @ResponseBody
     public Map updates(String[] ids, Long userId){
-        /*StockZy db =stockZyService.getById(stockZy.getId());
-        db.setCustomerWx(stockZy.getCustomerWx());
-        db.setCustomerYx(stockZy.getCustomerYx());*/
+
         for(String id :ids){
             StockZy db =stockZyService.getById(Long.parseLong(id));
             db.setOptId(userId);
@@ -97,5 +92,11 @@ public class MgController {
         map.put("200","success");
         return map;
     }
-
+    @RequestMapping(value = "/destroy")
+    @ResponseBody
+    public String destroy(StockZy stockZy){
+        stockZy.setModified(new Date());
+        stockZyService.delete(stockZy);
+        return "success";
+    }
 }

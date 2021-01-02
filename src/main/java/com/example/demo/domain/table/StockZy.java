@@ -1,13 +1,18 @@
 package com.example.demo.domain.table;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  */
-@Entity(name="stock_zy7")
+@Entity(name="stock_zy")
 public class StockZy implements Serializable {
     @Id
     @GeneratedValue
@@ -42,6 +47,33 @@ public class StockZy implements Serializable {
     private String optName;
     @Transient
     private String fen;
+    @Column(nullable = true,columnDefinition="COMMENT '更新时间'")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date modified;
+    @Transient
+    private String modifiedStr;
+
+    public String getModifiedStr() {
+        if(getModified()==null){
+            setModified(new Date());
+        }
+        modifiedStr =DateFormatUtils.format(getModified(), "yyyy-MM-dd HH:mm:ss");
+        return modifiedStr;
+    }
+
+    public void setModifiedStr(String modifiedStr) {
+        this.modifiedStr = modifiedStr;
+    }
+
+    public Date getModified() {
+        return modified;
+    }
+
+    public void setModified(Date modified) {
+        this.modified = modified;
+    }
 
     public String getFen() {
         return fen;

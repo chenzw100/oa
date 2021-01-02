@@ -70,6 +70,10 @@ public class ExcelController {
         for(StockZy stockZy :personList){
             StockZy stockZy1 = stockZyService.findByPhone(stockZy.getPhone());
             if(stockZy1==null){
+                stockZy.setModified(new Date());
+                stockZy.setCustomerWx("未操作");
+                stockZy.setCustomerZf("未操作");
+                stockZy.setCustomerYx("未操作");
                 stockZyService.saveOrUpdate(stockZy);
             }else {
                 System.out.println("改手机好已经存在:"+stockZy.getPhone());

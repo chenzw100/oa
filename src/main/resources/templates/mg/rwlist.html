@@ -53,10 +53,10 @@
         <th data-options="field:'zy',width:80,align:'right'">专业</th>
         <th data-options="field:'infoCity',width:220">城市</th>
         <th data-options="field:'optName',width:60,align:'center'">任务人员</th>
+        <th data-options="field:'customerYx',width:60,align:'center'">意向</th>
+        <th data-options="field:'customerWx',width:60,align:'center'">微信</th>
+        <th data-options="field:'customerZf',width:60,align:'center'">作废号码</th>
         <th data-options="field:'infoDesc',width:60,align:'center'">描述</th>
-        <th field="customerYx" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">意向</th>
-        <th field="customerWx" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">微信</th>
-        <th field="customerZf" width="50" editor="{type:'checkbox',options:{on: '是',off: '否'}}">作废号码</th>
     </tr>
     </thead>
 </table>
@@ -71,8 +71,8 @@
     <!--<input type="checkbox" checked onchange="$('#dg').datagrid({selectOnCheck:$(this).is(':checked')})">-->
 </div>
 <div id="toolbar">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">New</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">Destroy</a>
+<!--    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">New</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">Destroy</a>-->
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">取消</a>
 </div>

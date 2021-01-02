@@ -26,6 +26,6 @@ public interface StockZyRepository extends JpaRepository<StockZy,Long> {
     Page<StockZy> findByAndOptIdIsNull(Pageable pageable);
     Page<StockZy> findByAndOptIdIsNotNull(Pageable pageable);
 
-
-
+    @Override
+    void delete(StockZy stockZy);
 }
