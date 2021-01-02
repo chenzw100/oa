@@ -27,7 +27,7 @@ public class MgController {
     StockZyService stockZyService;
     @Autowired
     UserService userService;
-    @RequestMapping("/index.html")
+    @RequestMapping("/mglist.html")
     public String index(){
         return "mg/mglist";
     }

@@ -17,8 +17,8 @@
 </div>
 <div id="mm1" style="width:150px;">
     <a href="/mg/rw.html" class="easyui-linkbutton" plain="true" >分配任务</a>
-    <a href="/mg/index.html" class="easyui-linkbutton" plain="true" >人才资源管理</a>
-    <a href="/user/index.html" class="easyui-linkbutton" plain="true" >员工管理</a>
+    <a href="/mg/mglist.html" class="easyui-linkbutton" plain="true" >人才资源管理</a>
+    <a href="/user/list.html" class="easyui-linkbutton" plain="true" >员工管理</a>
     <a href="/user/password.html" class="easyui-linkbutton" plain="true" >密码管理</a>
     <a href="/import" class="easyui-linkbutton" plain="true" >导入数据</a>
     <a href="/loginout" class="easyui-linkbutton" plain="true" >退出系统</a>
@@ -71,7 +71,7 @@
 </table>
 <div id="toolbar">
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">新增</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">删除</a>
+<!--    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">删除</a>-->
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">取消</a>
 </div>
@@ -80,8 +80,7 @@
         $('#dg').edatagrid({
             url:'/user/list.action',
             saveUrl: '/user/save.action',
-            updateUrl: '/user/update.action',
-            destroyUrl: '/user/destroy.action'
+            updateUrl: '/user/update.action'
         });
     });
     $("#query").click(function () {

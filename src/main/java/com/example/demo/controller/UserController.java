@@ -24,7 +24,7 @@ public class UserController {
     public Log log = LogFactory.getLog(UserController.class);
     @Autowired
     UserService userService;
-    @RequestMapping("/index.html")
+    @RequestMapping("/list.html")
     public String index(){
         return "user/list";
     }
@@ -93,6 +93,11 @@ public class UserController {
     @RequestMapping("/update.action")
     @ResponseBody
     public String update(User user){
+        if(user.getId()==1){
+            if(WebContent.getUserId().longValue()!=user.getId().longValue()){
+                return "success";
+            }
+        }
         User userDb =userService.getById(user.getId());
         user.setPassword(userDb.getPassword());
         userService.saveOrUpdate(user);
@@ -101,6 +106,11 @@ public class UserController {
     @RequestMapping("/updatePwd.action")
     @ResponseBody
     public String updatePwd(User user){
+        if(user.getId()==1){
+            if(WebContent.getUserId().longValue()!=user.getId().longValue()){
+                return "success";
+            }
+        }
         user.setPassword(MD5Cipher.string2MD5(user.getPassword()));
         userService.saveOrUpdate(user);
         return "success";
