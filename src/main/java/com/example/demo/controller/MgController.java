@@ -3,8 +3,10 @@ package com.example.demo.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.demo.domain.table.StockZy;
 import com.example.demo.domain.table.User;
+import com.example.demo.exception.NormalException;
 import com.example.demo.service.StockZyService;
 import com.example.demo.service.UserService;
+import com.example.demo.utils.FileExcelUtil;
 import com.example.demo.utils.WebContent;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -54,6 +58,18 @@ public class MgController {
         map.put("total",list.getTotalElements());
         map.put("rows",list.getContent());
         return JSON.toJSONString(map);
+    }
+    @RequestMapping("exportExcel")
+    public void exportExcel(HttpServletResponse response,Integer page,Integer rows,StockZy stockZy) throws NormalException {
+
+        String userInfoLevel = WebContent.getUserInfoLevel();
+        if(!"管理员".equals(userInfoLevel)){
+            stockZy.setOptId(WebContent.getUserId());
+        }
+        Page<StockZy> list =stockZyService.findALl(page,rows,stockZy);
+
+        //导出操作
+        FileExcelUtil.exportExcel(list.getContent(),"名单","人才数据",StockZy.class,"人才数据.xls",response);
     }
     @RequestMapping("/fenpei.action")
     @ResponseBody
