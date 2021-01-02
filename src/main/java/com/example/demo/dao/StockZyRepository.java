@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * Created by czw on 2018/10/19.
  * JpaRepository default method
@@ -20,7 +22,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface StockZyRepository extends JpaRepository<StockZy,Long> {
     StockZy save(StockZy stockZy);
 
-    StockZy findStockZyByPhone(String phone);
+    List<StockZy> findStockZyByPhone(String phone);
     Page<StockZy> findByAndOptIdIsNull(Pageable pageable);
     Page<StockZy> findByAndOptIdIsNotNull(Pageable pageable);
 

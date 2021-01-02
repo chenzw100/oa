@@ -16,9 +16,9 @@ public class StockZy implements Serializable {
     @Column(nullable = false,columnDefinition="varchar(50) COMMENT '姓名'")
     private String name;
     @Excel(name = "专业", orderNum = "2")
-    @Column(nullable = false,columnDefinition="varchar(100) COMMENT '专业'")
+    @Column(nullable = true,columnDefinition="varchar(100) COMMENT '专业'")
     private String zy;
-    @Column(nullable = false,columnDefinition="varchar(100) COMMENT '地区'")
+    @Column(nullable = true,columnDefinition="varchar(100) COMMENT '地区'")
     @Excel(name = "地区", orderNum = "4")
     private String infoCity;
     @Excel(name = "电话", orderNum = "1")

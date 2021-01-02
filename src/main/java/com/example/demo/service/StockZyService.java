@@ -67,7 +67,11 @@ public class StockZyService {
        return stockZyRepository.findAll();
     }
     public StockZy findByPhone(String phone){
-        return stockZyRepository.findStockZyByPhone(phone);
+        List<StockZy> list = stockZyRepository.findStockZyByPhone(phone);
+        if(list!=null && list.size()>0){
+            return list.get(0);
+        }
+        return null;
     }
 
     public Page<StockZy> findAllAndOptIdIsNotNull(Integer pageNumber,Integer pageSize,StockZy stockZy){
