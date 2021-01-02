@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,9 +90,14 @@ public class UserController {
     @RequestMapping("/update")
     @ResponseBody
     public String update(User user){
-        /*StockZy db =stockZyService.getById(stockZy.getId());
-        db.setCustomerWx(stockZy.getCustomerWx());
-        db.setCustomerYx(stockZy.getCustomerYx());*/
+        User userDb =userService.getById(user.getId());
+        user.setPassword(userDb.getPassword());
+        userService.saveOrUpdate(user);
+        return "success";
+    }
+    @RequestMapping("/updatePwd")
+    @ResponseBody
+    public String updatePwd(User user){
         user.setPassword(MD5Cipher.string2MD5(user.getPassword()));
         userService.saveOrUpdate(user);
         return "success";
@@ -101,9 +105,6 @@ public class UserController {
     @RequestMapping("/save")
     @ResponseBody
     public String save(User user){
-        /*StockZy db =stockZyService.getById(stockZy.getId());
-        db.setCustomerWx(stockZy.getCustomerWx());
-        db.setCustomerYx(stockZy.getCustomerYx());*/
         if(user.getPassword()==null){
             user.setPassword("123456");
         }

@@ -20,7 +20,7 @@
     <a href="/user/gerenpwd.html" class="easyui-linkbutton" plain="true" >修改密码</a>
     <a href="/loginout" class="easyui-linkbutton" plain="true" >退出系统</a>
 </div>
-<h2>公司人才任务信息---个人任务</h2>
+<h2>公司人才任务信息---个人任务----双击更改</h2>
 <div>
 <div>
     <div style="padding:5px 0;">
@@ -49,15 +49,14 @@
 
 <table id="dg" title="人才库" class="easyui-datagrid"  style="width:700px;height:250px"
        toolbar="#toolbar" pagination="true" idField="id"
-       rownumbers="true" fitColumns="true"  selectOnCheck="true" singleSelect="false">
+       rownumbers="true" fitColumns="true"  selectOnCheck="true" singleSelect="true">
     <thead>
     <tr>
-        <th data-options="field:'ck',checkbox:true"></th>
         <th data-options="field:'name',align:'center'">姓名</th>
         <th data-options="field:'phone',align:'center'">电话</th>
         <th data-options="field:'zy',align:'center'">专业</th>
         <th data-options="field:'infoCity',align:'center'">城市</th>
-        <th data-options="field:'optName',align:'center'">任务人员</th>
+        <th data-options="field:'optName',align:'center'">执行人员</th>
         <th data-options="field:'modified',align:'center'">最近操作时间</th>
 
         <th data-options="field:'customerYx',align:'center'" editor="{type:'combobox',options:{valueField : 'id',
@@ -93,7 +92,7 @@ data : [{
 	id : '否',
 	text : '否'
 } ]}}">作废号码</th>
-        <th data-options="field:'infoDesc',align:'center'"  editor="{type:'validatebox',options:{required:false}}">描述</th>
+        <th  field="infoDesc" width="50"  editor="{type:'validatebox',options:{required:false}}">描述</th>
     </tr>
     </thead>
 </table>

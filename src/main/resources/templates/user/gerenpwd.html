@@ -27,8 +27,8 @@
        rownumbers="true" fitColumns="true" singleSelect="true">
     <thead>
     <tr>
-        <th field="name" width="50"  >姓名</th>
-        <th field="phone" width="100" >电话</th>
+        <th data-options="field:'name',align:'center'">姓名</th>
+        <th data-options="field:'phone',align:'center'" >电话</th>
         <th field="password" width="50"  editor="{type:'validatebox',options:{required:true}}">密码</th>
     </tr>
     </thead>
@@ -42,7 +42,7 @@
         $('#dg').edatagrid({
             url:'/user/listgeren',
             saveUrl: '/user/save',
-            updateUrl: '/user/update',
+            updateUrl: '/user/updatePwd',
             destroyUrl: '/user/destroy'
         });
     });

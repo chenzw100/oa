@@ -12,12 +12,13 @@
 </div>
 <table id="dgck" title="人才库"
        toolbar="#toolbar" pagination="true" idField="id"
-       rownumbers="true" fitColumns="true" selectOnCheck="true" singleSelect="false">
+       rownumbers="true" fitColumns="true" selectOnCheck="true" singleSelect="true">
     <thead>
     <tr>
-        <th field="name" width="50" >姓名</th>
-        <th field="phone" width="100"  >电话</th>
-        <th field="enable" width="50" >状态</th>
+        <th data-options="field:'name',align:'center'">姓名</th>
+        <th data-options="field:'phone',align:'center'" >电话</th>
+        <th data-options="field:'infoLevel',align:'center'" >级别</th>
+        <th data-options="field:'enable',align:'center'" >状态</th>
     </tr>
     </thead>
 </table>
@@ -35,6 +36,10 @@
     })
     function getSelectedck(){
         var row = $('#dgck').datagrid('getSelected');
+        if(row==null){
+            $.messager.alert('Info', "请选择一个员工，进行接受任务");
+            return;
+        }
         if (row){
             var ids = $('#ids').val();
 
@@ -47,12 +52,13 @@
                 dataType:'json',  //返回的数据格式：json/xml/html/script/jsonp/text
                 success:function(data,textStatus,jqXHR){
                     console.log('成功');
-                    $('#win').window('close');
+                    window.location.href="/mg/rw.html";
+                    /*$('#win').window('close');
                     $('#dg').datagrid('load', {
                         customerYx: $("#customerYx").val(),
                         customerZf: $("#customerZf").val(),
                         customerWx: $("#customerWx").val()
-                    });
+                    });*/
                 },
                 error:function(error){
                     console.log('错误');

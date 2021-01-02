@@ -51,12 +51,12 @@
         <th data-options="field:'phone',align:'center'">电话</th>
         <th data-options="field:'zy',align:'center'">专业</th>
         <th data-options="field:'infoCity',align:'center'">城市</th>
-        <th data-options="field:'optName',align:'center'">任务人员</th>
+        <th data-options="field:'optName',align:'center'">执行人员</th>
         <th data-options="field:'modified',align:'center'">最后操作时间</th>
         <th data-options="field:'customerYx',align:'center'">意向</th>
         <th data-options="field:'customerWx',align:'center'">微信</th>
         <th data-options="field:'customerZf',align:'center'">作废号码</th>
-        <th data-options="field:'infoDesc',align:'center'">描述</th>
+        <th data-options="field:'infoDesc',align:'center',width:50">描述</th>
     </tr>
     </thead>
 </table>
@@ -70,7 +70,7 @@
 </div>
     <input type="hidden" name="ids" id="ids">
 
-    <div id="win" class="easyui-window" data-options="title:'Inline Window',inline:true" style="width:550px;height:350px">
+    <div id="win" class="easyui-window" data-options="title:'Inline Window',inline:true" style="width:400px;height:350px">
 
     </div>
 </div>
@@ -102,6 +102,7 @@
         var ss = [];
         var rows = $('#dg').datagrid('getSelections');
         if(rows.length==0){
+            $.messager.alert('Info', "请选择任务，再进行分配");
             return;
         }
         for(var i=0; i<rows.length; i++){
@@ -109,8 +110,9 @@
             ss.push(row.id);
         }
         $("#ids").val(ss);
-        $('#win').window('refresh', '/user/ck.html');
+        debugger;
         $('#win').window('open');
+        $('#win').window('refresh', '/user/ck.html');
     }
 
 </script>

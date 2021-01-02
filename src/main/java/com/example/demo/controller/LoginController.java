@@ -51,6 +51,11 @@ public class LoginController {
                 map.put("msg", "用户名密码错误");
                 return "login";
             }
+            if(!"启用".equals(u.getEnable())){
+                session.invalidate();
+                map.put("msg", "用户名被禁用了");
+                return "login";
+            }
             session.setAttribute("userName", u.getName());
             session.setAttribute("userId", u.getId());
             System.out.println("----" + username);
