@@ -121,6 +121,9 @@ public class UserController {
         if(user.getPassword()==null){
             user.setPassword("123456");
         }
+        if(user.getInfoLevel()==null){
+            user.setPassword("员工");
+        }
         user.setPassword(MD5Cipher.string2MD5(user.getPassword()));
         userService.saveOrUpdate(user);
         return "success";
