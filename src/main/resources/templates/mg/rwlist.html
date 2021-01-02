@@ -47,44 +47,33 @@
     <thead>
     <tr>
         <th data-options="field:'ck',checkbox:true"></th>
-        <th data-options="field:'id',width:80">Item ID</th>
-        <th data-options="field:'name',width:100">姓名</th>
-        <th data-options="field:'phone',width:80,align:'right'">电话</th>
-        <th data-options="field:'zy',width:80,align:'right'">专业</th>
-        <th data-options="field:'infoCity',width:220">城市</th>
-        <th data-options="field:'optName',width:60,align:'center'">任务人员</th>
-        <th data-options="field:'customerYx',width:60,align:'center'">意向</th>
-        <th data-options="field:'customerWx',width:60,align:'center'">微信</th>
-        <th data-options="field:'customerZf',width:60,align:'center'">作废号码</th>
-        <th data-options="field:'infoDesc',width:60,align:'center'">描述</th>
+        <th data-options="field:'name',align:'center'">姓名</th>
+        <th data-options="field:'phone',align:'center'">电话</th>
+        <th data-options="field:'zy',align:'center'">专业</th>
+        <th data-options="field:'infoCity',align:'center'">城市</th>
+        <th data-options="field:'optName',align:'center'">任务人员</th>
+        <th data-options="field:'modified',align:'center'">最后操作时间</th>
+        <th data-options="field:'customerYx',align:'center'">意向</th>
+        <th data-options="field:'customerWx',align:'center'">微信</th>
+        <th data-options="field:'customerZf',align:'center'">作废号码</th>
+        <th data-options="field:'infoDesc',align:'center'">描述</th>
     </tr>
     </thead>
 </table>
 <div style="margin:10px 0;">
-   <!-- <span>Selection Mode: </span>
-    <select onchange="$('#dg').datagrid({singleSelect:(this.value==0)})">
-        <option value="0">Single Row</option>
-        <option value="1">Multiple Rows</option>
-    </select><br/>
-    SelectOnCheck: <input type="checkbox" checked onchange="$('#dg').datagrid({selectOnCheck:$(this).is(':checked')})"><br/>
-    CheckOnSelect: <input type="checkbox" checked onchange="$('#dg').datagrid({checkOnSelect:$(this).is(':checked')})">-->
-    <!--<input type="checkbox" checked onchange="$('#dg').datagrid({selectOnCheck:$(this).is(':checked')})">-->
+
 </div>
 <div id="toolbar">
-<!--    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">New</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">Destroy</a>-->
+
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">取消</a>
 </div>
-
     <input type="hidden" name="ids" id="ids">
 
     <div id="win" class="easyui-window" data-options="title:'Inline Window',inline:true" style="width:550px;height:350px">
 
     </div>
 </div>
-
-
 
 <script type="text/javascript">
     $(function(){
@@ -102,13 +91,6 @@
             fen: $("#fen").val()
         });
     })
-
-    //$('#dg').datagrid('reload');
-
-    /*$(document).bind("contextmenu",function(){return false;});
-    $(document).bind("selectstart",function(){return false;});
-    $(document).keydown(function(){return key(arguments[0])});*/
-
 
     function getSelected(){
         var row = $('#dg').datagrid('getSelected');
@@ -129,19 +111,7 @@
         $("#ids").val(ss);
         $('#win').window('refresh', '/user/ck.html');
         $('#win').window('open');
-        //$('#dd').dialog('open');
-        //$('#dd').dialog('refresh', '/user/index.html');
-        //$.messager.alert('Info', ss.join('<br/>'));
     }
-    /*$('#dd').dialog({
-        title: 'My Dialog',
-        width: 400,
-        height: 200,
-        closed: false,
-        cache: false,
-        href: '/user/index.html',
-        modal: true
-    });*/
 
 </script>
 

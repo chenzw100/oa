@@ -52,19 +52,18 @@ public class StockZy implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date modified;
-    @Transient
-    private String modifiedStr;
+    @Column(nullable = true,columnDefinition="COMMENT '分配时间'")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date fenDate;
 
-    public String getModifiedStr() {
-        if(getModified()==null){
-            setModified(new Date());
-        }
-        modifiedStr =DateFormatUtils.format(getModified(), "yyyy-MM-dd HH:mm:ss");
-        return modifiedStr;
+    public Date getFenDate() {
+        return fenDate;
     }
 
-    public void setModifiedStr(String modifiedStr) {
-        this.modifiedStr = modifiedStr;
+    public void setFenDate(Date fenDate) {
+        this.fenDate = fenDate;
     }
 
     public Date getModified() {

@@ -86,6 +86,7 @@ public class MgController {
             db.setOptId(userId);
             User u = userService.getById(userId);
             db.setOptName(u.getName());
+            db.setFenDate(new Date());
             stockZyService.saveOrUpdate(db);
         }
         Map map = new HashMap();
