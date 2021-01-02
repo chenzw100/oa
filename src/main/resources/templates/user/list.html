@@ -29,9 +29,10 @@
         <span>状态:</span>
         <select class="easyui-combobox" id="enable" name="enable" style="width:70px;">
             <option value="">全部</option>
-            <option value="是">是</option>
-            <option value="否">否</option>
+            <option value="启用">启用</option>
+            <option value="禁用">禁用</option>
         </select>
+        <span>姓名:</span> <input class="easyui-textbox" type="text"  name="name" id="userName" >
         &nbsp;<a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
     </div>
 
@@ -42,8 +43,8 @@
     <thead>
     <tr>
 
-        <th field="name" width="50"  editor="{type:'validatebox',options:{required:true}}">姓名</th>
-        <th field="phone" width="100"  editor="{type:'validatebox',options:{required:true}}">电话</th>
+        <th  data-options="field:'name',align:'center'"   editor="{type:'validatebox',options:{required:true}}">姓名</th>
+        <th  data-options="field:'phone',align:'center'"  editor="{type:'validatebox',options:{required:true}}">电话</th>
         <th data-options="field:'infoLevel',align:'center'" editor="{type:'combobox',options:{valueField : 'id',
             textField : 'text',
             panelHeight : 'auto',
@@ -60,8 +61,11 @@
             }, {
                 id : '高级经理',
                 text : '高级经理'
-            } ]}}">级别</th>
-        <th  data-options="field:'enable',align:'center'" editor="{type:'checkbox',options:{on: '启用',off: '禁用'}}">状态</th>
+            }, {
+                id : '管理员',
+                text : '管理员'
+            } ]}}">员工级别</th>
+        <th  data-options="field:'enable',align:'center'" editor="{type:'checkbox',options:{on: '启用',off: '禁用'}}">员工状态</th>
     </tr>
     </thead>
 </table>
@@ -82,7 +86,8 @@
     });
     $("#query").click(function () {
         $('#dg').datagrid('load', {
-            enable: $("#enable").val()
+            enable: $("#enable").val(),
+            name:$("#userName").val()
         });
     })
 

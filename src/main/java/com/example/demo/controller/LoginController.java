@@ -58,6 +58,7 @@ public class LoginController {
             }
             session.setAttribute("userName", u.getName());
             session.setAttribute("userId", u.getId());
+            session.setAttribute("userInfoLevel", u.getInfoLevel());
             System.out.println("----" + username);
             if(u.getId()==1){
                 return "redirect:/indexmg";

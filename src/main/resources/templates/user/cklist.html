@@ -1,16 +1,11 @@
 <div>
     <div style="margin:20px 0;">
-        <span>状态:</span>
-        <select class="easyui-combobox" id="enable" name="enable" style="width:70px;">
-            <option value="">全部</option>
-            <option value="是">是</option>
-            <option value="否">否</option>
-        </select>
-        &nbsp;<a href="#" id="queryck" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
-        &nbsp;<a href="#" class="easyui-linkbutton" onclick="getSelectedck()">确认分配到选中人员</a>
+        姓名:<input class="easyui-textbox" type="text"  name="name" id="userName" >
+        <a href="#" id="queryck" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
+        <a href="#" class="easyui-linkbutton" onclick="getSelectedck()">分配</a>
     </div>
 </div>
-<table id="dgck" title="人才库"
+<table id="dgck" title="公司员工"
        toolbar="#toolbar" pagination="true" idField="id"
        rownumbers="true" fitColumns="true" selectOnCheck="true" singleSelect="true">
     <thead>
@@ -31,7 +26,7 @@
     });
     $("#queryck").click(function () {
         $('#dgck').datagrid('load', {
-            enable: $("#enable").val()
+            name:$("#userName").val()
         });
     })
     function getSelectedck(){

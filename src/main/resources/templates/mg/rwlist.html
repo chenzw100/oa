@@ -34,13 +34,11 @@
         </select>
 
         &nbsp;<a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
+        <a href="#" class="easyui-linkbutton" onclick="getSelections()">任务分配</a>
     </div>
 
 </div>
-<div style="margin:20px 0;">
-    <!--<a href="#" class="easyui-linkbutton" onclick="getSelected()">GetSelected</a>-->
-    <a href="#" class="easyui-linkbutton" onclick="getSelections()">选择任务分配人员</a>
-</div>
+
 <table id="dg" title="人才库" class="easyui-datagrid"  style="width:700px;height:250px"
        toolbar="#toolbar" pagination="true" idField="id"
        rownumbers="true" fitColumns="true"  selectOnCheck="true" singleSelect="false">
@@ -63,11 +61,7 @@
 <div style="margin:10px 0;">
 
 </div>
-<div id="toolbar">
 
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">取消</a>
-</div>
     <input type="hidden" name="ids" id="ids">
 
     <div id="win" class="easyui-window" data-options="title:'Inline Window',inline:true" style="width:400px;height:350px">

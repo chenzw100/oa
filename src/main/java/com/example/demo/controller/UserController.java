@@ -49,6 +49,9 @@ public class UserController {
         if("".equals(user.getEnable())){
             user.setEnable(null);
         }
+        if("".equals(user.getName())){
+            user.setName(null);
+        }
         Page<User> list =userService.findALl(page,rows,user);
         for(User u :list){
             u.setPassword(null);
