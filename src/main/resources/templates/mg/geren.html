@@ -125,10 +125,10 @@ data : [{
 <script type="text/javascript">
     $(function(){
         $('#dg').edatagrid({
-            url:'/mg/list',
-            saveUrl: '/mg/updates',
-            updateUrl: '/mg/update',
-            destroyUrl: '/mg/del'
+            url:'/mg/list.action',
+            saveUrl: '/mg/updates.action',
+            updateUrl: '/mg/update.action',
+            destroyUrl: '/mg/del.action'
         });
         $('#dd').dialog('close');
         $('#win').window('close');

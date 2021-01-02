@@ -72,10 +72,10 @@
 <script type="text/javascript">
     $(function(){
         $('#dg').edatagrid({
-            url:'/mg/fenpei',
-            saveUrl: '/mg/updates',
-            updateUrl: '/mg/update',
-            destroyUrl: '/mg/del'
+            url:'/mg/fenpei.action',
+            saveUrl: '/mg/updates.action',
+            updateUrl: '/mg/update.action',
+            destroyUrl: '/mg/del.action'
         });
         $('#dd').dialog('close');
         $('#win').window('close');

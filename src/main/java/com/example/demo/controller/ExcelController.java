@@ -57,7 +57,7 @@ public class ExcelController {
     }
 
     @ResponseBody
-    @RequestMapping("importExcel")
+    @RequestMapping("importExcel.action")
     public String importExcel(MultipartFile file) throws NormalException {
         //String filePath = "F:\\海贼王.xls";
         //解析excel，

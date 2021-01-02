@@ -60,7 +60,7 @@ public class LoginController {
             session.setAttribute("userId", u.getId());
             session.setAttribute("userInfoLevel", u.getInfoLevel());
             System.out.println("----" + username);
-            if(u.getId()==1){
+            if("管理员".equals(u.getInfoLevel())){
                 return "redirect:/indexmg";
             }else {
                 return "redirect:/index";

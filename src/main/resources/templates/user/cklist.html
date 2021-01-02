@@ -21,7 +21,7 @@
 <script type="text/javascript">
     $(function(){
         $('#dgck').edatagrid({
-            url:'/user/list',
+            url:'/user/list.action',
         });
     });
     $("#queryck").click(function () {
@@ -40,7 +40,7 @@
 
             $.ajax({
                 type:"POST",  //请求方式   get查询  post增加  put修改   delete删除
-                url:'/mg/updates',//请求路径
+                url:'/mg/updates.action',//请求路径
                 async:true,  //或false 是否异步
                 data:{ids:ids,userId:row.id},
                 timeout:5000,//超时时间

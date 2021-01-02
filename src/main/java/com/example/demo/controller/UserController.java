@@ -43,7 +43,7 @@ public class UserController {
         return "user/gerenpwd";
     }
 
-    @RequestMapping("/list")
+    @RequestMapping("/list.action")
     @ResponseBody
     public String list(Integer page, Integer rows, User user){
         if("".equals(user.getEnable())){
@@ -61,7 +61,7 @@ public class UserController {
         map.put("rows",list.getContent());
         return JSON.toJSONString(map);
     }
-    @RequestMapping("/listpass")
+    @RequestMapping("/listpass.action")
     @ResponseBody
     public String listpass(User user){
         Map map = new HashMap<>();
@@ -78,7 +78,7 @@ public class UserController {
         map.put("rows",us);
         return JSON.toJSONString(map);
     }
-    @RequestMapping("/listgeren")
+    @RequestMapping("/listgeren.action")
     @ResponseBody
     public String listgeren(){
         Map map = new HashMap<>();
@@ -90,7 +90,7 @@ public class UserController {
         map.put("rows",us);
         return JSON.toJSONString(map);
     }
-    @RequestMapping("/update")
+    @RequestMapping("/update.action")
     @ResponseBody
     public String update(User user){
         User userDb =userService.getById(user.getId());
@@ -98,14 +98,14 @@ public class UserController {
         userService.saveOrUpdate(user);
         return "success";
     }
-    @RequestMapping("/updatePwd")
+    @RequestMapping("/updatePwd.action")
     @ResponseBody
     public String updatePwd(User user){
         user.setPassword(MD5Cipher.string2MD5(user.getPassword()));
         userService.saveOrUpdate(user);
         return "success";
     }
-    @RequestMapping("/save")
+    @RequestMapping("/save.action")
     @ResponseBody
     public String save(User user){
         if(user.getPassword()==null){

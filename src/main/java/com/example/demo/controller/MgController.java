@@ -41,11 +41,11 @@ public class MgController {
         return "mg/geren";
     }
 
-    @RequestMapping("/list")
+    @RequestMapping("/list.action")
     @ResponseBody
     public String list(Integer page,Integer rows,StockZy stockZy){
-        Long userId = WebContent.getUserId();
-        if(userId>1){
+        String userInfoLevel = WebContent.getUserInfoLevel();
+        if(!"管理员".equals(userInfoLevel)){
             stockZy.setOptId(WebContent.getUserId());
         }
         Page<StockZy> list =stockZyService.findALl(page,rows,stockZy);
@@ -54,11 +54,11 @@ public class MgController {
         map.put("rows",list.getContent());
         return JSON.toJSONString(map);
     }
-    @RequestMapping("/fenpei")
+    @RequestMapping("/fenpei.action")
     @ResponseBody
     public String fenpei(Integer page,Integer rows,StockZy stockZy){
-        Long userId = WebContent.getUserId();
-        if(userId>1){
+        String userInfoLevel = WebContent.getUserInfoLevel();
+        if(!"管理员".equals(userInfoLevel)){
             stockZy.setOptId(WebContent.getUserId());
         }
         if(stockZy.getFen() == null){
@@ -70,14 +70,14 @@ public class MgController {
         map.put("rows",list.getContent());
         return JSON.toJSONString(map);
     }
-    @RequestMapping(value = "/update",method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(value = "/update.action",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String update(StockZy stockZy){
         stockZy.setModified(new Date());
         stockZyService.saveOrUpdate(stockZy);
         return "success";
     }
-    @RequestMapping("/updates")
+    @RequestMapping("/updates.action")
     @ResponseBody
     public Map updates(String[] ids, Long userId){
 
@@ -93,7 +93,7 @@ public class MgController {
         map.put("200","success");
         return map;
     }
-    @RequestMapping(value = "/destroy")
+    @RequestMapping(value = "/destroy.action")
     @ResponseBody
     public String destroy(StockZy stockZy){
         stockZy.setModified(new Date());

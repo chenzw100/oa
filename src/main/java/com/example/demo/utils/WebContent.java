@@ -198,5 +198,10 @@ public class WebContent {
         Object userName = request.getSession().getAttribute("userName");
         return userName.toString();
     }
+    public static String getUserInfoLevel() {
+        HttpServletRequest request = (HttpServletRequest) get("req");
+        Object userName = request.getSession().getAttribute("userInfoLevel");
+        return userName.toString();
+    }
 
 }

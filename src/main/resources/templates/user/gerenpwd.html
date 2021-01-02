@@ -40,10 +40,10 @@
 <script type="text/javascript">
     $(function(){
         $('#dg').edatagrid({
-            url:'/user/listgeren',
-            saveUrl: '/user/save',
-            updateUrl: '/user/updatePwd',
-            destroyUrl: '/user/destroy'
+            url:'/user/listgeren.action',
+            saveUrl: '/user/save.action',
+            updateUrl: '/user/updatePwd.action',
+            destroyUrl: '/user/destroy.action'
         });
     });
     $("#query").click(function () {

@@ -7,10 +7,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class LoginHandlerInterceptor implements HandlerInterceptor {
+    private List<String> noAdmins = new ArrayList<String>(Arrays.asList(
+            ".css",".js",".action", "/index","/loginout","/mg/geren.html","/user/gerenpwd.html"));
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
@@ -37,8 +42,22 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             request.getRequestDispatcher("/index.html").forward(request, response);
             return false;
         }
+        Object admin = request.getSession().getAttribute("userInfoLevel");
         WebContent.put(request);
         WebContent.put(response);
-        return true;
+        if(admin.equals("管理员")){
+            return true;
+        }else {
+            for(String s :noAdmins){
+                 if(request.getRequestURL().lastIndexOf(s)>0){
+                    return true;
+                }
+            }
+        }
+
+        request.setAttribute("msg","无权限请先登录");
+        // 获取request返回页面到登录页
+        request.getRequestDispatcher("/index.html").forward(request, response);
+        return false;
     }
 }
