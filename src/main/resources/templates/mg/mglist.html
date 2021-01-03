@@ -26,6 +26,7 @@
 </div>
 <h2>公司人才信息 -- 人才资源管理</h2>
 <div>
+    <form id="excel" action="/mg/exportExcel.action" method="post">
     <div style="padding:5px 0;">
         <span>意向:</span>
         <select class="easyui-combobox" id="customerYx" name="customerYx" style="width:70px;">
@@ -46,9 +47,9 @@
             <option value="否">否</option>
         </select>
         &nbsp;<a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
-        <a href="javascript:;" class="easyui-linkbutton" onclick="$('#dg').datagrid('toExcel','dg.xls')">导出当前页</a>
+        <a href="javascript:;" class="easyui-linkbutton" onclick="$('#dg').datagrid('toExcelServer','/mg/exportExcel.action')">导出当前页</a>
     </div>
-
+    </form>
 </div>
 <table id="dg" title="人才库"
        toolbar="#toolbar" pagination="true" idField="id"
@@ -122,7 +123,7 @@
             customerZf: $("#customerZf").val(),
             customerWx: $("#customerWx").val()
         });
-    })
+    });
 
 
     //$('#dg').datagrid('reload');
@@ -130,6 +131,25 @@
     /*$(document).bind("contextmenu",function(){return false;});
     $(document).bind("selectstart",function(){return false;});
     $(document).keydown(function(){return key(arguments[0])});*/
+
+    /*function exportExcel(){
+        var form = $("<form>");
+        form.attr('style', 'display:none');
+        form.attr('target', '');
+        form.attr('method', 'post');
+        form.attr('action', '${pageContext.request.contextPath}/user/export');
+
+        var input1 = $('<input>');
+        input1.attr('type', 'hidden');
+        input1.attr('name', 'item');
+        input1.attr('value', 'test');      /!* JSON.stringify($.serializeObject($('#searchForm'))) *!/
+
+        $('body').append(form);
+        form.append(input1);
+
+        form.submit();
+        form.remove();
+    }*/
 </script>
 
 </body>

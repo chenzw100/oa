@@ -118,7 +118,11 @@
             type: ''
         });
     }
+    function toExcelServer(target, url){
+        var param = $("#excel").serialize()
+        window.location.href=url+"?1=1&"+param;
 
+    }
     function toExcel(target, param){
         var filename = null;
         var rows = null;
@@ -165,6 +169,11 @@
         toExcel: function(jq, param){
             return jq.each(function(){
                 toExcel(this, param);
+            });
+        },
+        toExcelServer: function(jq, param){
+            return jq.each(function(){
+                toExcelServer(this, param);
             });
         },
         print: function(jq, param){

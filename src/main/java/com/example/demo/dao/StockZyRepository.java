@@ -25,7 +25,7 @@ public interface StockZyRepository extends JpaRepository<StockZy,Long> {
     List<StockZy> findStockZyByPhone(String phone);
     Page<StockZy> findByAndOptIdIsNull(Pageable pageable);
     Page<StockZy> findByAndOptIdIsNotNull(Pageable pageable);
-
+    List<StockZy> findFirst10ByCustomerWx(String wx);
     @Override
     void delete(StockZy stockZy);
 }

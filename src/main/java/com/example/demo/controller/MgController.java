@@ -14,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,7 +49,7 @@ public class MgController {
 
     @RequestMapping("/list.action")
     @ResponseBody
-    public String list(Integer page,Integer rows,StockZy stockZy){
+    public String list(Integer page, Integer rows, StockZy stockZy, ModelMap modelMap){
         String userInfoLevel = WebContent.getUserInfoLevel();
         if(!"管理员".equals(userInfoLevel)){
             stockZy.setOptId(WebContent.getUserId());
@@ -59,17 +60,17 @@ public class MgController {
         map.put("rows",list.getContent());
         return JSON.toJSONString(map);
     }
-    @RequestMapping("exportExcel")
-    public void exportExcel(HttpServletResponse response,Integer page,Integer rows,StockZy stockZy) throws NormalException {
+    @RequestMapping("exportExcel.action")
+    public void exportExcel(HttpServletResponse response,StockZy stockZy) throws NormalException {
 
         String userInfoLevel = WebContent.getUserInfoLevel();
         if(!"管理员".equals(userInfoLevel)){
             stockZy.setOptId(WebContent.getUserId());
         }
-        Page<StockZy> list =stockZyService.findALl(page,rows,stockZy);
+        List<StockZy> export =stockZyService.findExport(stockZy);
 
         //导出操作
-        FileExcelUtil.exportExcel(list.getContent(),"名单","人才数据",StockZy.class,"人才数据.xls",response);
+        FileExcelUtil.exportExcel(export,"名单","人才数据",StockZy.class,"人才数据.xls",response);
     }
     @RequestMapping("/fenpei.action")
     @ResponseBody

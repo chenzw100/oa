@@ -3,6 +3,7 @@ package com.example.demo.domain.table;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -199,5 +200,20 @@ public class StockZy implements Serializable {
                 ", infoLevel='" + infoLevel + '\'' +
                 ", infoDesc='" + infoDesc + '\'' +
                 '}';
+    }
+    public String toExportUrl(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("?temp=1");
+        if(StringUtils.isNotEmpty(customerWx)){
+            sb.append("&customerWx=").append(customerWx);
+        }
+        if(StringUtils.isNotEmpty(customerYx)){
+            sb.append("&customerYx=").append(customerYx);
+        }
+        if(StringUtils.isNotEmpty(customerZf)){
+            sb.append("&customerZf=").append(customerZf);
+        }
+
+        return sb.toString();
     }
 }

@@ -110,5 +110,23 @@ public class StockZyService {
         }
         return null;
     }
+    public List<StockZy> findFirst10(){
+        return stockZyRepository.findFirst10ByCustomerWx("是");
+    }
+    public List<StockZy> findExport(StockZy stockZy){
+        if("".equals(stockZy.getCustomerWx())){
+            stockZy.setCustomerWx(null);
+        }
+        if("".equals(stockZy.getCustomerYx())){
+            stockZy.setCustomerYx(null);
+        }
+        if("".equals(stockZy.getCustomerZf())){
+            stockZy.setCustomerZf(null);
+        }
+        Example<StockZy> example = Example.of(stockZy);
+        List<StockZy> all = stockZyRepository.findAll(example);
+        return all;
+    }
+
 
 }

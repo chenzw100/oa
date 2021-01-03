@@ -9,6 +9,7 @@ import com.example.demo.utils.FileExcelUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +25,7 @@ public class ExcelController {
     public Log log = LogFactory.getLog(ExcelController.class);
     @Autowired
     StockZyService stockZyService;
-    @RequestMapping("export")
+    @RequestMapping("export.action")
     public void export(HttpServletResponse response) throws NormalException {
 
         //模拟从数据库获取需要导出的数据
@@ -41,14 +42,16 @@ public class ExcelController {
         //导出操作
         FileExcelUtil.exportExcel(personList,"花名册","草帽一伙",Person.class,"d:海贼王.xls",response);
     }
-    @RequestMapping("exportExcel")
-    public void exportExcel(HttpServletResponse response) throws NormalException {
+    @RequestMapping("exportExcel.action")
+    public void exportExcel(HttpServletResponse response,StockZy stockZy) throws NormalException {
 
         //模拟从数据库获取需要导出的数据
-        List<StockZy> personList = stockZyService.findAll();
+        //List<StockZy> export = stockZyService.findFirst10();
+        stockZy.setCustomerWx("是");
+        List<StockZy> export =stockZyService.findExport(stockZy);
 
         //导出操作
-        FileExcelUtil.exportExcel(personList,"花名册","草帽一伙",StockZy.class,"海贼王.xls",response);
+        FileExcelUtil.exportExcel(export,"名单","人才数据",StockZy.class,"人才数据.xls",response);
     }
 
     @RequestMapping("import")
