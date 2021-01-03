@@ -77,6 +77,8 @@ public class ExcelController {
             StockZy stockZy1 = stockZyService.findByPhone(stockZy.getPhone());
             if(stockZy1==null){
                 stockZy.setModified(new Date());
+                stockZy.setCustomerZf("否");
+                stockZy.setCalled("否");
                 stockZyService.saveOrUpdate(stockZy);
             }else {
                 System.out.println("改手机好已经存在:"+stockZy.getPhone());

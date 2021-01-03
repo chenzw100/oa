@@ -34,12 +34,16 @@ public class StockZy implements Serializable {
     private String infoLevel;
     @Column(nullable = true,columnDefinition="varchar(1000) COMMENT '描述'")
     private String infoDesc;
+    @Excel(name = "意向客户", orderNum = "5")
     @Column(nullable = true,columnDefinition="varchar(20) COMMENT '意向客户'")
     private String customerYx;
+    @Excel(name = "微信客户", orderNum = "6")
     @Column(nullable = true,columnDefinition="varchar(20) COMMENT '微信客户'")
     private String customerWx;
+    @Excel(name = "作废号码", orderNum = "7")
     @Column(nullable = true,columnDefinition="varchar(20) COMMENT '作废'")
     private String customerZf;
+    @Excel(name = "已拨打", orderNum = "8")
     @Column(nullable = true,columnDefinition="varchar(20) COMMENT '已拨打'")
     private String called;
     @Column(nullable = true,columnDefinition="varchar(20) COMMENT '操作人员'")

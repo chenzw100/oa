@@ -100,12 +100,12 @@ public class MgController {
         stockZy.setModified(new Date());
         if(StringUtils.isNotEmpty(stockZy.getCustomerWx())){
             if(stockZy.getCustomerWx().equals("是")){
-                stockZy.setCustomerZf(null);
+                stockZy.setCustomerZf("否");
             }
         }
         if(StringUtils.isNotEmpty(stockZy.getCustomerYx())){
             if(stockZy.getCustomerYx().equals("是")){
-                stockZy.setCustomerZf(null);
+                stockZy.setCustomerZf("否");
             }
         }
         stockZyService.saveOrUpdate(stockZy);
