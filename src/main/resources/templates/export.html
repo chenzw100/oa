@@ -8,14 +8,14 @@
 </div>
 <div id="mm1" style="width:150px;">
     <a href="/mg/rw.html" class="easyui-linkbutton" plain="true" >分配任务</a>
-    <a href="/mg/index.html" class="easyui-linkbutton" plain="true" >人才资源管理</a>
-    <a href="/user/index.html" class="easyui-linkbutton" plain="true" >员工管理</a>
+    <a href="/mg/mglist.html" class="easyui-linkbutton" plain="true" >人才资源管理</a>
+    <a href="/user/list.html" class="easyui-linkbutton" plain="true" >员工管理</a>
     <a href="/user/password.html" class="easyui-linkbutton" plain="true" >密码管理</a>
     <a href="/import" class="easyui-linkbutton" plain="true" >导入数据</a>
     <a href="/loginout" class="easyui-linkbutton" plain="true" >退出系统</a>
 </div>
-<h2>导入数据</h2>
-<p>重复手机号不会导入</p>
+<h2>导入数据  ---重复手机号不会导入</h2>
+<p th:if="${userId gt 1}"style="color:red">没有导入的权限，联系admin</p>
 
 <div class="easyui-panel" title="Ajax Form" style="width:300px;padding:10px;">
     <form id="ff" action="/importExcel.action" method="post" enctype="multipart/form-data">
@@ -26,7 +26,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" value="导入"></input></td>
+                <td><input th:if="${userId eq 1}"  type="submit" value="导入"></input></td>
             </tr>
         </table>
     </form>

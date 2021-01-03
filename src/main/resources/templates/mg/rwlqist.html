@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>公司人才任务信息</title>
+    <link rel="stylesheet" type="text/css" href="../css/demo.css">
+    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
+</head>
+<body>
+<div style="background:#fafafa;padding:5px;width:200px;border:1px solid #ccc">
+    <a href="#" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">任务菜单</a>
+</div>
+<div id="mm1" style="width:150px;">
+    <a href="/mg/lq.html" class="easyui-linkbutton" plain="true" >任务领取</a>
+    <a href="/mg/geren.html" class="easyui-linkbutton" plain="true" >个人任务</a>
+    <a href="/user/gerenpwd.html" class="easyui-linkbutton" plain="true" >修改密码</a>
+    <a href="/loginout" class="easyui-linkbutton" plain="true" >退出系统</a>
+</div>
+<h2>公司人才任务信息 --- 领取任务</h2>
+<div>
+<div>
+    <div style="padding:5px 0;">
+        <span>未被分配:</span>
+        <select class="easyui-combobox" id="fen" name="fen" style="width:70px;">
+            <option value="是">是</option>
+        </select>
+
+        &nbsp;<a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
+        <a href="#" class="easyui-linkbutton" onclick="getSelections()">领取任务</a>
+    </div>
+
+</div>
+
+<table id="dg" title="人才库" class="easyui-datagrid"  style="width:700px;height:250px"
+       toolbar="#toolbar" pagination="true" idField="id"
+       rownumbers="true" fitColumns="true"  selectOnCheck="true" singleSelect="false">
+    <thead>
+    <tr>
+        <th data-options="field:'ck',checkbox:true"></th>
+        <th data-options="field:'name',align:'center'">姓名</th>
+        <th data-options="field:'phone',align:'center'">电话</th>
+        <th data-options="field:'zy',align:'center'">专业</th>
+        <th data-options="field:'infoCity',align:'center'">城市</th>
+        <th data-options="field:'optName',align:'center'">执行人员</th>
+        <th data-options="field:'customerYx',align:'center'">意向</th>
+        <th data-options="field:'customerWx',align:'center'">微信</th>
+        <th data-options="field:'customerZf',align:'center'">作废号码</th>
+        <th data-options="field:'infoDesc',align:'center',width:50">描述</th>
+        <th data-options="field:'modified',align:'center'">最后操作时间</th>
+    </tr>
+    </thead>
+</table>
+<div style="margin:10px 0;">
+
+</div>
+
+    <input type="hidden" name="ids" id="ids">
+
+    <div id="win" class="easyui-window" data-options="title:'Inline Window',inline:true" style="width:400px;height:350px">
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $('#dg').edatagrid({
+            url:'/mg/fenpei.action',
+            saveUrl: '/mg/updates.action',
+            updateUrl: '/mg/update.action',
+            destroyUrl: '/mg/del.action'
+        });
+        $('#dd').dialog('close');
+        $('#win').window('close');
+    });
+    $("#query").click(function () {
+        $('#dg').datagrid('load', {
+            fen: $("#fen").val()
+        });
+    })
+
+    function getSelected(){
+        var row = $('#dg').datagrid('getSelected');
+        if (row){
+            $.messager.alert('Info', row.itemid+":"+row.productid+":"+row.attr1);
+        }
+    }
+    function getSelections(){
+        var ss = [];
+        var rows = $('#dg').datagrid('getSelections');
+        if(rows.length==0){
+            $.messager.alert('Info', "请选择任务，再进行分配");
+            return;
+        }
+        for(var i=0; i<rows.length; i++){
+            var row = rows[i];
+            ss.push(row.id);
+        }
+        $("#ids").val(ss);
+        $.ajax({
+            type:"POST",  //请求方式   get查询  post增加  put修改   delete删除
+            url:'/mg/updatesByLq.action',//请求路径
+            async:true,  //或false 是否异步
+            data:{ids: $('#ids').val()},
+            timeout:5000,//超时时间
+            dataType:'json',  //返回的数据格式：json/xml/html/script/jsonp/text
+            success:function(data){
+                $.messager.confirm('Info', "领取成功，请到个人任务查看",function () {
+                    window.location.href="/mg/lq.html";
+                });
+            },
+            error:function(error){
+                $.messager.alert('Info', "领取失败");
+            }
+
+        })
+    }
+
+</script>
+
+</body>
+</html>

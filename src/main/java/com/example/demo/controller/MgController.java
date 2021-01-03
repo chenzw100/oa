@@ -34,13 +34,18 @@ public class MgController {
     @Autowired
     UserService userService;
     @RequestMapping("/mglist.html")
-    public String index(){
+    public String index(ModelMap modelMap){
+        modelMap.put("userId",WebContent.getUserId());
         return "mg/mglist";
     }
 
     @RequestMapping("/rw.html")
     public String rw(){
         return "mg/rwlist";
+    }
+    @RequestMapping("/lq.html")
+    public String lq(){
+        return "mg/rwlqist";
     }
     @RequestMapping("/geren.html")
     public String geren(){
@@ -49,7 +54,7 @@ public class MgController {
 
     @RequestMapping("/list.action")
     @ResponseBody
-    public String list(Integer page, Integer rows, StockZy stockZy, ModelMap modelMap){
+    public String list(Integer page, Integer rows, StockZy stockZy){
         String userInfoLevel = WebContent.getUserInfoLevel();
         if(!"管理员".equals(userInfoLevel)){
             stockZy.setOptId(WebContent.getUserId());
@@ -58,6 +63,7 @@ public class MgController {
         Map map = new HashMap<>();
         map.put("total",list.getTotalElements());
         map.put("rows",list.getContent());
+
         return JSON.toJSONString(map);
     }
     @RequestMapping("exportExcel.action")
@@ -114,6 +120,23 @@ public class MgController {
             db.setOptId(userId);
             User u = userService.getById(userId);
             db.setOptName(u.getName());
+            db.setFenDate(new Date());
+            stockZyService.saveOrUpdate(db);
+        }
+        Map map = new HashMap();
+        map.put("200","success");
+        return map;
+    }
+    @RequestMapping("/updatesByLq.action")
+    @ResponseBody
+    public Map updatesByLq(String[] ids){
+        for(String id :ids){
+            StockZy db =stockZyService.getById(Long.parseLong(id));
+            if(db.getOptId()!=null){
+                continue;
+            }
+            db.setOptId(WebContent.getUserId());
+            db.setOptName(WebContent.getUserName());
             db.setFenDate(new Date());
             stockZyService.saveOrUpdate(db);
         }

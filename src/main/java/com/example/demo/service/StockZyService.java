@@ -41,8 +41,8 @@ public class StockZyService {
         if("".equals(stockZy.getCustomerZf())){
             stockZy.setCustomerZf(null);
         }
-        Sort.Order order = new Sort.Order(Sort.Direction.DESC,"id");
-        Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"name");
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC,"fenDate");
+        Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"id");
         //如果有多个排序条件 建议使用此种方式 使用 Sort.by 替换之前的  new Sort();
         Sort sort = Sort.by(order,order1);
         //使用 PageRequest.of 替代之前的 new PageRequest();
@@ -92,8 +92,8 @@ public class StockZyService {
         if("".equals(stockZy.getCustomerZf())){
             stockZy.setCustomerZf(null);
         }
-        Sort.Order order = new Sort.Order(Sort.Direction.DESC,"id");
-        Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"name");
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC,"fenDate");
+        Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"id");
         //如果有多个排序条件 建议使用此种方式 使用 Sort.by 替换之前的  new Sort();
         Sort sort = Sort.by(order,order1);
         //使用 PageRequest.of 替代之前的 new PageRequest();

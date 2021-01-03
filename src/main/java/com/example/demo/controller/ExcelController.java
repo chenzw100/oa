@@ -6,11 +6,13 @@ import com.example.demo.domain.table.StockZy;
 import com.example.demo.exception.NormalException;
 import com.example.demo.service.StockZyService;
 import com.example.demo.utils.FileExcelUtil;
+import com.example.demo.utils.WebContent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,7 +57,8 @@ public class ExcelController {
     }
 
     @RequestMapping("import")
-    public String export()  {
+    public String export(ModelMap modelMap)  {
+        modelMap.put("userId", WebContent.getUserId());
         return "export";
     }
 
