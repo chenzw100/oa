@@ -48,9 +48,9 @@ public class ExcelController {
     public void exportExcel(HttpServletResponse response,StockZy stockZy) throws NormalException {
 
         //模拟从数据库获取需要导出的数据
-        //List<StockZy> export = stockZyService.findFirst10();
-        stockZy.setCustomerWx("是");
-        List<StockZy> export =stockZyService.findExport(stockZy);
+        List<StockZy> export = stockZyService.findFirst10();
+        //stockZy.setCustomerWx("是");
+        //List<StockZy> export =stockZyService.findExport(stockZy);
 
         //导出操作
         FileExcelUtil.exportExcel(export,"名单","人才数据",StockZy.class,"人才数据.xls",response);

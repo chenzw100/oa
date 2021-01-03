@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
+ * INSERT INTO `my`.`my_user`(`id`, `enable`, `info_level`, `name`, `password`, `phone`) VALUES (1, '启用', '管理员', 'admin', 'DC483E80A7A0BD9EF71D8CF973673924', '1234567899');
  */
 @Entity(name="my_user")
 public class User implements Serializable {
