@@ -5,6 +5,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.HashMap;
 
@@ -20,6 +22,10 @@ public class BaseService {
 
     public Object getRequest(String url){
         return requestUtils.request(url);
+    }
+    public Object postRequest(String url,MultiValueMap<String, String> requestBody){
+
+        return requestUtils.post(url,requestBody);
     }
 
 }
