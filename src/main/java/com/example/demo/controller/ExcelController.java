@@ -7,6 +7,7 @@ import com.example.demo.exception.NormalException;
 import com.example.demo.service.StockZyService;
 import com.example.demo.utils.FileExcelUtil;
 import com.example.demo.utils.WebContent;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,8 +73,13 @@ public class ExcelController {
        //List<Person> personList = FileExcelUtil.importExcel(file, Person.class);
        List<StockZy> personList = FileExcelUtil.importExcel(file, StockZy.class);
         System.out.println("导入数据一共【"+personList.size()+"】行");
-
+        int i =0;
         for(StockZy stockZy :personList){
+            i++;
+            System.out.println(i+"《===============第，导入数据的电话【"+stockZy.getPhone()+"】");
+            if(StringUtils.isEmpty(stockZy.getName())){
+                System.out.println(i+"《===============第，导入数据的电话【"+stockZy.getPhone()+"】，没有姓名信息");
+            }
             StockZy stockZy1 = stockZyService.findByPhone(stockZy.getPhone());
             if(stockZy1==null){
                 stockZy.setModified(new Date());
@@ -81,7 +87,7 @@ public class ExcelController {
                 stockZy.setCalled("否");
                 stockZyService.saveOrUpdate(stockZy);
             }else {
-                System.out.println("改手机好已经存在:"+stockZy.getPhone());
+                System.out.println("==========================【改手机好已经存在:"+stockZy.getPhone());
             }
         }
         //TODO 保存数据库

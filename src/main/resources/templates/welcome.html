@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head :: header"></div>
+<body>
+<h2>Auto Height for Layout</h2>
+<p>This example shows how to auto adjust layout height after dynamically adding items.</p>
+
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'north'" style="height:100px">
+        <table id="part1"></table>
+    </div>
+    <div data-options="region:'west'" style="width:150px;">
+        <div th:include="treeMenu :: menuTree"></div>
+    </div>
+    <div data-options="region:'center'">
+        <table id="part2"></table>
+    </div>
+</div>
+<div th:include="footer :: copyright"></div>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

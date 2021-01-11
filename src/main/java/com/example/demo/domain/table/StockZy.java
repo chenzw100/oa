@@ -19,7 +19,7 @@ public class StockZy implements Serializable {
     @GeneratedValue
     private Long id;
     @Excel(name = "姓名", orderNum = "0")
-    @Column(nullable = false,columnDefinition="varchar(50) COMMENT '姓名'")
+    @Column(nullable = true,columnDefinition="varchar(50) COMMENT '姓名'")
     private String name;
     @Excel(name = "专业", orderNum = "2")
     @Column(nullable = true,columnDefinition="varchar(100) COMMENT '专业'")
@@ -28,7 +28,7 @@ public class StockZy implements Serializable {
     @Excel(name = "地区", orderNum = "4")
     private String infoCity;
     @Excel(name = "电话", orderNum = "1")
-    @Column(nullable = false,columnDefinition="varchar(100) COMMENT '电话'")
+    @Column(nullable = true,columnDefinition="varchar(100) COMMENT '电话'")
     private String phone;
     @Column(nullable = true,columnDefinition="varchar(10) COMMENT '级别'")
     private String infoLevel;
@@ -46,9 +46,9 @@ public class StockZy implements Serializable {
     @Excel(name = "已拨打", orderNum = "8")
     @Column(nullable = true,columnDefinition="varchar(20) COMMENT '已拨打'")
     private String called;
-    @Column(nullable = true,columnDefinition="varchar(20) COMMENT '操作人员'")
+    @Column(nullable = true,columnDefinition="COMMENT '操作人员'")
     private Long optId;
-    @Column(nullable = true,columnDefinition="varchar(20) COMMENT '操作人员'")
+    @Column(nullable = true,columnDefinition="varchar(40) COMMENT '操作人员'")
     private String optName;
     @Transient
     private String fen;
