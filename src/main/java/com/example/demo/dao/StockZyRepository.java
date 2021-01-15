@@ -5,6 +5,8 @@ import com.example.demo.domain.table.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -28,4 +30,7 @@ public interface StockZyRepository extends JpaRepository<StockZy,Long> {
     List<StockZy> findFirst10ByCustomerWx(String wx);
     @Override
     void delete(StockZy stockZy);
+    @Modifying
+    @Query(value=" DELETE FROM stock_zy WHERE id in(SELECT id FROM (select id,phone,count(*) as count from stock_zy group by phone having count>1) temp)", nativeQuery = true)
+    public Integer repeatDelete();
 }

@@ -6,6 +6,7 @@ import com.example.demo.domain.table.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -129,6 +130,11 @@ public class StockZyService {
         Example<StockZy> example = Example.of(stockZy);
         List<StockZy> all = stockZyRepository.findAll(example);
         return all;
+    }
+
+    @Transactional
+    public Integer repeatDelete(){
+        return stockZyRepository.repeatDelete();
     }
 
 

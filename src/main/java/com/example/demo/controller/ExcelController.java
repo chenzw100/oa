@@ -87,7 +87,7 @@ public class ExcelController {
                 stockZy.setCalled("否");
                 stockZyService.saveOrUpdate(stockZy);
             }else {
-                System.out.println("==========================【改手机好已经存在:"+stockZy.getPhone());
+                System.out.println("==========================【该手机好已经存在:"+stockZy.getPhone());
             }
         }
         //TODO 保存数据库
@@ -103,6 +103,12 @@ public class ExcelController {
 
 
         //TODO 保存数据库
+    }
+    @ResponseBody
+    @RequestMapping("repeatDelete.action")
+    public String repeatDelete() {
+        Integer count = stockZyService.repeatDelete();
+        return "clean_count:"+count;
     }
 
 }
