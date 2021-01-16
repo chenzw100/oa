@@ -72,6 +72,8 @@
 <script type="text/javascript">
     $(function(){
         $('#dg').edatagrid({
+            pageSize:100,
+            pageList:[100,500,1000,1200],
             url:'/mg/fenpei.action',
             saveUrl: '/mg/updates.action',
             updateUrl: '/mg/update.action',

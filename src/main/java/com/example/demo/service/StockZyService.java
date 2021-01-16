@@ -137,5 +137,10 @@ public class StockZyService {
         return stockZyRepository.repeatDelete();
     }
 
+    @Transactional
+    public Integer fenPei(Long userId,String optName,Long[] ids){
+        return stockZyRepository.fenPei(userId,optName,ids);
+    }
+
 
 }

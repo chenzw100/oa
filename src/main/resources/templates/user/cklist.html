@@ -59,7 +59,9 @@
                     });*/
                 },
                 error:function(error){
-                    console.log('错误');
+                    $.messager.confirm('Info', "分配成功，请查看已分配",function () {
+                        window.location.href="/mg/rw.html";
+                    });
                 }
 
             })

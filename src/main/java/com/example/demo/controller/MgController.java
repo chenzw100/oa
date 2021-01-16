@@ -113,16 +113,18 @@ public class MgController {
     }
     @RequestMapping("/updates.action")
     @ResponseBody
-    public Map updates(String[] ids, Long userId){
+    public Map updates(Long[] ids, Long userId){
 
-        for(String id :ids){
+        /*for(String id :ids){
             StockZy db =stockZyService.getById(Long.parseLong(id));
             db.setOptId(userId);
             User u = userService.getById(userId);
             db.setOptName(u.getName());
             db.setFenDate(new Date());
             stockZyService.saveOrUpdate(db);
-        }
+        }*/
+        User u = userService.getById(userId);
+        stockZyService.fenPei(userId,u.getName(),ids);
         Map map = new HashMap();
         map.put("200","success");
         return map;

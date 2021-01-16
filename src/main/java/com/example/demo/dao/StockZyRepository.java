@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,4 +34,7 @@ public interface StockZyRepository extends JpaRepository<StockZy,Long> {
     @Modifying
     @Query(value=" DELETE FROM stock_zy WHERE id in(SELECT id FROM (select id,phone,count(*) as count from stock_zy group by phone having count>1) temp)", nativeQuery = true)
     public Integer repeatDelete();
+    @Modifying
+    @Query(value=" UPDATE stock_zy set opt_id=?1,opt_name=?2,fen_date=now() WHERE id in ?3 ", nativeQuery = true)
+    public Integer fenPei(Long optId, String optName,Long[] ids);
 }
