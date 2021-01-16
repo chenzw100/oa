@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dao.StockZyRepository;
 import com.example.demo.domain.table.StockZy;
 import com.example.demo.domain.table.User;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
@@ -33,6 +34,9 @@ public class StockZyService {
             pageSize=10;
         }
         pageNumber--;
+        if("".equals(stockZy.getOptName())){
+            stockZy.setOptName(null);
+        }
         if("".equals(stockZy.getCustomerWx())){
             stockZy.setCustomerWx(null);
         }
@@ -81,7 +85,7 @@ public class StockZyService {
         return null;
     }
 
-    public Page<StockZy> findAllAndOptIdIsNotNull(Integer pageNumber,Integer pageSize,StockZy stockZy){
+    public Page<StockZy> fenpeiList(Integer pageNumber,Integer pageSize,StockZy stockZy){
         if(pageNumber==null || pageNumber<0){
             pageNumber=1;
             pageSize=10;
@@ -96,6 +100,7 @@ public class StockZyService {
         if("".equals(stockZy.getCustomerZf())){
             stockZy.setCustomerZf(null);
         }
+
         Sort.Order order = new Sort.Order(Sort.Direction.DESC,"fenDate");
         Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"id");
         //如果有多个排序条件 建议使用此种方式 使用 Sort.by 替换之前的  new Sort();
@@ -108,9 +113,15 @@ public class StockZyService {
          */
         Pageable pageable = PageRequest.of(pageNumber,pageSize,sort);
         if("是".equals(stockZy.getFen())){
-            return stockZyRepository.findByAndOptIdIsNull(pageable);
+            if(StringUtils.isEmpty(stockZy.getZy())){
+                return  stockZyRepository.findByAndOptIdIsNull(pageable);
+            }
+            return stockZyRepository.findByAndOptIdIsNullAndZyContaining(stockZy.getZy(),pageable);
         }else if("否".equals(stockZy.getFen())){
-            return stockZyRepository.findByAndOptIdIsNotNull(pageable);
+            if(StringUtils.isEmpty(stockZy.getZy())){
+                return stockZyRepository.findByAndOptIdIsNotNull(pageable);
+            }
+            return stockZyRepository.findByAndOptIdIsNotNullAndZyContaining(stockZy.getZy(),pageable);
         }
         return null;
     }

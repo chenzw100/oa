@@ -32,7 +32,7 @@
             <option value="是">是</option>
             <option value="否">否</option>
         </select>
-
+        专业:<input class="easyui-textbox" type="text"  name="zy" id="zy" >
         &nbsp;<a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
         <a href="#" class="easyui-linkbutton" onclick="getSelections()">任务分配</a>
     </div>
@@ -73,7 +73,7 @@
     $(function(){
         $('#dg').edatagrid({
             pageSize:100,
-            pageList:[100,500,1000,1200],
+            pageList:[100,500,1000,1500],
             url:'/mg/fenpei.action',
             saveUrl: '/mg/updates.action',
             updateUrl: '/mg/update.action',
@@ -84,7 +84,8 @@
     });
     $("#query").click(function () {
         $('#dg').datagrid('load', {
-            fen: $("#fen").val()
+            fen: $("#fen").val(),
+            zy:$("#zy").val()
         });
     })
 

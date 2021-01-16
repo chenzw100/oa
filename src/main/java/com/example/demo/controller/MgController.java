@@ -88,7 +88,7 @@ public class MgController {
         if(stockZy.getFen() == null){
             stockZy.setFen("是");
         }
-        Page<StockZy> list =stockZyService.findAllAndOptIdIsNotNull(page,rows,stockZy);
+        Page<StockZy> list =stockZyService.fenpeiList(page,rows,stockZy);
         Map map = new HashMap<>();
         map.put("total",list.getTotalElements());
         map.put("rows",list.getContent());
