@@ -64,4 +64,17 @@ public class RequestUtils {
         System.out.println(response);
         return response;
     }
+    public Object post(String url,MultiValueMap<String, String>requestBody,HttpHeaders requestHeaders){
+       // StringHttpMessageConverter converter = new StringHttpMessageConverter(Charset.forName("utf-8"));
+       // restTemplate.setMessageConverters(Collections.singletonList(converter));
+        //HttpEntity
+        HttpEntity<MultiValueMap> requestEntity = new HttpEntity<MultiValueMap>(requestBody, requestHeaders);
+        Object o = restTemplate.postForObject(url, requestEntity, String.class);
+        System.out.println(o.toString());
+        //post
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
+        String response = responseEntity.getBody();
+        System.out.println(response);
+        return response;
+    }
 }

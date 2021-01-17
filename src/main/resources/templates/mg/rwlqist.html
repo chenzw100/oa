@@ -120,6 +120,41 @@
         })
     }
 
+    function f() {
+        $.ajax({
+            type:"POST",  //请求方式   get查询  post增加  put修改   delete删除
+            url:'https://www.jiansheku.com/api/jsk/enterprise/search',//请求路径
+            async:true,  //或false 是否异步
+            data:{pageIndex: 199, pageSize: 10, orderFlag: 0},
+            dataType:'json',  //返回的数据格式：json/xml/html/script/jsonp/text
+            success:function(data){
+                console.log("success:"+data);
+            },
+            error:function(error){
+                console.log("error:"+error);
+            }
+
+        })
+    }
+    function crawler(db){
+        var valizs = 'B%YGZ1P64Iu'
+        var dusbyd = 'oX14b*VP3&o'
+        var dsacxe = ' e#&h#oKw%3'
+        var txs = valizs+dusbyd+dsacxe.trim() //第三个key
+        return toItem(txs, confusion(db))
+    }
+    function ShowValty() {
+        $('#btnGetVerfycode').attr("disabled", false);
+        $('#btnGetVerfycode').removeClass("disabled");
+    }
+    function toItem(key, dsb){
+        var dsb = dsb
+        var secret = key
+        dsb = dsb + secret;
+        //"orderFlag=0&pageIndex=199&pageSize=10&cwZ2VEdOID7#oidiOJOptMJp&RrQ$2%o"
+        dsb = hex_md5(dsb);
+        return dsb;
+    }
 </script>
 
 </body>

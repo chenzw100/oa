@@ -4,6 +4,7 @@ import com.example.demo.utils.RequestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -26,6 +27,10 @@ public class BaseService {
     public Object postRequest(String url,MultiValueMap<String, String> requestBody){
 
         return requestUtils.post(url,requestBody);
+    }
+    public Object postRequest(String url, MultiValueMap<String, String>requestBody, HttpHeaders requestHeaders){
+
+        return requestUtils.post(url,requestBody,requestHeaders);
     }
 
 }
