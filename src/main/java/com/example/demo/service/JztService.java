@@ -69,7 +69,9 @@ public class JztService {
             companyInfo.setName(name);
             if(list.size()>0){
                 companyInfo=list.get(0);
-                companyInfo.setZy(companyInfo.getZy()+"_"+namezy);
+                if(companyInfo.getZy().length()<1999){
+                    companyInfo.setZy(companyInfo.getZy()+"_"+namezy);
+                }
                 System.out.println("=========================================》》已存在的公司 aname = [" + name + "]");
             }else {
                 companyInfo.setZy(namezy+"_一级及以上");
