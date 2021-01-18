@@ -1,0 +1,74 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>公司人才信息</title>
+    <link rel="stylesheet" type="text/css" href="../css/demo.css">
+    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
+    <script type="text/javascript" src="../js/datagrid-export.js"></script>
+</head>
+<body>
+<div style="background:#fafafa;padding:5px;width:200px;border:1px solid #ccc">
+    <a href="#" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">操作菜单</a>
+</div>
+<div id="mm1" style="width:150px;">
+    <a href="/mg/rw.html" class="easyui-linkbutton" plain="true" >分配任务</a>
+    <a href="/mg/mglist.html" class="easyui-linkbutton" plain="true" >人才资源管理</a>
+    <a href="/user/list.html" class="easyui-linkbutton" plain="true" >员工管理</a>
+    <a href="/user/password.html" class="easyui-linkbutton" plain="true" >密码管理</a>
+    <a href="/import" class="easyui-linkbutton" plain="true" >导入数据</a>
+    <a href="/loginout" class="easyui-linkbutton" plain="true" >退出系统</a>
+</div>
+<h2>公司人才信息 -- 公司数据</h2>
+<div>
+    <form id="excel" action="/company/exportExcel.action" method="post">
+        <input type="hidden" id="userId" th:value="${userId}">
+        <!--<p style="color:red" th:text="${userId}"  th:if="${not #strings.isEmpty(userId)}"></p>-->
+    <div style="padding:5px 0;">
+        公司名称:<input class="easyui-textbox" type="text"  name="optName" id="optName" >
+        &nbsp;<a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
+        <a href="javascript:;" th:if="${userId eq 1}" class="easyui-linkbutton" onclick="$('#dg').datagrid('toExcelServer','/company/exportExcel.action')">导出查询结果</a>
+    </div>
+    </form>
+</div>
+<table id="dg" title="人才库"
+       toolbar="#toolbar" pagination="true" idField="id"
+       rownumbers="true" fitColumns="true" singleSelect="true">
+    <thead>
+    <tr>
+        <th data-options="field:'name',align:'center'">姓名</th>
+        <th data-options="field:'zy',align:'center'">专业</th>
+    </tr>
+    </thead>
+</table>
+<div id="toolbar">
+    <!--<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">New</a>-->
+<!--    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">删除</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>-->
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">取消</a>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $('#dg').edatagrid({
+            url:'/company/list.action',
+            saveUrl: '/mg/save.action',
+            updateUrl: '/mg/update.action',
+            destroyUrl: '/mg/destroy.action'
+        });
+    });
+    $("#query").click(function () {
+        $('#dg').datagrid('load', {
+            name: $("#optName").val()
+        });
+    });
+
+</script>
+
+</body>
+</html>

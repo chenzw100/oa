@@ -19,7 +19,7 @@ public class CompanyInfo implements Serializable {
     @Column(nullable = true,columnDefinition="varchar(500) COMMENT '公司'")
     private String name;
     @Excel(name = "专业", orderNum = "2")
-    @Column(nullable = true,columnDefinition="varchar(1000) COMMENT '专业'")
+    @Column(nullable = true,columnDefinition="varchar(2000) COMMENT '专业'")
     private String zy;
 
     public Long getId() {

@@ -70,10 +70,10 @@ public class JztService {
             if(list.size()>0){
                 companyInfo=list.get(0);
                 companyInfo.setZy(companyInfo.getZy()+"_"+namezy);
-                System.out.println("=========================================》》已存在 aname = [" + name + "]");
+                System.out.println("=========================================》》已存在的公司 aname = [" + name + "]");
             }else {
-                companyInfo.setZy("专业承包_"+namezy+"_一级及以上");
-                System.out.println("--- [" + name + "]");
+                companyInfo.setZy(namezy+"_一级及以上");
+                System.out.println("------新记录--- [" + name + "]");
             }
             companyInfoRepository.save(companyInfo);
         }
