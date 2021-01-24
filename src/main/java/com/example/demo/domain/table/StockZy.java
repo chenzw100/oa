@@ -4,7 +4,6 @@ import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -46,18 +45,18 @@ public class StockZy implements Serializable {
     @Excel(name = "已拨打", orderNum = "8")
     @Column(nullable = true,columnDefinition="varchar(20) COMMENT '已拨打'")
     private String called;
-    @Column(nullable = true,columnDefinition="COMMENT '操作人员'")
+    @Column(nullable = true,columnDefinition="bigint(20) COMMENT '操作人员'")
     private Long optId;
     @Column(nullable = true,columnDefinition="varchar(40) COMMENT '操作人员'")
     private String optName;
     @Transient
     private String fen;
-    @Column(nullable = true,columnDefinition="COMMENT '更新时间'")
+    @Column(nullable = true,columnDefinition="datetime COMMENT '更新时间'")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date modified;
-    @Column(nullable = true,columnDefinition="COMMENT '分配时间'")
+    @Column(nullable = true,columnDefinition="datetime COMMENT '分配时间'")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

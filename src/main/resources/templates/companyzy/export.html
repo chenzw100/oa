@@ -21,13 +21,10 @@
     <a href="/company/list.html" class="easyui-linkbutton" plain="true" >资质公司数据</a>
     <a href="/companyzy/import" class="easyui-linkbutton" plain="true" >导入公司数据</a>
 </div>
-<h2>导入数据  ---重复手机号不会导入</h2>
+<h2>公司导入数据  </h2>
 <p th:if="${userId gt 1}"style="color:red">没有导入的权限，联系admin</p>
-<div style="margin:20px 0;">
-    <a href="#" id="repeatDelete" class="easyui-linkbutton" >清除重复数据</a>
-</div>
 <div class="easyui-panel" title="Ajax Form" style="width:300px;padding:10px;">
-    <form id="ff" action="/importExcel.action" method="post" enctype="multipart/form-data">
+    <form id="ff" action="/companyzy/importExcel.action" method="post" enctype="multipart/form-data">
         <table>
             <tr>
                 <td>File:</td>

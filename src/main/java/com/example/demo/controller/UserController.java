@@ -34,6 +34,11 @@ public class UserController {
         return "user/cklist";
     }
 
+    @RequestMapping("/ckcompany.html")
+    public String ckcompany(){
+        return "user/ckcompany";
+    }
+
     @RequestMapping("/password.html")
     public String password(){
         return "user/password";

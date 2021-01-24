@@ -24,6 +24,16 @@ public class User implements Serializable {
     private String password;
     @Column(nullable = true,columnDefinition="varchar(10) COMMENT '可用'")
     private String enable;
+    @Column(nullable = true,columnDefinition="varchar(10) COMMENT '部门'")
+    private String depName;
+
+    public String getDepName() {
+        return depName;
+    }
+
+    public void setDepName(String depName) {
+        this.depName = depName;
+    }
 
     public String getEnable() {
         return enable;

@@ -30,7 +30,7 @@
     <a href="/company/list.html" class="easyui-linkbutton" plain="true" >资质公司数据</a>
     <a href="/companyzy/import" class="easyui-linkbutton" plain="true" >导入公司数据</a>
 </div>
-<h2>人才任务信息 --- 分配任务</h2>
+<h2>公司信息 --- 分配任务</h2>
 <div>
 <div>
     <div style="padding:5px 0;">
@@ -53,9 +53,8 @@
     <tr>
         <th data-options="field:'ck',checkbox:true"></th>
         <th data-options="field:'name',align:'center'">姓名</th>
-        <th data-options="field:'phone',align:'center'">电话</th>
+        <th data-options="field:'phoneOne',align:'center'">电话</th>
         <th data-options="field:'zy',align:'center'">专业</th>
-        <th data-options="field:'infoCity',align:'center'">城市</th>
         <th data-options="field:'optName',align:'center'">执行人员</th>
         <th data-options="field:'customerYx',align:'center'">意向</th>
         <th data-options="field:'customerWx',align:'center'">微信</th>
@@ -81,10 +80,10 @@
         $('#dg').edatagrid({
             pageSize:100,
             pageList:[100,500,1000,1500],
-            url:'/mg/fenpei.action',
-            saveUrl: '/mg/updates.action',
-            updateUrl: '/mg/update.action',
-            destroyUrl: '/mg/del.action'
+            url:'/companyzy/fenpei.action',
+            saveUrl: '/companyzy/updates.action',
+            updateUrl: '/companyzy/update.action',
+            destroyUrl: '/companyzy/del.action'
         });
         $('#dd').dialog('close');
         $('#win').window('close');
@@ -116,7 +115,7 @@
         $("#ids").val(ss);
         debugger;
         $('#win').window('open');
-        $('#win').window('refresh', '/user/ck.html');
+        $('#win').window('refresh', '/user/ckcompany.html');
     }
 
 </script>
