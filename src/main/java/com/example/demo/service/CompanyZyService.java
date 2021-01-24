@@ -118,17 +118,20 @@ public class CompanyZyService {
     public List<CompanyZy> findFirst10(){
         return companyZyRepository.findFirst10ByCustomerWx("是");
     }
-    public List<CompanyZy> findExport(CompanyZy CompanyZy){
-        if("".equals(CompanyZy.getCustomerWx())){
-            CompanyZy.setCustomerWx(null);
+    public List<CompanyZy> findExport(CompanyZy companyZy){
+        if("".equals(companyZy.getCustomerWx())){
+            companyZy.setCustomerWx(null);
         }
-        if("".equals(CompanyZy.getCustomerYx())){
-            CompanyZy.setCustomerYx(null);
+        if("".equals(companyZy.getCustomerYx())){
+            companyZy.setCustomerYx(null);
         }
-        if("".equals(CompanyZy.getCustomerZf())){
-            CompanyZy.setCustomerZf(null);
+        if("".equals(companyZy.getCustomerZf())){
+            companyZy.setCustomerZf(null);
         }
-        Example<CompanyZy> example = Example.of(CompanyZy);
+        if("".equals(companyZy.getOptName())){
+            companyZy.setOptName(null);
+        }
+        Example<CompanyZy> example = Example.of(companyZy);
         List<CompanyZy> all = companyZyRepository.findAll(example);
         return all;
     }

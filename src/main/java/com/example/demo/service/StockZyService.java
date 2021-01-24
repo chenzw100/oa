@@ -130,6 +130,9 @@ public class StockZyService {
         if("".equals(stockZy.getCustomerZf())){
             stockZy.setCustomerZf(null);
         }
+        if("".equals(stockZy.getOptName())){
+            stockZy.setOptName(null);
+        }
         Example<StockZy> example = Example.of(stockZy);
         List<StockZy> all = stockZyRepository.findAll(example);
         return all;

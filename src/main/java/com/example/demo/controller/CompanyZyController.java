@@ -31,7 +31,7 @@ import java.util.Map;
 public class CompanyZyController {
     public Log log = LogFactory.getLog(CompanyZyController.class);
     @Autowired
-    CompanyZyService stockZyService;
+    CompanyZyService companyZyService;
     @Autowired
     UserService userService;
     @RequestMapping("/list.html")
@@ -59,7 +59,7 @@ public class CompanyZyController {
         if(!"管理员".equals(userInfoLevel)){
             stockZy.setOptId(WebContent.getUserId());
         }
-        Page<CompanyZy> list =stockZyService.findALl(page,rows,stockZy);
+        Page<CompanyZy> list =companyZyService.findALl(page,rows,stockZy);
         Map map = new HashMap<>();
         map.put("total",list.getTotalElements());
         map.put("rows",list.getContent());
@@ -73,7 +73,7 @@ public class CompanyZyController {
         if(!"管理员".equals(userInfoLevel)){
             stockZy.setOptId(WebContent.getUserId());
         }
-        List<CompanyZy> export =stockZyService.findExport(stockZy);
+        List<CompanyZy> export =companyZyService.findExport(stockZy);
 
         //导出操作
         FileExcelUtil.exportExcel(export,"名单","资质公司数据",CompanyZy.class,"资质公司数据.xls",response);
@@ -88,7 +88,7 @@ public class CompanyZyController {
         if(stockZy.getFen() == null){
             stockZy.setFen("是");
         }
-        Page<CompanyZy> list =stockZyService.fenpeiList(page,rows,stockZy);
+        Page<CompanyZy> list =companyZyService.fenpeiList(page,rows,stockZy);
         Map map = new HashMap<>();
         map.put("total",list.getTotalElements());
         map.put("rows",list.getContent());
@@ -96,19 +96,19 @@ public class CompanyZyController {
     }
     @RequestMapping(value = "/update.action",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public String update(CompanyZy stockZy){
-        stockZy.setModified(new Date());
-        if(StringUtils.isNotEmpty(stockZy.getCustomerWx())){
-            if(stockZy.getCustomerWx().equals("是")){
-                stockZy.setCustomerZf("否");
+    public String update(CompanyZy companyZy){
+        companyZy.setModified(new Date());
+        if(StringUtils.isNotEmpty(companyZy.getCustomerWx())){
+            if(companyZy.getCustomerWx().equals("是")){
+                companyZy.setCustomerZf("否");
             }
         }
-        if(StringUtils.isNotEmpty(stockZy.getCustomerYx())){
-            if(stockZy.getCustomerYx().equals("是")){
-                stockZy.setCustomerZf("否");
+        if(StringUtils.isNotEmpty(companyZy.getCustomerYx())){
+            if(companyZy.getCustomerYx().equals("是")){
+                companyZy.setCustomerZf("否");
             }
         }
-        stockZyService.saveOrUpdate(stockZy);
+        companyZyService.saveOrUpdate(companyZy);
         return "success";
     }
     @RequestMapping("/updates.action")
@@ -117,7 +117,7 @@ public class CompanyZyController {
 
 
         User u = userService.getById(userId);
-        stockZyService.fenPei(userId,u.getName(),ids);
+        companyZyService.fenPei(userId,u.getName(),ids);
         Map map = new HashMap();
         map.put("200","success");
         return map;
@@ -126,14 +126,14 @@ public class CompanyZyController {
     @ResponseBody
     public Map updatesByLq(String[] ids){
         for(String id :ids){
-            CompanyZy db =stockZyService.getById(Long.parseLong(id));
+            CompanyZy db =companyZyService.getById(Long.parseLong(id));
             if(db.getOptId()!=null){
                 continue;
             }
             db.setOptId(WebContent.getUserId());
             db.setOptName(WebContent.getUserName());
             db.setFenDate(new Date());
-            stockZyService.saveOrUpdate(db);
+            companyZyService.saveOrUpdate(db);
         }
         Map map = new HashMap();
         map.put("200","success");
@@ -143,7 +143,7 @@ public class CompanyZyController {
     @ResponseBody
     public String destroy(CompanyZy stockZy){
         stockZy.setModified(new Date());
-        stockZyService.delete(stockZy);
+        companyZyService.delete(stockZy);
         return "success";
     }
 
@@ -159,7 +159,7 @@ public class CompanyZyController {
             if(StringUtils.isEmpty(stockZy.getName())){
                 System.out.println(i+"《===============第，导入数据的电话【"+stockZy.getName()+"】，没有公司名称信息");
             }
-            stockZyService.saveOrUpdate(stockZy);
+            companyZyService.saveOrUpdate(stockZy);
 
         }
         return "导入数据一共【"+personList.size()+"】行";
