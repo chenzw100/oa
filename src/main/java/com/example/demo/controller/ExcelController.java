@@ -85,9 +85,13 @@ public class ExcelController {
                 stockZy.setModified(new Date());
                 stockZy.setCustomerZf("否");
                 stockZy.setCalled("否");
-                stockZyService.saveOrUpdate(stockZy);
+                try {
+                    stockZyService.saveOrUpdate(stockZy);
+                }catch (Exception e){
+                    log.error("失败，可能重复"+e.getMessage(),e);
+                }
             }else {
-                System.out.println("==========================【该手机好已经存在:"+stockZy.getPhone());
+                log.info("==========================【该手机好已经存在:"+stockZy.getPhone());
             }
         }
         //TODO 保存数据库

@@ -153,13 +153,23 @@ public class CompanyZyController {
         List<CompanyZy> personList = FileExcelUtil.importExcel(file, CompanyZy.class);
         System.out.println("导入数据一共【"+personList.size()+"】行");
         int i =0;
-        for(CompanyZy stockZy :personList){
+        for(CompanyZy companyZy :personList){
             i++;
-            System.out.println(i+"《===============第，导入数据的电话【"+stockZy.getName()+"】");
-            if(StringUtils.isEmpty(stockZy.getName())){
-                System.out.println(i+"《===============第，导入数据的电话【"+stockZy.getName()+"】，没有公司名称信息");
+            System.out.println(i+"《===============第，导入数据的公司【"+companyZy.getName()+"】");
+            if(StringUtils.isEmpty(companyZy.getName())){
+                System.out.println(i+"《===============第，导入数据的公司【"+companyZy.getName()+"】，没有公司名称信息");
+            }else {
+                CompanyZy companyZy1 = companyZyService.findByName(companyZy.getName());
+                if(companyZy1==null){
+                    try {
+                        companyZyService.saveOrUpdate(companyZy);
+                    }catch (Exception e){
+                        log.error("失败，可能重复"+e.getMessage(),e);
+                    }
+                }else {
+                    log.info(i+"《===============第，导入数据的公司【"+companyZy.getName()+"】，已经存在了");
+                }
             }
-            companyZyService.saveOrUpdate(stockZy);
 
         }
         return "导入数据一共【"+personList.size()+"】行";
@@ -168,5 +178,11 @@ public class CompanyZyController {
     public String export(ModelMap modelMap)  {
         modelMap.put("userId", WebContent.getUserId());
         return "companyzy/export";
+    }
+    @ResponseBody
+    @RequestMapping("repeatDelete.action")
+    public String repeatDelete() {
+        Integer count = companyZyService.repeatDelete();
+        return "clean_count:"+count;
     }
 }

@@ -23,6 +23,9 @@
 </div>
 <h2>公司导入数据  </h2>
 <p th:if="${userId gt 1}"style="color:red">没有导入的权限，联系admin</p>
+<div style="margin:20px 0;">
+    <a href="#" id="repeatDelete" class="easyui-linkbutton" >清除重复数据</a>
+</div>
 <div class="easyui-panel" title="Ajax Form" style="width:300px;padding:10px;">
     <form id="ff" action="/companyzy/importExcel.action" method="post" enctype="multipart/form-data">
         <table>
@@ -56,7 +59,7 @@
     $("#repeatDelete").click(function () {
         $.ajax({
             type:"GET",  //请求方式   get查询  post增加  put修改   delete删除
-            url:'/repeatDelete.action',//请求路径
+            url:'/companyzy/repeatDelete.action',//请求路径
             async:true,  //或false 是否异步
             timeout:500,//超时时间
             dataType:'json',  //返回的数据格式：json/xml/html/script/jsonp/text

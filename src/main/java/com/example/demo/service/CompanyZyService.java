@@ -74,6 +74,13 @@ public class CompanyZyService {
         }
         return null;
     }
+    public CompanyZy findByName(String name){
+        List<CompanyZy> list = companyZyRepository.findCompanyZyByName(name);
+        if(list!=null && list.size()>0){
+            return list.get(0);
+        }
+        return null;
+    }
 
     public Page<CompanyZy> fenpeiList(Integer pageNumber,Integer pageSize,CompanyZy companyZy){
         if(pageNumber==null || pageNumber<0){
