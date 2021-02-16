@@ -7,7 +7,7 @@
                 <a href="#" class="easyui-menubutton" menu="#m3" iconCls="icon-edit">公司资源（手机）</a>
                 <a href="#" class="easyui-menubutton" menu="#mm2" iconCls="icon-edit">公司资源（名称）</a>
                 <a href="#" class="easyui-menubutton" menu="#m4" iconCls="icon-edit">员工管理</a>
-                <a href="#" class="easyui-menubutton" menu="#m5" iconCls="icon-edit"><p style="color:red" th:text="${loginName}"  th:if="${not #strings.isEmpty(loginName)}"></p></a>
+                <a href="#" class="easyui-menubutton" menu="#m5" iconCls="icon-tip"><p style="color:red" th:text="${loginName}"  th:if="${not #strings.isEmpty(loginName)}"></p></a>
             </div>
             <div id="mm1" style="width:150px;">
                 <a href="/mg/rw.html" class="easyui-linkbutton" plain="true" >分配人才任务</a>
@@ -38,7 +38,7 @@
         <div th:case="*">
             <div style="background:#fafafa;padding:5px;width:600px;border:1px solid #ccc">
                 <a href="#" class="easyui-menubutton" menu="#mm3" iconCls="icon-edit">任务菜单</a>
-                <a href="#" class="easyui-menubutton" menu="#mm4" iconCls="icon-edit"><p style="color:red" th:text="${loginName}"  th:if="${not #strings.isEmpty(loginName)}"></p></a>
+                <a href="#" class="easyui-menubutton" menu="#mm4" iconCls="icon-tip"><p style="color:red" th:text="${loginName}"  th:if="${not #strings.isEmpty(loginName)}"></p></a>
             </div>
             <div id="mm3" style="width:150px;">
                 <!--<a href="/mg/lq.html" class="easyui-linkbutton" plain="true" >任务领取</a>-->

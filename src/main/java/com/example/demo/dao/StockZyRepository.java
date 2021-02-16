@@ -28,6 +28,7 @@ public interface StockZyRepository extends JpaRepository<StockZy,Long> {
     List<StockZy> findStockZyByPhone(String phone);
     Page<StockZy> findByAndOptIdIsNull(Pageable pageable);
     Page<StockZy> findByAndOptIdIsNotNull(Pageable pageable);
+    Page<StockZy> findByOptName(String optName,Pageable pageable);
     Page<StockZy> findByAndOptIdIsNullAndZyContaining(String zy,Pageable pageable);
     Page<StockZy> findByAndOptIdIsNotNullAndZyContaining(String zy,Pageable pageable);
     List<StockZy> findFirst10ByCustomerWx(String wx);

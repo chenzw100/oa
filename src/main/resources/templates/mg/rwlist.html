@@ -12,6 +12,7 @@
             <option value="是">是</option>
             <option value="否">否</option>
         </select>
+        人员:<input class="easyui-textbox" type="text"  name="optName" id="optName" >
         专业:<input class="easyui-textbox" type="text"  name="zy" id="zy" >
         &nbsp;<a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
         <a href="#" class="easyui-linkbutton" onclick="getSelections()">任务分配</a>
@@ -65,6 +66,7 @@
     $("#query").click(function () {
         $('#dg').datagrid('load', {
             fen: $("#fen").val(),
+            optName: $("#optName").val(),
             zy:$("#zy").val()
         });
     })

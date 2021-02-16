@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.table.Company;
+import com.example.demo.domain.table.StockZy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,6 +27,7 @@ public interface CompanyRepository extends JpaRepository<Company,Long> {
     List<Company> findCompanyByPhone(String phone);
     Page<Company> findByAndOptIdIsNull(Pageable pageable);
     Page<Company> findByAndOptIdIsNotNull(Pageable pageable);
+    Page<Company> findByOptName(String optName, Pageable pageable);
     Page<Company> findByAndOptIdIsNullAndZyContaining(String zy, Pageable pageable);
     Page<Company> findByAndOptIdIsNotNullAndZyContaining(String zy, Pageable pageable);
     List<Company> findFirst10ByCustomerWx(String wx);

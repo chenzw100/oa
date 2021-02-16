@@ -76,20 +76,23 @@ public class CompanyService {
         return null;
     }
 
-    public Page<Company> fenpeiList(Integer pageNumber,Integer pageSize,Company Company){
+    public Page<Company> fenpeiList(Integer pageNumber,Integer pageSize,Company company){
         if(pageNumber==null || pageNumber<0){
             pageNumber=1;
             pageSize=10;
         }
         pageNumber--;
-        if("".equals(Company.getCustomerWx())){
-            Company.setCustomerWx(null);
+        if("".equals(company.getCustomerWx())){
+            company.setCustomerWx(null);
         }
-        if("".equals(Company.getCustomerYx())){
-            Company.setCustomerYx(null);
+        if("".equals(company.getCustomerYx())){
+            company.setCustomerYx(null);
         }
-        if("".equals(Company.getCustomerZf())){
-            Company.setCustomerZf(null);
+        if("".equals(company.getCustomerZf())){
+            company.setCustomerZf(null);
+        }
+        if("".equals(company.getOptName())){
+            company.setOptName(null);
         }
 
         Sort.Order order = new Sort.Order(Sort.Direction.DESC,"fenDate");
@@ -103,16 +106,19 @@ public class CompanyService {
          * 排序的规则
          */
         Pageable pageable = PageRequest.of(pageNumber,pageSize,sort);
-        if("是".equals(Company.getFen())){
-            if(StringUtils.isEmpty(Company.getZy())){
+        if("是".equals(company.getFen())){
+            if(StringUtils.isEmpty(company.getZy())){
                 return  companyRepository.findByAndOptIdIsNull(pageable);
             }
-            return companyRepository.findByAndOptIdIsNullAndZyContaining(Company.getZy(),pageable);
-        }else if("否".equals(Company.getFen())){
-            if(StringUtils.isEmpty(Company.getZy())){
-                return companyRepository.findByAndOptIdIsNotNull(pageable);
+            return companyRepository.findByAndOptIdIsNullAndZyContaining(company.getZy(),pageable);
+        }else if("否".equals(company.getFen())){
+            if(StringUtils.isEmpty(company.getZy())){
+                if(StringUtils.isEmpty(company.getOptName())){
+                    return companyRepository.findByAndOptIdIsNotNull(pageable);
+                }
+                return companyRepository.findByOptName(company.getOptName(),pageable);
             }
-            return companyRepository.findByAndOptIdIsNotNullAndZyContaining(Company.getZy(),pageable);
+            return companyRepository.findByAndOptIdIsNotNullAndZyContaining(company.getZy(),pageable);
         }
         return null;
     }

@@ -92,6 +92,9 @@ public class StockZyService {
         if("".equals(stockZy.getCustomerZf())){
             stockZy.setCustomerZf(null);
         }
+        if("".equals(stockZy.getOptName())){
+            stockZy.setOptName(null);
+        }
 
         Sort.Order order = new Sort.Order(Sort.Direction.DESC,"fenDate");
         Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"id");
@@ -111,7 +114,10 @@ public class StockZyService {
             return stockZyRepository.findByAndOptIdIsNullAndZyContaining(stockZy.getZy(),pageable);
         }else if("否".equals(stockZy.getFen())){
             if(StringUtils.isEmpty(stockZy.getZy())){
-                return stockZyRepository.findByAndOptIdIsNotNull(pageable);
+                if(StringUtils.isEmpty(stockZy.getOptName())){
+                    return stockZyRepository.findByAndOptIdIsNotNull(pageable);
+                }
+                return stockZyRepository.findByOptName(stockZy.getOptName(),pageable);
             }
             return stockZyRepository.findByAndOptIdIsNotNullAndZyContaining(stockZy.getZy(),pageable);
         }

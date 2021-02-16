@@ -97,6 +97,9 @@ public class CompanyZyService {
         if("".equals(companyZy.getCustomerZf())){
             companyZy.setCustomerZf(null);
         }
+        if("".equals(companyZy.getOptName())){
+            companyZy.setOptName(null);
+        }
 
         Sort.Order order = new Sort.Order(Sort.Direction.DESC,"fenDate");
         Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"id");
@@ -116,7 +119,10 @@ public class CompanyZyService {
             return companyZyRepository.findByAndOptIdIsNullAndZyContaining(companyZy.getZy(),pageable);
         }else if("否".equals(companyZy.getFen())){
             if(StringUtils.isEmpty(companyZy.getZy())){
-                return companyZyRepository.findByAndOptIdIsNotNull(pageable);
+                if(StringUtils.isEmpty(companyZy.getOptName())){
+                    return companyZyRepository.findByAndOptIdIsNotNull(pageable);
+                }
+                return companyZyRepository.findByOptName(companyZy.getOptName(),pageable);
             }
             return companyZyRepository.findByAndOptIdIsNotNullAndZyContaining(companyZy.getZy(),pageable);
         }
