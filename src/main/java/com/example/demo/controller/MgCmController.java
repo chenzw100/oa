@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.domain.table.CompanyZy;
+import com.example.demo.domain.table.Company;
 import com.example.demo.domain.table.User;
 import com.example.demo.exception.NormalException;
-import com.example.demo.service.CompanyZyService;
+import com.example.demo.service.CompanyService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.FileExcelUtil;
 import com.example.demo.utils.WebContent;
@@ -27,42 +27,42 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/companyzy")
-public class CompanyZyController extends BaseController{
-    public Log log = LogFactory.getLog(CompanyZyController.class);
+@RequestMapping("/mgcm")
+public class MgCmController extends BaseController{
+    public Log log = LogFactory.getLog(MgCmController.class);
     @Autowired
-    CompanyZyService companyZyService;
+    CompanyService companyService;
     @Autowired
     UserService userService;
-    @RequestMapping("/list.html")
+    @RequestMapping("/mglist.html")
     public String index(ModelMap modelMap){
         loginUser(modelMap);
-        return "companyzy/list";
+        return "mgcm/mglist";
     }
     @RequestMapping("/rw.html")
     public String rw(ModelMap modelMap){
         loginUser(modelMap);
-        return "companyzy/rwlist";
+        return "mgcm/rwlist";
     }
     @RequestMapping("/lq.html")
     public String lq(ModelMap modelMap){
         loginUser(modelMap);
-        return "companyzy/rwlqist";
+        return "mgcm/rwlqist";
     }
     @RequestMapping("/geren.html")
     public String geren(ModelMap modelMap){
         loginUser(modelMap);
-        return "companyzy/geren";
+        return "mgcm/geren";
     }
 
     @RequestMapping("/list.action")
     @ResponseBody
-    public String list(Integer page, Integer rows, CompanyZy stockZy){
+    public String list(Integer page, Integer rows, Company Company){
         String userInfoLevel = WebContent.getUserInfoLevel();
         if(!"管理员".equals(userInfoLevel)){
-            stockZy.setOptId(WebContent.getUserId());
+            Company.setOptId(WebContent.getUserId());
         }
-        Page<CompanyZy> list =companyZyService.findALl(page,rows,stockZy);
+        Page<Company> list =companyService.findALl(page,rows,Company);
         Map map = new HashMap<>();
         map.put("total",list.getTotalElements());
         map.put("rows",list.getContent());
@@ -70,28 +70,28 @@ public class CompanyZyController extends BaseController{
         return JSON.toJSONString(map);
     }
     @RequestMapping("exportExcel.action")
-    public void exportExcel(HttpServletResponse response,CompanyZy stockZy) throws NormalException {
+    public void exportExcel(HttpServletResponse response,Company Company) throws NormalException {
 
         String userInfoLevel = WebContent.getUserInfoLevel();
         if(!"管理员".equals(userInfoLevel)){
-            stockZy.setOptId(WebContent.getUserId());
+            Company.setOptId(WebContent.getUserId());
         }
-        List<CompanyZy> export =companyZyService.findExport(stockZy);
+        List<Company> export =companyService.findExport(Company);
 
         //导出操作
-        FileExcelUtil.exportExcel(export,"名单","资质公司数据",CompanyZy.class,"资质公司数据.xls",response);
+        FileExcelUtil.exportExcel(export,"名单","人才数据",Company.class,"人才数据.xls",response);
     }
     @RequestMapping("/fenpei.action")
     @ResponseBody
-    public String fenpei(Integer page,Integer rows,CompanyZy stockZy){
+    public String fenpei(Integer page,Integer rows,Company Company){
         String userInfoLevel = WebContent.getUserInfoLevel();
         if(!"管理员".equals(userInfoLevel)){
-            stockZy.setOptId(WebContent.getUserId());
+            Company.setOptId(WebContent.getUserId());
         }
-        if(stockZy.getFen() == null){
-            stockZy.setFen("是");
+        if(Company.getFen() == null){
+            Company.setFen("是");
         }
-        Page<CompanyZy> list =companyZyService.fenpeiList(page,rows,stockZy);
+        Page<Company> list =companyService.fenpeiList(page,rows,Company);
         Map map = new HashMap<>();
         map.put("total",list.getTotalElements());
         map.put("rows",list.getContent());
@@ -99,28 +99,35 @@ public class CompanyZyController extends BaseController{
     }
     @RequestMapping(value = "/update.action",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public String update(CompanyZy companyZy){
-        companyZy.setModified(new Date());
-        if(StringUtils.isNotEmpty(companyZy.getCustomerWx())){
-            if(companyZy.getCustomerWx().equals("是")){
-                companyZy.setCustomerZf("否");
+    public String update(Company Company){
+        Company.setModified(new Date());
+        if(StringUtils.isNotEmpty(Company.getCustomerWx())){
+            if(Company.getCustomerWx().equals("是")){
+                Company.setCustomerZf("否");
             }
         }
-        if(StringUtils.isNotEmpty(companyZy.getCustomerYx())){
-            if(companyZy.getCustomerYx().equals("是")){
-                companyZy.setCustomerZf("否");
+        if(StringUtils.isNotEmpty(Company.getCustomerYx())){
+            if(Company.getCustomerYx().equals("是")){
+                Company.setCustomerZf("否");
             }
         }
-        companyZyService.saveOrUpdate(companyZy);
+        companyService.saveOrUpdate(Company);
         return "success";
     }
     @RequestMapping("/updates.action")
     @ResponseBody
     public Map updates(Long[] ids, Long userId){
 
-
+        /*for(String id :ids){
+            Company db =companyService.getById(Long.parseLong(id));
+            db.setOptId(userId);
+            User u = userService.getById(userId);
+            db.setOptName(u.getName());
+            db.setFenDate(new Date());
+            companyService.saveOrUpdate(db);
+        }*/
         User u = userService.getById(userId);
-        companyZyService.fenPei(userId,u.getName(),ids);
+        companyService.fenPei(userId,u.getName(),ids);
         Map map = new HashMap();
         map.put("200","success");
         return map;
@@ -129,14 +136,14 @@ public class CompanyZyController extends BaseController{
     @ResponseBody
     public Map updatesByLq(String[] ids){
         for(String id :ids){
-            CompanyZy db =companyZyService.getById(Long.parseLong(id));
+            Company db =companyService.getById(Long.parseLong(id));
             if(db.getOptId()!=null){
                 continue;
             }
             db.setOptId(WebContent.getUserId());
             db.setOptName(WebContent.getUserName());
             db.setFenDate(new Date());
-            companyZyService.saveOrUpdate(db);
+            companyService.saveOrUpdate(db);
         }
         Map map = new HashMap();
         map.put("200","success");
@@ -144,48 +151,50 @@ public class CompanyZyController extends BaseController{
     }
     @RequestMapping(value = "/destroy.action")
     @ResponseBody
-    public String destroy(CompanyZy stockZy){
-        stockZy.setModified(new Date());
-        companyZyService.delete(stockZy);
+    public String destroy(Company Company){
+        Company.setModified(new Date());
+        companyService.delete(Company);
         return "success";
     }
-
+    @RequestMapping("/importex.html")
+    public String importex(ModelMap modelMap)  {
+        loginUser(modelMap);
+        return "mgcm/import";
+    }
     @ResponseBody
     @RequestMapping("importExcel.action")
     public String importExcel(MultipartFile file) throws NormalException {
-        List<CompanyZy> personList = FileExcelUtil.importExcel(file, CompanyZy.class);
+        List<Company> personList = FileExcelUtil.importExcel(file, Company.class);
         System.out.println("导入数据一共【"+personList.size()+"】行");
         int i =0;
-        for(CompanyZy companyZy :personList){
+        for(Company stockZy :personList){
             i++;
-            System.out.println(i+"《===============第，导入数据的公司【"+companyZy.getName()+"】");
-            if(StringUtils.isEmpty(companyZy.getName())){
-                System.out.println(i+"《===============第，导入数据的公司【"+companyZy.getName()+"】，没有公司名称信息");
-            }else {
-                CompanyZy companyZy1 = companyZyService.findByName(companyZy.getName());
-                if(companyZy1==null){
-                    try {
-                        companyZyService.saveOrUpdate(companyZy);
-                    }catch (Exception e){
-                        log.error("失败，可能重复"+e.getMessage(),e);
-                    }
-                }else {
-                    log.info(i+"《===============第，导入数据的公司【"+companyZy.getName()+"】，已经存在了");
-                }
+            System.out.println(i+"《===============第，导入数据的电话【"+stockZy.getPhone()+"】");
+            if(StringUtils.isEmpty(stockZy.getName())){
+                System.out.println(i+"《===============第，导入数据的电话【"+stockZy.getPhone()+"】，没有姓名信息");
             }
-
+            Company stockZy1 = companyService.findByPhone(stockZy.getPhone());
+            if(stockZy1==null){
+                stockZy.setModified(new Date());
+                stockZy.setCustomerZf("否");
+                stockZy.setCalled("否");
+                try {
+                    companyService.saveOrUpdate(stockZy);
+                }catch (Exception e){
+                    log.error("失败，可能重复"+e.getMessage(),e);
+                }
+            }else {
+                log.info("==========================【该公司手机好已经存在:"+stockZy.getPhone());
+            }
         }
-        return "导入数据一共【"+personList.size()+"】行";
-    }
-    @RequestMapping("/import")
-    public String export(ModelMap modelMap)  {
-        loginUser(modelMap);
-        return "companyzy/export";
+        //TODO 保存数据库
+        return "导入数据一共【"+personList.size()+"】行,已存在的手机号未再次导入";
     }
     @ResponseBody
     @RequestMapping("repeatDelete.action")
     public String repeatDelete() {
-        Integer count = companyZyService.repeatDelete();
+        Integer count = companyService.repeatDelete();
         return "clean_count:"+count;
     }
+
 }

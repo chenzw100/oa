@@ -3,7 +3,7 @@
 <div th:include="head :: header"></div>
 <body>
 <div th:include="menu :: menu"></div>
-<h2>公司（名称去重）信息 --- 分配任务</h2>
+<h2>资质公司（手机号去重）任务信息 --- 分配任务</h2>
 <div>
 <div>
     <div style="padding:5px 0;">
@@ -26,8 +26,9 @@
     <tr>
         <th data-options="field:'ck',checkbox:true"></th>
         <th data-options="field:'name',align:'center'">公司名称</th>
-        <th data-options="field:'phoneOne',align:'center'">电话</th>
+        <th data-options="field:'phone',align:'center'">电话</th>
         <th data-options="field:'zy',align:'center'">专业</th>
+        <th data-options="field:'infoCity',align:'center'">城市</th>
         <th data-options="field:'optName',align:'center'">执行人员</th>
         <th data-options="field:'customerYx',align:'center'">意向</th>
         <th data-options="field:'customerWx',align:'center'">微信</th>
@@ -53,10 +54,10 @@
         $('#dg').edatagrid({
             pageSize:100,
             pageList:[100,500,1000,1500],
-            url:'/companyzy/fenpei.action',
-            saveUrl: '/companyzy/updates.action',
-            updateUrl: '/companyzy/update.action',
-            destroyUrl: '/companyzy/del.action'
+            url:'/mgcm/fenpei.action',
+            saveUrl: '/mgcm/updates.action',
+            updateUrl: '/mgcm/update.action',
+            destroyUrl: '/mgcm/del.action'
         });
         $('#dd').dialog('close');
         $('#win').window('close');
@@ -88,7 +89,7 @@
         $("#ids").val(ss);
         debugger;
         $('#win').window('open');
-        $('#win').window('refresh', '/user/ckcompany.html');
+        $('#win').window('refresh', '/user/ckcm.html');
     }
 
 </script>

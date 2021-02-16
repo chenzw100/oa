@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-public class ExcelController {
+public class ExcelController extends BaseController{
     public Log log = LogFactory.getLog(ExcelController.class);
     @Autowired
     StockZyService stockZyService;
@@ -59,7 +59,7 @@ public class ExcelController {
 
     @RequestMapping("import")
     public String export(ModelMap modelMap)  {
-        modelMap.put("userId", WebContent.getUserId());
+        loginUser(modelMap);
         return "export";
     }
 

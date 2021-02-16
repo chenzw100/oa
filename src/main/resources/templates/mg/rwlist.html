@@ -1,35 +1,8 @@
-
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>公司人才任务信息</title>
-    <link rel="stylesheet" type="text/css" href="../css/demo.css">
-    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
-</head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head :: header"></div>
 <body>
-<div style="background:#fafafa;padding:5px;width:600px;border:1px solid #ccc">
-    <a href="#" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">人才资源菜单</a>
-    <a href="#" class="easyui-menubutton" menu="#mm2" iconCls="icon-edit">公司资源菜单</a>
-</div>
-<div id="mm1" style="width:150px;">
-    <a href="/mg/rw.html" class="easyui-linkbutton" plain="true" >分配人才任务</a>
-    <a href="/mg/mglist.html" class="easyui-linkbutton" plain="true" >人才资源管理</a>
-    <a href="/user/list.html" class="easyui-linkbutton" plain="true" >员工管理</a>
-    <a href="/user/password.html" class="easyui-linkbutton" plain="true" >密码管理</a>
-    <a href="/import" class="easyui-linkbutton" plain="true" >导入人才数据</a>
-    <a href="/loginout" class="easyui-linkbutton" plain="true" >退出系统</a>
-</div>
-<div id="mm2" style="width:150px;">
-    <a href="/companyzy/rw.html" class="easyui-linkbutton" plain="true" >分配公司任务</a>
-    <a href="/companyzy/list.html" class="easyui-linkbutton" plain="true" >公司资源管理</a>
-    <a href="/company/list.html" class="easyui-linkbutton" plain="true" >资质公司数据</a>
-    <a href="/companyzy/import" class="easyui-linkbutton" plain="true" >导入公司数据</a>
-</div>
+<div th:include="menu :: menu"></div>
 <h2>人才任务信息 --- 分配任务</h2>
 <div>
 <div>

@@ -3,11 +3,9 @@
 <div th:include="head :: header"></div>
 <body>
 <div th:include="menu :: menu"></div>
-<h2>人才信息 -- 人才资源管理</h2>
+<h2>资质公司任务信息（手机号去重）---个人任务----双击更改</h2>
 <div>
-    <form id="excel" action="/mg/exportExcel.action" method="post">
-        <input type="hidden" id="userId" th:value="${userId}">
-        <!--<p style="color:red" th:text="${userId}"  th:if="${not #strings.isEmpty(userId)}"></p>-->
+<div>
     <div style="padding:5px 0;">
         <span>意向:</span>
         <select class="easyui-combobox" id="customerYx" name="customerYx" style="width:70px;">
@@ -27,45 +25,45 @@
             <option value="是">是</option>
             <option value="否">否</option>
         </select>
-        已分配人员:<input class="easyui-textbox" type="text"  name="optName" id="optName" >
         &nbsp;<a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
-        <a href="javascript:;" th:if="${userId eq 1}" class="easyui-linkbutton" onclick="$('#dg').datagrid('toExcelServer','/mg/exportExcel.action')">导出查询结果</a>
     </div>
-    </form>
+
 </div>
-<table id="dg" title="人才库"
+
+<table id="dg" title="人才库" class="easyui-datagrid"  style="width:700px;height:250px"
        toolbar="#toolbar" pagination="true" idField="id"
-       rownumbers="true" fitColumns="true" singleSelect="true">
+       rownumbers="true" fitColumns="true"  selectOnCheck="true" singleSelect="true">
     <thead>
     <tr>
-        <th data-options="field:'name',align:'center'">姓名</th>
-        <th data-options="field:'phone',align:'center'"  editor="{type:'validatebox',options:{required:true}}">电话</th>
+        <th data-options="field:'name',align:'center'">公司名称</th>
+        <th data-options="field:'phone',align:'center'">电话</th>
         <th data-options="field:'zy',align:'center'">专业</th>
         <th data-options="field:'infoCity',align:'center'">城市</th>
         <th data-options="field:'optName',align:'center'">执行人员</th>
 
+
         <th data-options="field:'customerYx',align:'center'" editor="{type:'combobox',options:{valueField : 'id',
-            textField : 'text',
-            panelHeight : 'auto',
-            editable : false,
-            data : [{
-                id : '是',
-                text : '是'
-            }, {
-                id : '否',
-                text : '否'
-            } ]}}">意向客户</th>
+textField : 'text',
+panelHeight : 'auto',
+editable : false,
+data : [{
+	id : '是',
+	text : '是'
+}, {
+	id : '否',
+	text : '否'
+} ]}}">意向客户</th>
         <th data-options="field:'customerWx',align:'center'" editor="{type:'combobox',options:{valueField : 'id',
-            textField : 'text',
-            panelHeight : 'auto',
-            editable : false,
-            data : [{
-                id : '是',
-                text : '是'
-            }, {
-                id : '否',
-                text : '否'
-            } ]}}">微信客户</th>
+textField : 'text',
+panelHeight : 'auto',
+editable : false,
+data : [{
+	id : '是',
+	text : '是'
+}, {
+	id : '否',
+	text : '否'
+} ]}}">微信客户</th>
         <th data-options="field:'called',align:'center'" editor="{type:'combobox',options:{valueField : 'id',
             textField : 'text',
             panelHeight : 'auto',
@@ -78,51 +76,55 @@
                 text : '否'
             } ]}}">已拨打</th>
         <th data-options="field:'customerZf',align:'center'"  editor="{type:'combobox',options:{valueField : 'id',
-            textField : 'text',
-            panelHeight : 'auto',
-            editable : false,
-            data : [{
-                id : '是',
-                text : '是'
-            }, {
-                id : '否',
-                text : '否'
-            } ]}}">作废号码</th>
-        <th data-options="field:'infoDesc',align:'center',width:50"  editor="{type:'validatebox',options:{required:false}}">描述</th>
-        <th data-options="field:'fenDate',align:'center'">分配时间</th>
+textField : 'text',
+panelHeight : 'auto',
+editable : false,
+data : [{
+	id : '是',
+	text : '是'
+}, {
+	id : '否',
+	text : '否'
+} ]}}">作废号码</th>
+        <th  field="infoDesc" width="50"  editor="{type:'validatebox',options:{required:false}}">描述</th>
+        <th data-options="field:'fenDate',align:'center'">领取时间</th>
         <th data-options="field:'modified',align:'center'">最近操作时间</th>
     </tr>
     </thead>
 </table>
+
 <div id="toolbar">
-    <!--<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">New</a>-->
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">删除</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">取消</a>
 </div>
 
+    <input type="hidden" name="ids" id="ids">
+
+    <div id="win" class="easyui-window" data-options="title:'Inline Window',inline:true" style="width:550px;height:350px">
+
+    </div>
+</div>
+
+
+
 <script type="text/javascript">
     $(function(){
-        var eFlag = $("#userId").val();
-        if(eFlag ==1){
-
-        }
         $('#dg').edatagrid({
-            url:'/mg/list.action',
-            saveUrl: '/mg/save.action',
-            updateUrl: '/mg/update.action',
-            destroyUrl: '/mg/destroy.action'
+            url:'/mgcm/list.action',
+            saveUrl: '/mgcm/updates.action',
+            updateUrl: '/mgcm/update.action',
+            destroyUrl: '/mgcm/del.action'
         });
+        $('#dd').dialog('close');
+        $('#win').window('close');
     });
     $("#query").click(function () {
         $('#dg').datagrid('load', {
             customerYx: $("#customerYx").val(),
             customerZf: $("#customerZf").val(),
-            customerWx: $("#customerWx").val(),
-            optName: $("#optName").val()
+            customerWx: $("#customerWx").val()
         });
-    });
-
+    })
 
     //$('#dg').datagrid('reload');
 
@@ -130,24 +132,40 @@
     $(document).bind("selectstart",function(){return false;});
     $(document).keydown(function(){return key(arguments[0])});*/
 
-    /*function exportExcel(){
-        var form = $("<form>");
-        form.attr('style', 'display:none');
-        form.attr('target', '');
-        form.attr('method', 'post');
-        form.attr('action', '${pageContext.request.contextPath}/user/export');
 
-        var input1 = $('<input>');
-        input1.attr('type', 'hidden');
-        input1.attr('name', 'item');
-        input1.attr('value', 'test');      /!* JSON.stringify($.serializeObject($('#searchForm'))) *!/
+    function getSelected(){
+        var row = $('#dg').datagrid('getSelected');
+        if (row){
+            $.messager.alert('Info', row.itemid+":"+row.productid+":"+row.attr1);
+        }
+    }
+    function getSelections(){
+        var ss = [];
+        var rows = $('#dg').datagrid('getSelections');
+        if(rows.length==0){
+            return;
+        }
+        for(var i=0; i<rows.length; i++){
+            var row = rows[i];
+            ss.push(row.id);
+        }
+        $("#ids").val(ss);
+        $('#win').window('refresh', '/user/ck.html');
+        $('#win').window('open');
+        //$('#dd').dialog('open');
+        //$('#dd').dialog('refresh', '/user/index.html');
+        //$.messager.alert('Info', ss.join('<br/>'));
+    }
+    /*$('#dd').dialog({
+        title: 'My Dialog',
+        width: 400,
+        height: 200,
+        closed: false,
+        cache: false,
+        href: '/user/index.html',
+        modal: true
+    });*/
 
-        $('body').append(form);
-        form.append(input1);
-
-        form.submit();
-        form.remove();
-    }*/
 </script>
 
 </body>

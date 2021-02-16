@@ -27,7 +27,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/mg")
-public class MgController {
+public class MgController extends BaseController{
     public Log log = LogFactory.getLog(MgController.class);
     @Autowired
     StockZyService stockZyService;
@@ -35,20 +35,23 @@ public class MgController {
     UserService userService;
     @RequestMapping("/mglist.html")
     public String index(ModelMap modelMap){
-        modelMap.put("userId",WebContent.getUserId());
+        loginUser(modelMap);
         return "mg/mglist";
     }
 
     @RequestMapping("/rw.html")
-    public String rw(){
+    public String rw(ModelMap modelMap){
+        loginUser(modelMap);
         return "mg/rwlist";
     }
     @RequestMapping("/lq.html")
-    public String lq(){
+    public String lq(ModelMap modelMap){
+        loginUser(modelMap);
         return "mg/rwlqist";
     }
     @RequestMapping("/geren.html")
-    public String geren(){
+    public String geren(ModelMap modelMap){
+        loginUser(modelMap);
         return "mg/geren";
     }
 

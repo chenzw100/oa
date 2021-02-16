@@ -60,11 +60,12 @@ public class LoginController {
             session.setAttribute("userId", u.getId());
             session.setAttribute("userInfoLevel", u.getInfoLevel());
             System.out.println("----" + username);
-            if("管理员".equals(u.getInfoLevel())){
+            /*if("管理员".equals(u.getInfoLevel())){
                 return "redirect:/indexmg";
             }else {
                 return "redirect:/index";
-            }
+            }*/
+            return "redirect:/index";
 
         } else  //输入错误，清空session，提示用户名密码错误
         {
@@ -86,7 +87,9 @@ public class LoginController {
 
     @RequestMapping("index")
     public String goMain(Map<String, Object> map) {
-        map.put("name", WebContent.getUserName());
+        map.put("userId", WebContent.getUserId());
+        map.put("role", WebContent.getUserInfoLevel());
+        map.put("loginName", WebContent.getUserName());
         return "index";
 
     }

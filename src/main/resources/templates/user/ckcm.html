@@ -1,0 +1,65 @@
+<div>
+    <div style="margin:20px 0;">
+        姓名:<input class="easyui-textbox" type="text"  name="name" id="userName" >
+        <a href="#" id="queryck" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
+        <a href="#" class="easyui-linkbutton" onclick="getSelectedck()">分配</a>
+    </div>
+</div>
+<table id="dgck" title="公司员工"
+       toolbar="#toolbar" pagination="true" idField="id"
+       rownumbers="true" fitColumns="true" selectOnCheck="true" singleSelect="true">
+    <thead>
+    <tr>
+        <th data-options="field:'name',align:'center'">姓名</th>
+        <th data-options="field:'phone',align:'center'" >电话</th>
+        <th data-options="field:'depName',align:'center'" >部门</th>
+        <th data-options="field:'infoLevel',align:'center'" >级别</th>
+        <th data-options="field:'enable',align:'center'" >状态</th>
+    </tr>
+    </thead>
+</table>
+
+<script type="text/javascript">
+    $(function(){
+        $('#dgck').edatagrid({
+            url:'/user/list.action',
+        });
+    });
+    $("#queryck").click(function () {
+        $('#dgck').datagrid('load', {
+            name:$("#userName").val()
+        });
+    })
+    function getSelectedck(){
+        var row = $('#dgck').datagrid('getSelected');
+        if(row==null){
+            $.messager.alert('Info', "请选择一个员工，进行接受任务");
+            return;
+        }
+        if (row){
+            var ids = $('#ids').val();
+
+            $.ajax({
+                type:"POST",  //请求方式   get查询  post增加  put修改   delete删除
+                url:'/mgcm/updates.action',//请求路径
+                async:true,  //或false 是否异步
+                data:{ids:ids,userId:row.id},
+                timeout:5000,//超时时间
+                dataType:'json',  //返回的数据格式：json/xml/html/script/jsonp/text
+                success:function(data,textStatus,jqXHR){
+                    $.messager.confirm('Info', "分配成功，请查看已分配",function () {
+                        window.location.href="/mgcm/rw.html";
+                    });
+                },
+                error:function(error){
+                    $.messager.confirm('Info', "分配成功，请查看已分配",function () {
+                        window.location.href="/mgcm/rw.html";
+                    });
+                }
+
+            })
+        }
+    }
+</script>
+
+

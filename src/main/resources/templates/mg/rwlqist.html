@@ -1,26 +1,8 @@
-
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>公司人才任务信息</title>
-    <link rel="stylesheet" type="text/css" href="../css/demo.css">
-    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
-</head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head :: header"></div>
 <body>
-<div style="background:#fafafa;padding:5px;width:200px;border:1px solid #ccc">
-    <a href="#" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">任务菜单</a>
-</div>
-<div id="mm1" style="width:150px;">
-    <!--<a href="/mg/lq.html" class="easyui-linkbutton" plain="true" >任务领取</a>-->
-    <a href="/mg/geren.html" class="easyui-linkbutton" plain="true" >个人任务</a>
-    <a href="/user/gerenpwd.html" class="easyui-linkbutton" plain="true" >修改密码</a>
-    <a href="/loginout" class="easyui-linkbutton" plain="true" >退出系统</a>
-</div>
+<div th:include="menu :: menu"></div>
 <h2>公司人才任务信息 --- 领取任务</h2>
 <div>
 <div>

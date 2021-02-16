@@ -29,7 +29,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/company")
-public class CompanyController {
+public class CompanyController extends BaseController{
     public Log log = LogFactory.getLog(CompanyController.class);
     @Autowired
     CompanyInfoService companyInfoService;
@@ -37,7 +37,7 @@ public class CompanyController {
     UserService userService;
     @RequestMapping("/list.html")
     public String index(ModelMap modelMap){
-        modelMap.put("userId",WebContent.getUserId());
+        loginUser(modelMap);
         return "company/list";
     }
 

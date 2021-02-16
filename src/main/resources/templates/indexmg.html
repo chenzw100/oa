@@ -1,26 +1,9 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <div th:include="head :: header"></div>
 <body>
-<div style="background:#fafafa;padding:5px;width:600px;border:1px solid #ccc">
-    <a href="#" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">人才资源菜单</a>
-    <a href="#" class="easyui-menubutton" menu="#mm2" iconCls="icon-edit">公司资源菜单</a>
-</div>
-<div id="mm1" style="width:150px;">
-    <a href="/mg/rw.html" class="easyui-linkbutton" plain="true" >分配人才任务</a>
-    <a href="/mg/mglist.html" class="easyui-linkbutton" plain="true" >人才资源管理</a>
-    <a href="/user/list.html" class="easyui-linkbutton" plain="true" >员工管理</a>
-    <a href="/user/password.html" class="easyui-linkbutton" plain="true" >密码管理</a>
-    <a href="/import" class="easyui-linkbutton" plain="true" >导入人才数据</a>
-    <a href="/loginout" class="easyui-linkbutton" plain="true" >退出系统</a>
-</div>
-<div id="mm2" style="width:150px;">
-    <a href="/companyzy/rw.html" class="easyui-linkbutton" plain="true" >分配公司任务</a>
-    <a href="/companyzy/list.html" class="easyui-linkbutton" plain="true" >公司资源管理</a>
-    <a href="/company/list.html" class="easyui-linkbutton" plain="true" >资质公司数据</a>
-    <a href="/companyzy/import" class="easyui-linkbutton" plain="true" >导入公司数据</a>
-</div>
+<div th:include="menu :: menu"></div>
+<h2>欢迎您<p style="color:red" th:text="${loginName}"  th:if="${not #strings.isEmpty(loginName)}"></p></h2>
 
 </body>
 <div th:include="footer :: copyright"></div>

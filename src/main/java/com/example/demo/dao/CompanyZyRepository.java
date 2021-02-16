@@ -12,6 +12,9 @@ import java.util.List;
 /**
  ALTER TABLE `my`.`stock_zy`
  ADD UNIQUE INDEX `i_phone`(`phone`);
+ /**
+ ALTER TABLE `my`.`company`
+ ADD UNIQUE INDEX `i_phone`(`phone`);
 
  ALTER TABLE `my`.`company_zy`
  ADD UNIQUE INDEX `i_name`(`name`);
