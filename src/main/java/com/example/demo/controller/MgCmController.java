@@ -171,9 +171,17 @@ public class MgCmController extends BaseController{
             i++;
             System.out.println(i+"《===============第，导入数据的电话【"+stockZy.getPhone()+"】");
             if(StringUtils.isEmpty(stockZy.getName())){
-                System.out.println(i+"《===============第，导入数据的电话【"+stockZy.getPhone()+"】，没有姓名信息");
+                System.out.println(i+"《--------第，导入数据的电话【"+stockZy.getPhone()+"】，没有姓名信息");
             }
-            Company stockZy1 = companyService.findByPhone(stockZy.getPhone());
+            try {
+                stockZy.setModified(new Date());
+                stockZy.setCustomerZf("否");
+                stockZy.setCalled("否");
+                companyService.saveOrUpdate(stockZy);
+            }catch (Exception e){
+                log.error("失败，可能重复"+e.getMessage(),e);
+            }
+           /* Company stockZy1 = companyService.findByPhone(stockZy.getPhone());
             if(stockZy1==null){
                 stockZy.setModified(new Date());
                 stockZy.setCustomerZf("否");
@@ -185,7 +193,7 @@ public class MgCmController extends BaseController{
                 }
             }else {
                 log.info("==========================【该公司手机好已经存在:"+stockZy.getPhone());
-            }
+            }*/
         }
         //TODO 保存数据库
         return "导入数据一共【"+personList.size()+"】行,已存在的手机号未再次导入";

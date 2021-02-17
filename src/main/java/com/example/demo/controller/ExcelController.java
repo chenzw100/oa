@@ -78,9 +78,17 @@ public class ExcelController extends BaseController{
             i++;
             System.out.println(i+"《===============第，导入数据的电话【"+stockZy.getPhone()+"】");
             if(StringUtils.isEmpty(stockZy.getName())){
-                System.out.println(i+"《===============第，导入数据的电话【"+stockZy.getPhone()+"】，没有姓名信息");
+                System.out.println(i+"《--------------------第，导入数据的电话【"+stockZy.getPhone()+"】，没有姓名信息");
             }
-            StockZy stockZy1 = stockZyService.findByPhone(stockZy.getPhone());
+            stockZy.setModified(new Date());
+            stockZy.setCustomerZf("否");
+            stockZy.setCalled("否");
+            try {
+                stockZyService.saveOrUpdate(stockZy);
+            }catch (Exception e){
+                log.error("失败，可能重复"+e.getMessage(),e);
+            }
+            /*StockZy stockZy1 = stockZyService.findByPhone(stockZy.getPhone());
             if(stockZy1==null){
                 stockZy.setModified(new Date());
                 stockZy.setCustomerZf("否");
@@ -92,7 +100,7 @@ public class ExcelController extends BaseController{
                 }
             }else {
                 log.info("==========================【该手机好已经存在:"+stockZy.getPhone());
-            }
+            }*/
         }
         //TODO 保存数据库
         return "导入数据一共【"+personList.size()+"】行,已存在的手机号未再次导入";

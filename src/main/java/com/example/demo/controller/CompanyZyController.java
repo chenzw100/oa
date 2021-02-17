@@ -160,9 +160,14 @@ public class CompanyZyController extends BaseController{
             i++;
             System.out.println(i+"《===============第，导入数据的公司【"+companyZy.getName()+"】");
             if(StringUtils.isEmpty(companyZy.getName())){
-                System.out.println(i+"《===============第，导入数据的公司【"+companyZy.getName()+"】，没有公司名称信息");
+                System.out.println(i+"《----------第，导入数据的公司【"+companyZy.getName()+"】，没有公司名称信息");
             }else {
-                CompanyZy companyZy1 = companyZyService.findByName(companyZy.getName());
+                try {
+                    companyZyService.saveOrUpdate(companyZy);
+                }catch (Exception e){
+                    log.error("失败，可能重复"+e.getMessage(),e);
+                }
+                /*CompanyZy companyZy1 = companyZyService.findByName(companyZy.getName());
                 if(companyZy1==null){
                     try {
                         companyZyService.saveOrUpdate(companyZy);
@@ -171,7 +176,7 @@ public class CompanyZyController extends BaseController{
                     }
                 }else {
                     log.info(i+"《===============第，导入数据的公司【"+companyZy.getName()+"】，已经存在了");
-                }
+                }*/
             }
 
         }
