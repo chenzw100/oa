@@ -8,6 +8,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -19,26 +20,26 @@ public class CompanyService {
     public void delete(Company Company){
         companyRepository.delete(Company);
     }
-    public Page<Company> findALl(Integer pageNumber,Integer pageSize,Company Company){
+    public Page<Company> findALl(Integer pageNumber,Integer pageSize,Company company){
         if(pageNumber==null || pageNumber<0){
             pageNumber=1;
             pageSize=10;
         }
         pageNumber--;
-        if("".equals(Company.getOptName())){
-            Company.setOptName(null);
+        if("".equals(company.getOptName())){
+            company.setOptName(null);
         }
-        if("".equals(Company.getCustomerWx())){
-            Company.setCustomerWx(null);
+        if("".equals(company.getCustomerWx())){
+            company.setCustomerWx(null);
         }
-        if("".equals(Company.getCustomerYx())){
-            Company.setCustomerYx(null);
+        if("".equals(company.getCustomerYx())){
+            company.setCustomerYx(null);
         }
-        if("".equals(Company.getCustomerZf())){
-            Company.setCustomerZf(null);
+        if("".equals(company.getCustomerZf())){
+            company.setCustomerZf(null);
         }
-        if("".equals(Company.getCalled())){
-            Company.setCalled(null);
+        if("".equals(company.getCalled())){
+            company.setCalled(null);
         }
         Sort.Order order = new Sort.Order(Sort.Direction.DESC,"fenDate");
         Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"id");
@@ -54,8 +55,24 @@ public class CompanyService {
        /* ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("customerWx", match -> match.startsWith())
                 .withMatcher("customerYx", match -> match.startsWith());*/
-        Example<Company> example = Example.of(Company/*,matcher*/);
-        Page<Company> all = companyRepository.findAll(example,pageable);
+        Example<Company> example = Example.of(company/*,matcher*/);
+        Page<Company> all =null;
+        if(company.getModifiedStart()!=null){
+            if(company.getModifiedEnd()==null){
+                company.setModifiedEnd(new Date());
+            }else {
+                long time =company.getModifiedEnd().getTime()+24*60*60*1000-1;
+                company.setModifiedEnd(new Date(time));
+            }
+            if(company.getCalled()==null){
+                all = companyRepository.findByModifiedBetween(company.getModifiedStart(),company.getModifiedEnd(),pageable);
+            }else {
+                all = companyRepository.findByModifiedBetweenAndCalled(company.getModifiedStart(),company.getModifiedEnd(),company.getCalled(),pageable);
+            }
+        }else {
+            all = companyRepository.findAll(example,pageable);
+        }
+
         return all;
     }
     public Company saveOrUpdate(Company Company){

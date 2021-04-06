@@ -28,6 +28,14 @@
             <option value="否">否</option>
         </select>
         已分配人员:<input class="easyui-textbox" type="text"  name="optName" id="optName" >
+        &nbsp;<span>是否已拨:</span>
+        <select class="easyui-combobox" id="called" name="called" style="width:70px;">
+            <option value="">全部</option>
+            <option value="是">是</option>
+            <option value="否">否</option>
+        </select>
+        <input id="modifiedStart" type="text" class="easyui-datebox" data-options="formatter:formatter1,parser:parser1" style="width:120px">
+        <input id="modifiedEnd" type="text" class="easyui-datebox" data-options="formatter:formatter1,parser:parser1" style="width:120px">
         &nbsp;<a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
         <a href="javascript:;" th:if="${userId eq 1}" class="easyui-linkbutton" onclick="$('#dg').datagrid('toExcelServer','/mg/exportExcel.action')">导出查询结果</a>
     </div>
@@ -119,10 +127,31 @@
             customerYx: $("#customerYx").val(),
             customerZf: $("#customerZf").val(),
             customerWx: $("#customerWx").val(),
-            optName: $("#optName").val()
+            optName: $("#optName").val(),
+            modifiedStart: $("#modifiedStart").val(),
+            modifiedEnd: $("#modifiedEnd").val(),
+            called: $("#called").val()
         });
     });
-
+    function formatter1(date){
+        var y = date.getFullYear();
+        var m = date.getMonth()+1;
+        var d = date.getDate();
+        return  y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+        //return y+(m<10?('0'+m):m);
+    }
+    function parser1(s){
+        if (!s) return new Date();
+        var ss = (s.split('-'));
+        var y = parseInt(ss[0],10);
+        var m = parseInt(ss[1],10);
+        var d = parseInt(ss[2],10);
+        if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
+            return new Date(y,m-1,d);
+        } else {
+            return new Date();
+        }
+    }
 
     //$('#dg').datagrid('reload');
 

@@ -1,13 +1,13 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.table.CompanyZy;
-import com.example.demo.domain.table.StockZy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +31,8 @@ public interface CompanyZyRepository extends JpaRepository<CompanyZy,Long> {
     Page<CompanyZy> findByAndOptIdIsNullAndZyContaining(String zy, Pageable pageable);
     Page<CompanyZy> findByAndOptIdIsNotNullAndZyContaining(String zy, Pageable pageable);
     List<CompanyZy> findFirst10ByCustomerWx(String wx);
+    Page<CompanyZy> findByModifiedBetween(Date start, Date end, Pageable pageable);
+    Page<CompanyZy> findByModifiedBetweenAndCalled(Date start, Date end,String called, Pageable pageable);
     @Override
     void delete(CompanyZy CompanyZy);
     @Modifying

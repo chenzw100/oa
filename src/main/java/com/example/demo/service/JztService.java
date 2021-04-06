@@ -56,7 +56,7 @@ public class JztService {
             e.printStackTrace();
             return;
         }
-        String text =doc.getElementsByTag("script").get(10).toString();
+        String text =doc.getElementsByTag("script").get(9).toString();
         int start1 = text.lastIndexOf("公司");
         while (start1>-1){
             CompanyInfo companyInfo =new CompanyInfo();
@@ -68,16 +68,12 @@ public class JztService {
             start1 = text.lastIndexOf("公司",start0);
             companyInfo.setName(name);
             if(list.size()>0){
-                companyInfo=list.get(0);
-                if(companyInfo.getZy().length()<1999){
-                    companyInfo.setZy(companyInfo.getZy()+"_"+namezy);
-                }
                 System.out.println("=========================================》》已存在的公司 aname = [" + name + "]");
             }else {
-                companyInfo.setZy(namezy+"_一级及以上");
-                System.out.println("------新记录--- [" + name + "]");
+                companyInfo.setZy(namezy);
+                System.out.println("----------------------新记录--- [" + name + "]");
+                companyInfoRepository.save(companyInfo);
             }
-            companyInfoRepository.save(companyInfo);
         }
 
 

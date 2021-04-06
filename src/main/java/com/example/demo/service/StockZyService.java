@@ -9,6 +9,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -56,7 +57,22 @@ public class StockZyService {
                 .withMatcher("customerWx", match -> match.startsWith())
                 .withMatcher("customerYx", match -> match.startsWith());*/
         Example<StockZy> example = Example.of(stockZy/*,matcher*/);
-        Page<StockZy> all = stockZyRepository.findAll(example,pageable);
+        Page<StockZy> all =null;
+        if(stockZy.getModifiedStart()!=null){
+            if(stockZy.getModifiedEnd()==null){
+                stockZy.setModifiedEnd(new Date());
+            }else {
+                long time =stockZy.getModifiedEnd().getTime()+24*60*60*1000-1;
+                stockZy.setModifiedEnd(new Date(time));
+            }
+            if(stockZy.getCalled()==null){
+                all = stockZyRepository.findByModifiedBetween(stockZy.getModifiedStart(),stockZy.getModifiedEnd(),pageable);
+            }else {
+                all = stockZyRepository.findByModifiedBetweenAndCalled(stockZy.getModifiedStart(),stockZy.getModifiedEnd(),stockZy.getCalled(),pageable);
+            }
+        }else {
+            all = stockZyRepository.findAll(example,pageable);
+        }
         return all;
     }
     public StockZy saveOrUpdate(StockZy stockZy){

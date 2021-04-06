@@ -62,6 +62,34 @@ public class Company implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date fenDate;
 
+
+    @Transient
+    @JSONField(format = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date modifiedStart;
+    @Transient
+    @JSONField(format = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date modifiedEnd;
+
+    public Date getModifiedStart() {
+        return modifiedStart;
+    }
+
+    public void setModifiedStart(Date modifiedStart) {
+        this.modifiedStart = modifiedStart;
+    }
+
+    public Date getModifiedEnd() {
+        return modifiedEnd;
+    }
+
+    public void setModifiedEnd(Date modifiedEnd) {
+        this.modifiedEnd = modifiedEnd;
+    }
+
     public Date getFenDate() {
         return fenDate;
     }

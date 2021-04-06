@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import com.example.demo.domain.table.StockZy;
 import com.example.demo.domain.table.User;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,6 +33,8 @@ public interface StockZyRepository extends JpaRepository<StockZy,Long> {
     Page<StockZy> findByAndOptIdIsNullAndZyContaining(String zy,Pageable pageable);
     Page<StockZy> findByAndOptIdIsNotNullAndZyContaining(String zy,Pageable pageable);
     List<StockZy> findFirst10ByCustomerWx(String wx);
+    Page<StockZy> findByModifiedBetween(Date start, Date end, Pageable pageable);
+    Page<StockZy> findByModifiedBetweenAndCalled(Date start, Date end,String called, Pageable pageable);
     @Override
     void delete(StockZy stockZy);
     @Modifying
