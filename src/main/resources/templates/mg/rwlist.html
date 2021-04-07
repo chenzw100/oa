@@ -3,7 +3,7 @@
 <div th:include="head :: header"></div>
 <body>
 <div th:include="menu :: menu"></div>
-<h2>人才任务信息 --- 分配任务</h2>
+<h2>人才任务信息 --- 分配任务----针对回访间隔天数默认7天，每次重启服务后需要重新设置需要的天数</h2>
 <div>
 <div>
     <div style="padding:5px 0;">
@@ -12,10 +12,12 @@
             <option value="是">是</option>
             <option value="否">否</option>
         </select>
-        人员:<input class="easyui-textbox" type="text"  name="optName" id="optName" >
+        人员:<input class="easyui-textbox" type="text"  name="optName" id="optName" style="width:70px;">
         专业:<input class="easyui-textbox" type="text"  name="zy" id="zy" >
         &nbsp;<a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
         <a href="#" class="easyui-linkbutton" onclick="getSelections()">任务分配</a>
+        &nbsp;<span style="color: red">设置回访间隔天数:</span><input type="text" value="" id="day" class="easyui-textbox" style="width:70px;" prompt="输入正整数">
+        <a href="#" class="easyui-linkbutton" id="realyDo">确认设置</a>
     </div>
 
 </div>
@@ -93,7 +95,31 @@
         $('#win').window('open');
         $('#win').window('refresh', '/user/ck.html');
     }
+    $("#realyDo").click(function () {
+        var merchantNum = $("#day").val();
+        if (merchantNum == null || merchantNum == "") {
+            $.messager.alert('Info',"间隔天数不能为空", 'warning');
+            return false;
+        }else if (!(/(^[1-9]\d*$)/.test(merchantNum))) {
+            $.messager.alert('Info',"间隔天数不是正整数!!!", 'warning');
+            return false;
+        }
+        $.ajax({
+            type:"GET",  //请求方式   get查询  post增加  put修改   delete删除
+            url:'/realyDo.action?day='+merchantNum,//请求路径
+            async:true,  //或false 是否异步
+            timeout:500,//超时时间
+            dataType:'json',  //返回的数据格式：json/xml/html/script/jsonp/text
+            success:function(data){
+                $.messager.alert('Info', data, 'info');
+            },
+            error:function(error){
+                $.messager.alert('Info', error.responseText, 'info');
+                console.log('错误');
+            }
 
+        })
+    })
 </script>
 
 </body>

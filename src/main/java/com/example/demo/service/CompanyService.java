@@ -169,6 +169,10 @@ public class CompanyService {
     public Integer fenPei(Long userId,String optName,Long[] ids){
         return companyRepository.fenPei(userId,optName,ids);
     }
+    @Transactional
+    public Integer resetFP(Date date){
+        return companyRepository.resetFP(date);
+    }
 
 
 }

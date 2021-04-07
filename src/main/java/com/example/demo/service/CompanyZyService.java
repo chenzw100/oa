@@ -8,6 +8,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -158,6 +159,9 @@ public class CompanyZyService {
     public Integer fenPei(Long userId,String optName,Long[] ids){
         return companyZyRepository.fenPei(userId,optName,ids);
     }
-
+    @Transactional
+    public Integer resetFP(Date date){
+        return companyZyRepository.resetFP(date);
+    }
 
 }

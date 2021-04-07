@@ -104,11 +104,18 @@ public class CompanyZyController extends BaseController{
         if(StringUtils.isNotEmpty(companyZy.getCustomerWx())){
             if(companyZy.getCustomerWx().equals("是")){
                 companyZy.setCustomerZf("否");
+                companyZy.setCalled("是");
             }
         }
         if(StringUtils.isNotEmpty(companyZy.getCustomerYx())){
             if(companyZy.getCustomerYx().equals("是")){
                 companyZy.setCustomerZf("否");
+                companyZy.setCalled("是");
+            }
+        }
+        if(StringUtils.isNotEmpty(companyZy.getCustomerZf())){
+            if(companyZy.getCustomerZf().equals("是")){
+                companyZy.setCalled("是");
             }
         }
         companyZyService.saveOrUpdate(companyZy);

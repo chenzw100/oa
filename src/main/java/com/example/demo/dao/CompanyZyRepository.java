@@ -39,6 +39,10 @@ public interface CompanyZyRepository extends JpaRepository<CompanyZy,Long> {
     @Query(value=" DELETE FROM company_zy WHERE id in(SELECT id FROM (select id,`name`,count(*) as count from company_zy group by `name` having count>1) temp)", nativeQuery = true)
     public Integer repeatDelete();
     @Modifying
-    @Query(value=" UPDATE company_zy set opt_id=?1,opt_name=?2,fen_date=now() WHERE id in ?3 ", nativeQuery = true)
+    @Query(value=" UPDATE company_zy set opt_id=?1,opt_name=?2,fen_date=now(),modified=now() WHERE id in ?3 ", nativeQuery = true)
     public Integer fenPei(Long optId, String optName, Long[] ids);
+
+    @Modifying
+    @Query(value=" UPDATE company_zy set opt_id=null,opt_name=null,fen_date=now()  WHERE modified <?1 and modified!=fen_date and opt_id>0", nativeQuery = true)
+    public Integer resetFP(Date modified);
 }

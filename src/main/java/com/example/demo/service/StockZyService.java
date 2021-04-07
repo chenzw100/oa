@@ -169,6 +169,10 @@ public class StockZyService {
     public Integer fenPei(Long userId,String optName,Long[] ids){
         return stockZyRepository.fenPei(userId,optName,ids);
     }
+    @Transactional
+    public Integer resetFP(Date date){
+        return stockZyRepository.resetFP(date);
+    }
 
 
 }

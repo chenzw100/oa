@@ -41,6 +41,10 @@ public interface StockZyRepository extends JpaRepository<StockZy,Long> {
     @Query(value=" DELETE FROM stock_zy WHERE id in(SELECT id FROM (select id,phone,count(*) as count from stock_zy group by phone having count>1) temp)", nativeQuery = true)
     public Integer repeatDelete();
     @Modifying
-    @Query(value=" UPDATE stock_zy set opt_id=?1,opt_name=?2,fen_date=now() WHERE id in ?3 ", nativeQuery = true)
+    @Query(value=" UPDATE stock_zy set opt_id=?1,opt_name=?2,fen_date=now(),modified=now() WHERE id in ?3 ", nativeQuery = true)
     public Integer fenPei(Long optId, String optName,Long[] ids);
+
+    @Modifying
+    @Query(value=" UPDATE stock_zy set opt_id=null,opt_name=null,fen_date=now()  WHERE modified <?1 and modified!=fen_date and opt_id>0", nativeQuery = true)
+    public Integer resetFP(Date modified);
 }
