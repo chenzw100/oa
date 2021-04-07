@@ -99,19 +99,26 @@ public class MgCmController extends BaseController{
     }
     @RequestMapping(value = "/update.action",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public String update(Company Company){
-        Company.setModified(new Date());
-        if(StringUtils.isNotEmpty(Company.getCustomerWx())){
-            if(Company.getCustomerWx().equals("是")){
-                Company.setCustomerZf("否");
+    public String update(Company company){
+        company.setModified(new Date());
+        if(StringUtils.isNotEmpty(company.getCustomerWx())){
+            if(company.getCustomerWx().equals("是")){
+                company.setCustomerZf("否");
+                company.setCalled("是");
             }
         }
-        if(StringUtils.isNotEmpty(Company.getCustomerYx())){
-            if(Company.getCustomerYx().equals("是")){
-                Company.setCustomerZf("否");
+        if(StringUtils.isNotEmpty(company.getCustomerYx())){
+            if(company.getCustomerYx().equals("是")){
+                company.setCustomerZf("否");
+                company.setCalled("是");
             }
         }
-        companyService.saveOrUpdate(Company);
+        if(StringUtils.isNotEmpty(company.getCustomerZf())){
+            if(company.getCustomerZf().equals("是")){
+                company.setCalled("是");
+            }
+        }
+        companyService.saveOrUpdate(company);
         return "success";
     }
     @RequestMapping("/updates.action")

@@ -104,11 +104,18 @@ public class MgController extends BaseController{
         if(StringUtils.isNotEmpty(stockZy.getCustomerWx())){
             if(stockZy.getCustomerWx().equals("是")){
                 stockZy.setCustomerZf("否");
+                stockZy.setCalled("是");
             }
         }
         if(StringUtils.isNotEmpty(stockZy.getCustomerYx())){
             if(stockZy.getCustomerYx().equals("是")){
                 stockZy.setCustomerZf("否");
+                stockZy.setCalled("是");
+            }
+        }
+        if(StringUtils.isNotEmpty(stockZy.getCustomerZf())){
+            if(stockZy.getCustomerZf().equals("是")){
+                stockZy.setCalled("是");
             }
         }
         stockZyService.saveOrUpdate(stockZy);
