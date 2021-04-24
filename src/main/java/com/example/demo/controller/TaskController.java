@@ -26,8 +26,18 @@ public class TaskController extends BaseController{
     public Log log = LogFactory.getLog(TaskController.class);
     @Autowired
     TaskService taskService;
+    @RequestMapping("/exe.action")
+    public String index(ModelMap modelMap){
+        loginUser(modelMap);
+        return "exe";
+    }
+    @ResponseBody
+    @RequestMapping("exet.action")
+    public String exet(String co) {
+        log.info("设置，"+co);
 
-
+        return "已设置";
+    }
     @ResponseBody
     @RequestMapping("realyDo.action")
     public String realyDo(int day) {

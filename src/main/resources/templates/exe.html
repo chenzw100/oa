@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head :: header"></div>
+<body>
+<h2>欢迎您<p style="color:red" th:text="${loginName}"  th:if="${not #strings.isEmpty(loginName)}"></p></h2>
+
+<input type="text" id="co" value="" >
+<input type="button" id="tj" value="提交">
+
+</body>
+<script type="text/javascript">
+    var co = $("#co").val();
+    $("#tj").click(function () {
+        $.ajax({
+            type:"GET",  //请求方式   get查询  post增加  put修改   delete删除
+            url:'/exet.action?co='+co,//请求路径
+            async:true,  //或false 是否异步
+            timeout:500,//超时时间
+            dataType:'json',  //返回的数据格式：json/xml/html/script/jsonp/text
+            success:function(data){
+                $.messager.alert('Info', data, 'info');
+            },
+            error:function(error){
+                $.messager.alert('Info', error.responseText, 'info');
+                console.log('错误');
+            }
+
+        })
+    })
+
+
+</script>
+<div th:include="footer :: copyright"></div>
+</html>

@@ -39,13 +39,15 @@ public class JzsController {
     CompanyInfoRepository companyInfoRepository;
     @Autowired
     GkService gkService;
+    @Autowired
+    ZjskpwService zjskpwService;
 
     @RequestMapping("/p/{page}.action")
     public String kpw(@PathVariable("page")Integer page,String name,String param) {
         for(int i=page;i<page+10;i++){
             log.info("--------------------------------------------------------------------------------------------page = [" + i + "]");
             //jztService.infoPages(i,param,name);
-            gkService.infoPages(i);
+            zjskpwService.infoPages(i);
             log.info("-----------------------------------------------------------------------------------------------完成page = [" + i + "]");
         }
         return "add success";
@@ -54,7 +56,7 @@ public class JzsController {
     public String kpw(@PathVariable("page")Integer page,@PathVariable("count")Integer count) {
         for(int i=page;i<count;i++){
             log.info("page = [" + i + "]");
-            gkService.infoPages(i);
+            zjskpwService.infoPages(i);
             log.info("-------------------------------------------------------------------new--------完成page = [" + i + "]");
         }
         return "add success";

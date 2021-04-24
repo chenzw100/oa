@@ -70,11 +70,11 @@ public class RequestUtils {
         //HttpEntity
         HttpEntity<MultiValueMap> requestEntity = new HttpEntity<MultiValueMap>(requestBody, requestHeaders);
         Object o = restTemplate.postForObject(url, requestEntity, String.class);
-        System.out.println(o.toString());
+       // System.out.println(o.toString());
         //post
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
         String response = responseEntity.getBody();
-        System.out.println(response);
+        //System.out.println(response);
         return response;
     }
 }
