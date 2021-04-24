@@ -24,7 +24,7 @@ public class TaskService {
     private static int days= 7;
     private static long dayTime=86400000L;
     //@Scheduled(cron = "10 35 11,13,14 ? * MON-FRI")
-    @Scheduled(cron = "0/8 * * * * ? ")
+    //@Scheduled(cron = "0/8 * * * * ? ")
     public void deal(){
         if(turn){
             realyDo(days);

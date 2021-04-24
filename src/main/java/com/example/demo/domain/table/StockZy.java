@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  */
-@Entity(name="stock_zy")
+@Entity(name="stock_zy8")
 public class StockZy implements Serializable {
     @Id
     @GeneratedValue
