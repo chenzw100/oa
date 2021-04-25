@@ -47,7 +47,7 @@ public class JzsController {
         for(int i=page;i<page+10;i++){
             log.info("--------------------------------------------------------------------------------------------page = [" + i + "]");
             //jztService.infoPages(i,param,name);
-            zjskpwService.infoPages(i);
+            //zjskpwService.infoPages(i);
             log.info("-----------------------------------------------------------------------------------------------完成page = [" + i + "]");
         }
         return "add success";
@@ -56,7 +56,7 @@ public class JzsController {
     public String kpw(@PathVariable("page")Integer page,@PathVariable("count")Integer count) {
         for(int i=page;i<count;i++){
             log.info("page = [" + i + "]");
-            zjskpwService.infoPages(i);
+            //zjskpwService.infoPages(i);
             log.info("-------------------------------------------------------------------new--------完成page = [" + i + "]");
         }
         return "add success";

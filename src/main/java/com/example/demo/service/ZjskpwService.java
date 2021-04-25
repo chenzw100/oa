@@ -14,7 +14,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,10 +31,7 @@ public class ZjskpwService extends BaseService {
     static String cookiesStr = "PHPSESSID=8gf9prrhbpdk531f214eb8vt25; LiveWSLZT89607389=946c231ada3e47acbfc4d7c0a82d94d2; LiveWSLZT89607389sessionid=946c231ada3e47acbfc4d7c0a82d94d2; NLZT89607389fistvisitetime=1619260127884; NLZT89607389visitecounts=1; UM_distinctid=179036cbbe346-0b76cccd7c3641-5e4d2f10-100200-179036cbbe59c; CNZZDATA1274190661=1581881951-1619260128-|1619260128; IESESSION=alive; pgv_pvi=41781619260129116; _qddaz=QD.75wcxw.ui11gk.knvlo84f; _qdda=3-1.1; _qddab=3-ryfseu.knvlo858; _qddamta_4006065084=3-0; tencentSig=3139063808; _qddac=3-2-1.1.ryfseu.knvlo858; NLZT89607389lastvisitetime=1619260633417; NLZT89607389visitepages=12";
     private static Map<String, String> cookies= new HashMap<>();
 
-    public static Map<String, String> getCookies() {
-        if(cookies.size()!=0){
-            return cookies;
-        }
+    public static Map<String, String> getCookies(String cookiesStr) {
         String parameStr[] = cookiesStr.split("; ");
         Map<String, String> cookies = new HashMap<>();
         for(String coo : parameStr){
@@ -41,25 +40,11 @@ public class ZjskpwService extends BaseService {
         }
         return cookies;
     }
-    public void testId(String id){
 
+    public String getPhoneInfo(String url,String cookiesStr){
         Document doc = null;
         try {
-            doc = Jsoup.connect(urlId+id+".html").cookies(getCookies()).get();
-            //System.out.println("id =" + doc.html());
-            String phone = doc.getElementsByClass("telbox").get(0).getElementsByTag("li").get(1).getElementsByTag("b").text();
-            System.out.println("phone = [" + phone + "]");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-    public String getPhoneInfo(String url){
-        Document doc = null;
-        try {
-            doc = Jsoup.connect(url).cookies(getCookies()).get();
-            //System.out.println("id =" + doc.html());
+            doc = Jsoup.connect(url).cookies(getCookies(cookiesStr)).get();
             Elements element =doc.getElementsByTag("tbody");
             if(element.size()<3){
                 return "1111111111111111111111111";
@@ -73,7 +58,7 @@ public class ZjskpwService extends BaseService {
         return "";
 
     }
-    public void doUrl (String name){
+    public void doUrl (String name,String cookiesStr){
         //body
         MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
         requestBody.add("action","ONseetel");
@@ -98,7 +83,7 @@ public class ZjskpwService extends BaseService {
         requestHeaders.add("path","/plus/ajax.php");
         requestHeaders.add("authority","www.zjskpw.com");
         requestHeaders.add("Origin","https://www.zjskpw.com");
-        requestHeaders.add("Cookie","PHPSESSID=8gf9prrhbpdk531f214eb8vt25; LiveWSLZT89607389=946c231ada3e47acbfc4d7c0a82d94d2; LiveWSLZT89607389sessionid=946c231ada3e47acbfc4d7c0a82d94d2; NLZT89607389fistvisitetime=1619260127884; NLZT89607389visitecounts=1; UM_distinctid=179036cbbe346-0b76cccd7c3641-5e4d2f10-100200-179036cbbe59c; CNZZDATA1274190661=1581881951-1619260128-%7C1619260128; IESESSION=alive; pgv_pvi=41781619260129116; _qddaz=QD.75wcxw.ui11gk.knvlo84f; _qdda=3-1.1; _qddab=3-ryfseu.knvlo858; tencentSig=3139063808; _qddamta_4006065084=3-0; NLZT89607389lastvisitetime=1619263912912; NLZT89607389visitepages=70");
+        requestHeaders.add("Cookie",cookiesStr);
         //requestHeaders.add("Host","www.jiansheku.com");
         //requestHeaders.add("pw","dce208295cbdd7dae3ed4c423ab75007");
         //requestHeaders.add("Referer","https://www.jiansheku.com/qiye.html");
@@ -118,13 +103,13 @@ public class ZjskpwService extends BaseService {
         System.out.println("执行点击事件 "+name );
     }
 
-    public void infoPages(Integer page){
+    public boolean infoPages(Integer page,String cookiesStr){
         Document doc = null;
         try {
-            doc = Jsoup.connect(pageId+page).cookies(getCookies()).get();
-        } catch (IOException e) {
+            doc = Jsoup.connect(pageId+page).cookies(getCookies(cookiesStr)).get();
+        } catch (Exception e) {
             e.printStackTrace();
-            return;
+            return false;
         }
        // doc.getElementsByTag("table").get(0).childNodes.get(1).childNodes().get(2).attributes().get("onclick").substring(50,56)
         Elements elements = doc.getElementsByTag("tbody").get(0).getElementsByTag("tr");
@@ -143,17 +128,25 @@ public class ZjskpwService extends BaseService {
             String url =ine.getElementsByAttribute("onclick").attr("onclick");
             int index = url.indexOf("("); int end = url.indexOf(")");
             url = url.substring(index+2,end-1);
-            String phone = getPhoneInfo("https://www.zjskpw.com/"+url);
+            String phone = getPhoneInfo("https://www.zjskpw.com/"+url,cookiesStr);
             if(phone.length()>20){
                 String id = url.substring(url.indexOf("=")+1,url.length());
-                doUrl(id);
-                phone = getPhoneInfo("https://www.zjskpw.com/"+url);
+                doUrl(id,cookiesStr);
+                phone = getPhoneInfo("https://www.zjskpw.com/"+url,cookiesStr);
+            }
+            if("1111111111111111111111111".equals(phone)){
+                return false;
             }
             stockZy.setPhone(phone);
-            System.out.println(stockZy.toString());
+            List<StockZy> stockZy1 = stockZyRepository.findStockZyByPhone(phone);
+            if(stockZy1!=null && stockZy1.size()>0){
+                System.out.println("改手机号记录已经存在了。。"+stockZy.toString());
+            }
+            System.out.println("保存数据"+stockZy.toString());
+            stockZy.setModified(new Date());
             stockZyRepository.save(stockZy);
         }
-
+        return true;
 
     }
 

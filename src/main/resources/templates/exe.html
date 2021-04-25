@@ -3,19 +3,23 @@
 <div th:include="head :: header"></div>
 <body>
 <h2>欢迎您<p style="color:red" th:text="${loginName}"  th:if="${not #strings.isEmpty(loginName)}"></p></h2>
+<form id="do">
+    cookie:<textarea  id="co" rows="2" cols="200" name="co" ></textarea><br>
+    起始页数:<input type="text" id="start" name="start"><br>
+    结束页数:<input type="text" id="end" name="end"><br>
+</form>
 
-<input type="text" id="co" value="" >
 <input type="button" id="tj" value="提交">
 
 </body>
 <script type="text/javascript">
-    var co = $("#co").val();
     $("#tj").click(function () {
         $.ajax({
             type:"GET",  //请求方式   get查询  post增加  put修改   delete删除
-            url:'/exet.action?co='+co,//请求路径
+            url:'/exet.action',//请求路径
+            data :  $('#do').serialize(),
             async:true,  //或false 是否异步
-            timeout:500,//超时时间
+           // timeout:500,//超时时间
             dataType:'json',  //返回的数据格式：json/xml/html/script/jsonp/text
             success:function(data){
                 $.messager.alert('Info', data, 'info');
