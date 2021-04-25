@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.Date;
@@ -140,10 +141,15 @@ public class ZjskpwService extends BaseService {
             if("1111111111111111111111111".equals(phone)){
                 return false;
             }
+            phone = getPhone(phone);
+            if(StringUtils.isEmpty(phone)){
+                log.info("该手机号不存在了。。"+stockZy.toString());
+               continue;
+            }
             stockZy.setPhone(phone);
             List<StockZy> stockZy1 = stockZyRepository.findStockZyByPhone(phone);
             if(stockZy1!=null && stockZy1.size()>0){
-                log.info("改手机号记录已经存在了。。"+stockZy.toString());
+                log.info("该手机号记录已经存在了。。"+stockZy.toString());
             }else {
                 log.info("第"+page+"页保存数据第"+i+"条，"+stockZy.toString());
                 stockZy.setModified(new Date());
@@ -156,7 +162,7 @@ public class ZjskpwService extends BaseService {
     }
 
     public static void main(String[] args) {
-        String text = "手上有本17年的结构中级工程师，不转社保，单证网查，有需要的联系：朱工 18002577001 联系我时，请说明是在27建筑网上看到的，谢谢！";
+        String text = "ee";
         Pattern pattern = Pattern.compile("(?<!\\d)(?:(?:1[34578]\\d{9})|(?:861[358]\\d{9}))(?!\\d)");
         Matcher matcher = pattern.matcher(text);
         StringBuffer bf = new StringBuffer(64);
@@ -168,7 +174,7 @@ public class ZjskpwService extends BaseService {
             bf.deleteCharAt(len - 1);
         }
 
-        System.out.println(bf.toString());
+        System.out.println("手机号:"+bf.toString());
     }
 
     String getPhone(String content){

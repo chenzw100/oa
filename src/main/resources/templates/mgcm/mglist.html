@@ -97,6 +97,8 @@
                 text : '否'
             } ]}}">作废号码</th>
         <th data-options="field:'infoDesc',align:'center',width:50"  editor="{type:'validatebox',options:{required:false}}">描述</th>
+        <th data-options="field:'signDate',align:'center'" editor="{type:'datetimebox',options:{required: false}}">签约时间</th>
+        <th data-options="field:'overdueDate',align:'center'" editor="{type:'datetimebox',options:{required: false}}">过期时间</th>
         <th data-options="field:'fenDate',align:'center'">分配时间</th>
         <th data-options="field:'modified',align:'center'">最近操作时间</th>
     </tr>
@@ -121,6 +123,25 @@
             updateUrl: '/mgcm/update.action',
             destroyUrl: '/mgcm/destroy.action'
         });
+        $.fn.datebox.defaults.formatter = function(date){
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            var d = date.getDate();
+            return  y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+            //return y+(m<10?('0'+m):m);
+        }
+        $.fn.datebox.defaults.parser = function(s){
+            if (!s) return new Date();
+            var ss = (s.split('-'));
+            var y = parseInt(ss[0],10);
+            var m = parseInt(ss[1],10);
+            var d = parseInt(ss[2],10);
+            if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
+                return new Date(y,m-1,d);
+            } else {
+                return new Date();
+            }
+        }
     });
     $("#query").click(function () {
         $('#dg').datagrid('load', {

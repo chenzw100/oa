@@ -62,6 +62,17 @@ public class StockZy implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date fenDate;
 
+    @Column(nullable = true,columnDefinition="datetime COMMENT '签约时间'")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date signDate;
+    @Column(nullable = true,columnDefinition="datetime COMMENT '过期时间'")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date overdueDate;
+
     @Transient
     @JSONField(format = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -72,6 +83,22 @@ public class StockZy implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date modifiedEnd;
+
+    public Date getSignDate() {
+        return signDate;
+    }
+
+    public void setSignDate(Date signDate) {
+        this.signDate = signDate;
+    }
+
+    public Date getOverdueDate() {
+        return overdueDate;
+    }
+
+    public void setOverdueDate(Date overdueDate) {
+        this.overdueDate = overdueDate;
+    }
 
     public Date getModifiedStart() {
         return modifiedStart;
