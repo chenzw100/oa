@@ -2,11 +2,12 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <div th:include="head :: header"></div>
 <body>
+<div th:include="menu :: menu"></div>
 <h2>欢迎您<p style="color:red" th:text="${loginName}"  th:if="${not #strings.isEmpty(loginName)}"></p></h2>
 <form id="do">
-    cookie:<textarea  id="co" rows="2" cols="200" name="co" ></textarea><br>
-    起始页数:<input type="text" id="start" name="start"><br>
-    结束页数:<input type="text" id="end" name="end"><br>
+    cookie:<textarea  id="co" rows="3" cols="180" name="co" ></textarea><br><br>
+    起始页数（包含）:<input type="text" id="start" name="start"><br><br>
+    结束页数（包含）:<input type="text" id="end" name="end"><br>
 </form>
 
 <input type="button" id="tj" value="提交">

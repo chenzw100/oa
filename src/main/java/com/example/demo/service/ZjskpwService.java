@@ -3,6 +3,8 @@ package com.example.demo.service;
 import com.example.demo.dao.StockZyRepository;
 import com.example.demo.domain.table.StockZy;
 import com.example.demo.service.base.BaseService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -24,6 +26,7 @@ import java.util.regex.Pattern;
 
 @Component
 public class ZjskpwService extends BaseService {
+    public Log log = LogFactory.getLog(ZjskpwService.class);
     @Autowired
     StockZyRepository stockZyRepository;
     static String urlId ="https://www.zjskpw.com/personal_show.php?showid=";
@@ -140,11 +143,13 @@ public class ZjskpwService extends BaseService {
             stockZy.setPhone(phone);
             List<StockZy> stockZy1 = stockZyRepository.findStockZyByPhone(phone);
             if(stockZy1!=null && stockZy1.size()>0){
-                System.out.println("改手机号记录已经存在了。。"+stockZy.toString());
+                log.info("改手机号记录已经存在了。。"+stockZy.toString());
+            }else {
+                log.info("第"+page+"页保存数据第"+i+"条，"+stockZy.toString());
+                stockZy.setModified(new Date());
+                stockZy.setCustomerZf("否");
+                stockZyRepository.save(stockZy);
             }
-            System.out.println("保存数据"+stockZy.toString());
-            stockZy.setModified(new Date());
-            stockZyRepository.save(stockZy);
         }
         return true;
 
