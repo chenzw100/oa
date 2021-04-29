@@ -35,6 +35,7 @@ public interface StockZyRepository extends JpaRepository<StockZy,Long> {
     List<StockZy> findFirst10ByCustomerWx(String wx);
     Page<StockZy> findByModifiedBetween(Date start, Date end, Pageable pageable);
     Page<StockZy> findByModifiedBetweenAndCalled(Date start, Date end,String called, Pageable pageable);
+    Page<StockZy> findBySignDateBetweenAndCalled(Date start, Date end,String called, Pageable pageable);
     @Override
     void delete(StockZy stockZy);
     @Modifying

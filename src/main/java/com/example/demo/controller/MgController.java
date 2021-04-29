@@ -38,6 +38,11 @@ public class MgController extends BaseController{
         loginUser(modelMap);
         return "mg/mglist";
     }
+    @RequestMapping("/contactlist.html")
+    public String contactlist(ModelMap modelMap){
+        loginUser(modelMap);
+        return "mg/contactlist";
+    }
 
     @RequestMapping("/rw.html")
     public String rw(ModelMap modelMap){
@@ -63,6 +68,20 @@ public class MgController extends BaseController{
             stockZy.setOptId(WebContent.getUserId());
         }
         Page<StockZy> list =stockZyService.findALl(page,rows,stockZy);
+        Map map = new HashMap<>();
+        map.put("total",list.getTotalElements());
+        map.put("rows",list.getContent());
+
+        return JSON.toJSONString(map);
+    }
+    @RequestMapping("/listSign.action")
+    @ResponseBody
+    public String listSign(Integer page, Integer rows, StockZy stockZy){
+        String userInfoLevel = WebContent.getUserInfoLevel();
+        if(!"管理员".equals(userInfoLevel)){
+            stockZy.setOptId(WebContent.getUserId());
+        }
+        Page<StockZy> list =stockZyService.findSignDateALl(page,rows,stockZy);
         Map map = new HashMap<>();
         map.put("total",list.getTotalElements());
         map.put("rows",list.getContent());

@@ -81,6 +81,54 @@ public class StockZyService {
         }
         return all;
     }
+    public Page<StockZy> findSignDateALl(Integer pageNumber,Integer pageSize,StockZy stockZy){
+        if(pageNumber==null || pageNumber<0){
+            pageNumber=1;
+            pageSize=10;
+        }
+        pageNumber--;
+        if("".equals(stockZy.getOptName())){
+            stockZy.setOptName(null);
+        }
+        if("".equals(stockZy.getCustomerZf())){
+            stockZy.setCustomerZf(null);
+        }
+        if("".equals(stockZy.getName())){
+            stockZy.setName(null);
+        }
+        if("".equals(stockZy.getPhone())){
+            stockZy.setPhone(null);
+        }
+        stockZy.setCalled("是");
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC,"fenDate");
+        Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"id");
+        //如果有多个排序条件 建议使用此种方式 使用 Sort.by 替换之前的  new Sort();
+        Sort sort = Sort.by(order,order1);
+        //使用 PageRequest.of 替代之前的 new PageRequest();
+        /**
+         * page：0 开始
+         * size:每页显示的数量
+         * 排序的规则
+         */
+        Pageable pageable = PageRequest.of(pageNumber,pageSize,sort);
+       /* ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("customerWx", match -> match.startsWith())
+                .withMatcher("customerYx", match -> match.startsWith());*/
+        Example<StockZy> example = Example.of(stockZy/*,matcher*/);
+        Page<StockZy> all =null;
+        if(stockZy.getSignDateStart()!=null){
+            if(stockZy.getSignDateEnd()==null){
+                stockZy.setSignDateEnd(new Date());
+            }else {
+                long time =stockZy.getModifiedEnd().getTime()+24*60*60*1000-1;
+                stockZy.setSignDateEnd(new Date(time));
+            }
+            all = stockZyRepository.findBySignDateBetweenAndCalled(stockZy.getSignDateStart(),stockZy.getSignDateEnd(),stockZy.getCalled(),pageable);
+        }else {
+            all = stockZyRepository.findAll(example,pageable);
+        }
+        return all;
+    }
     public StockZy saveOrUpdate(StockZy stockZy){
         return stockZyRepository.save(stockZy);
     }

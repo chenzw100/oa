@@ -84,6 +84,33 @@ public class StockZy implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date modifiedEnd;
 
+    @Transient
+    @JSONField(format = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date signDateStart;
+    @Transient
+    @JSONField(format = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date signDateEnd;
+
+    public Date getSignDateStart() {
+        return signDateStart;
+    }
+
+    public void setSignDateStart(Date signDateStart) {
+        this.signDateStart = signDateStart;
+    }
+
+    public Date getSignDateEnd() {
+        return signDateEnd;
+    }
+
+    public void setSignDateEnd(Date signDateEnd) {
+        this.signDateEnd = signDateEnd;
+    }
+
     public Date getSignDate() {
         return signDate;
     }
