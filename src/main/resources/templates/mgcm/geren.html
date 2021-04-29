@@ -25,6 +25,8 @@
             <option value="是">是</option>
             <option value="否">否</option>
         </select>
+        公司名称:<input class="easyui-textbox" type="text"  name="name" id="name" >
+        &nbsp;公司电话:<input class="easyui-textbox" type="text"  name="phone" id="phone" >
         &nbsp;<a href="#" id="query" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:80px">查询</a>
     </div>
 
@@ -143,6 +145,8 @@ data : [{
         $('#dg').datagrid('load', {
             customerYx: $("#customerYx").val(),
             customerZf: $("#customerZf").val(),
+            name: $("#name").val(),
+            phone: $("#phone").val(),
             customerWx: $("#customerWx").val()
         });
     })

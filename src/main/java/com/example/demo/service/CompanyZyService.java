@@ -40,6 +40,10 @@ public class CompanyZyService {
         if("".equals(companyZy.getCalled())){
             companyZy.setCalled(null);
         }
+        if("".equals(companyZy.getName())){
+            companyZy.setName(null);
+        }
+
         Sort.Order order = new Sort.Order(Sort.Direction.DESC,"fenDate");
         Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"id");
         //如果有多个排序条件 建议使用此种方式 使用 Sort.by 替换之前的  new Sort();
