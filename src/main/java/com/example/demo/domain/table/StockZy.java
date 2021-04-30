@@ -276,13 +276,13 @@ public class StockZy implements Serializable {
 
     @Override
     public String toString() {
-        return "StockZy{" +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", zy='" + zy + '\'' +
-                ", infoCity='" + infoCity + '\'' +
-                ", infoLevel='" + infoLevel + '\'' +
-                ", infoDesc='" + infoDesc + '\'' +
+        return "客户{" +
+                "姓名='" + name + '\'' +
+                ", 电话='" + phone + '\'' +
+                ", 微信='" + customerWx + '\'' +
+                ", 意向='" + customerYx + '\'' +
+                ", 签约时间='" + signDate + '\'' +
+                ", 描述='" + infoDesc + '\'' +
                 '}';
     }
     public String toExportUrl(){

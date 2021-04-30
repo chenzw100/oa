@@ -66,6 +66,10 @@ public class MgController extends BaseController{
         String userInfoLevel = WebContent.getUserInfoLevel();
         if(!"管理员".equals(userInfoLevel)){
             stockZy.setOptId(WebContent.getUserId());
+            if(stockZy.getOptId()==null){
+                log.info("---异常访问");
+                return null;
+            }
         }
         Page<StockZy> list =stockZyService.findALl(page,rows,stockZy);
         Map map = new HashMap<>();
@@ -80,6 +84,10 @@ public class MgController extends BaseController{
         String userInfoLevel = WebContent.getUserInfoLevel();
         if(!"管理员".equals(userInfoLevel)){
             stockZy.setOptId(WebContent.getUserId());
+            if(stockZy.getOptId()==null){
+                log.info("---异常访问");
+                return null;
+            }
         }
         Page<StockZy> list =stockZyService.findSignDateALl(page,rows,stockZy);
         Map map = new HashMap<>();
@@ -94,6 +102,10 @@ public class MgController extends BaseController{
         String userInfoLevel = WebContent.getUserInfoLevel();
         if(!"管理员".equals(userInfoLevel)){
             stockZy.setOptId(WebContent.getUserId());
+            if(stockZy.getOptId()==null){
+                log.info("---异常访问");
+                return ;
+            }
         }
         List<StockZy> export =stockZyService.findExport(stockZy);
 
@@ -106,6 +118,10 @@ public class MgController extends BaseController{
         String userInfoLevel = WebContent.getUserInfoLevel();
         if(!"管理员".equals(userInfoLevel)){
             stockZy.setOptId(WebContent.getUserId());
+            if(stockZy.getOptId()==null){
+                log.info("---异常访问");
+                return null;
+            }
         }
         if(stockZy.getFen() == null){
             stockZy.setFen("是");
@@ -119,6 +135,11 @@ public class MgController extends BaseController{
     @RequestMapping(value = "/update.action",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String update(StockZy stockZy){
+        if(WebContent.getUserId()==null){
+            log.info("---异常访问--");
+            return null;
+        }
+        log.info(WebContent.getUserName()+"】修改数据："+stockZy.toString());
         stockZy.setModified(new Date());
         if(StringUtils.isNotEmpty(stockZy.getCustomerWx())){
             if(stockZy.getCustomerWx().equals("是")){
@@ -178,6 +199,10 @@ public class MgController extends BaseController{
     @RequestMapping(value = "/destroy.action")
     @ResponseBody
     public String destroy(StockZy stockZy){
+        if(WebContent.getUserId()==null){
+            log.info("---异常访问--");
+            return null;
+        }
         stockZy.setModified(new Date());
         stockZyService.delete(stockZy);
         return "success";
